@@ -1,0 +1,206 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\geometry{margin=1.4in}
+\usepackage{hyperref}
+\usepackage{setspace}
+\setstretch{1.4}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The Field with One Element}
+\author{Diego Rinc\'on\\
+\small Independent}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+$\mathbb{F}_1$ does not exist.
+But it should.
+If it did, $\mathrm{Spec}\,\mathbb{Z}$ would be a curve over it,
+the Frobenius would exist globally,
+and the Riemann Hypothesis would follow from the Weil conjectures.
+The field with one element is the name of the missing grammar.
+\end{abstract}
+
+\section{The Idea}
+
+A field must have at least two elements: $0$ and $1$.
+The field axioms require additive and multiplicative inverses,
+and $0 \neq 1$.
+So $|\mathbb{F}| \geq 2$.
+There is no field with one element.
+
+And yet.
+
+Consider the analogy between $\mathbb{Z}$ and $\mathbb{F}_q[t]$.
+Both are principal ideal domains.
+Both have a theory of primes (integers vs irreducible polynomials).
+Both have zeta functions:
+$$\zeta_{\mathbb{Z}}(s) = \prod_p \frac{1}{1-p^{-s}},\qquad
+  \zeta_{\mathbb{F}_q[t]}(s) = \prod_{f\ \mathrm{irred}} \frac{1}{1-|f|^{-s}}.$$
+
+Over $\mathbb{F}_q$, the ring $\mathbb{F}_q[t]$ is the coordinate ring
+of the affine line $\mathbb{A}^1_{\mathbb{F}_q}$.
+The integers $\mathbb{Z}$ should be the coordinate ring of
+$\mathbb{A}^1_{\mathbb{F}_1}$: the affine line over the field with one element.
+
+If $\mathbb{F}_1$ existed, $\mathrm{Spec}\,\mathbb{Z}$ would be a curve.
+Not just a scheme. A curve.
+With a smooth compactification: $\overline{\mathrm{Spec}\,\mathbb{Z}}$.
+And over a curve, the Weil machinery applies.
+
+\section{What $\mathbb{F}_1$ Would Give}
+
+Over a smooth projective curve $C/\mathbb{F}_q$,
+the Riemann Hypothesis holds: the eigenvalues of Frobenius
+on $H^1_{\rm\acute{e}t}(C, \mathbb{Q}_\ell)$ have absolute value $q^{1/2}$.
+This is proved.
+
+The Riemann Hypothesis for $\zeta(s)$
+is the Riemann Hypothesis for the curve $\overline{\mathrm{Spec}\,\mathbb{Z}}$
+over $\mathbb{F}_1$.
+The zeros of $\zeta(s)$ are the eigenvalues of the $\mathbb{F}_1$-Frobenius
+on $H^1_{\mathbb{F}_1}(\overline{\mathrm{Spec}\,\mathbb{Z}}, \mathbb{Q})$.
+By the Weil bound: absolute value $1^{1/2} = 1$,
+corresponding to $\mathrm{Re}(s) = 1/2$.
+
+This is not a proof.
+It is a translation.
+The proof would require:
+\begin{enumerate}
+\item A rigorous definition of $\mathbb{F}_1$ and geometry over it.
+\item A construction of $H^1_{\mathbb{F}_1}$.
+\item A proof that the Weil bound holds in this setting.
+\end{enumerate}
+None of the three is complete.
+All three are active.
+
+\section{Approaches}
+
+\textbf{Smirnov (1992).}
+Noted the analogy between $\mathbb{Z}$ and $\mathbb{F}_q[t]$
+and proposed that $\mathbb{F}_1$ should be the ``field of characteristic 1.''
+Did not define it.
+
+\textbf{Manin (1995).}
+Proposed that $\mathrm{Spec}\,\mathbb{F}_1 = \{*\}$ is the absolute point,
+and that all algebraic geometry is relative to it.
+Introduced the slogan: finite sets are vector spaces over $\mathbb{F}_1$.
+
+\textbf{Connes--Consani (2010--).}
+Defined geometry over $\mathbb{F}_1$ using $\Lambda$-rings and semirings.
+Connected $\mathbb{F}_1$ to the Bost--Connes system \cite{bostconnes}:
+the symmetry group $\hat{\mathbb{Z}}^* \cong \mathrm{Gal}(\mathbb{F}_1^{\rm ab}/\mathbb{F}_1)$
+acts on the KMS states at $\beta > 1$.
+The base change from $\mathbb{F}_1$ to $\mathbb{Z}$ is the functor
+$\mathbb{Z} \otimes_{\mathbb{F}_1} (-)$.
+
+\textbf{To\"{e}n--Vaqu\'{e} (2009).}
+Defined $\mathbb{F}_1$ via monoids: an $\mathbb{F}_1$-algebra is a pointed monoid.
+A scheme over $\mathbb{F}_1$ is a sheaf of monoids.
+$\mathbb{Z} = \mathbb{F}_1[x, x^{-1}, \ldots]$ in this language.
+
+\textbf{Borger (2009).}
+$\Lambda$-rings: $\mathbb{F}_1$-algebras are rings with a compatible
+family of Frobenius lifts $\psi^p$ for all primes $p$.
+The Adams operations give the $\mathbb{F}_1$-structure.
+$\mathrm{Spec}\,\mathbb{Z}$ carries a natural $\Lambda$-structure.
+This is the most developed approach.
+
+\section{The Curve}
+
+If $\mathrm{Spec}\,\mathbb{Z}$ is a curve over $\mathbb{F}_1$,
+its compactification must include the archimedean place.
+
+The archimedean place is the point at infinity.
+This is Arakelov geometry \cite{arakelov}:
+compactifying $\mathrm{Spec}\,\mathbb{Z}$
+by adjoining the archimedean place.
+
+The curve $\overline{\mathrm{Spec}\,\mathbb{Z}}$ has:
+\begin{itemize}
+\item One point for each prime $p$: the closed point $p$.
+\item One point at infinity: the archimedean place.
+\item Genus: unknown. Conjectured to be $0$ (like $\mathbb{P}^1$).
+\end{itemize}
+
+If the genus is $0$, the Riemann Hypothesis would say the zeros of $\zeta$
+have the right absolute value for a genus-$0$ curve,
+consistent with the known analytic results.
+
+\section{What the $\mathbb{F}_1$ Grammar Would Be}
+
+In the language of the grammar paper \cite{grammar}:
+
+The current grammar of arithmetic is the cohomological grammar
+of schemes over $\mathbb{Z}$.
+This grammar has local Frobenii ($\varphi_p$ at each prime)
+but no global Frobenius.
+It is locally complete and globally incomplete.
+
+The $\mathbb{F}_1$ grammar would be the cohomological grammar
+of schemes over $\mathbb{F}_1$.
+In this grammar, $\mathrm{Spec}\,\mathbb{Z}$ is a curve,
+and the global Frobenius is the $\mathbb{F}_1$-Frobenius:
+a single canonical symmetry acting on the whole curve.
+
+The local-to-global passage \cite{one_wall}
+would be solved by the new base:
+local Frobenii at each prime cohere globally
+because they are all pullbacks of the $\mathbb{F}_1$-Frobenius.
+
+The wall would not be climbed.
+The base would be changed.
+From the new base, the wall does not appear.
+
+\begin{remark}[What does not yet exist]
+The $\mathbb{F}_1$ grammar is not yet a grammar.
+It is a sketch of one.
+The definition of $\mathbb{F}_1$ is not agreed upon.
+The cohomology theory $H^1_{\mathbb{F}_1}$ has not been constructed.
+The Weil bound has not been proved in any $\mathbb{F}_1$ setting.
+This paper describes what would be true if the grammar existed.
+It is not a proof.
+It is an anatomy of the absence.
+\end{remark}
+
+\begin{thebibliography}{9}
+
+\bibitem{bostconnes}
+Rinc\'on, D. (2026).
+Bost--Connes: Zeta as Partition Function. Preprint.
+
+\bibitem{grammar}
+Rinc\'on, D. (2026).
+Mathematics as Cohomological Grammar. Preprint.
+
+\bibitem{one_wall}
+Rinc\'on, D. (2026).
+One Wall: The Local-to-Global Conjecture. Preprint.
+
+\bibitem{frobenius}
+Rinc\'on, D. (2026).
+The Missing Frobenius. Preprint.
+
+\bibitem{arakelov}
+Rinc\'on, D. (2026).
+The Weil Conjectures: Proof of Concept for RH. Preprint.
+
+\bibitem{connes}
+Rinc\'on, D. (2026).
+Noncommutative Geometry and the Riemann Hypothesis. Preprint.
+
+\end{thebibliography}
+
+\end{document}

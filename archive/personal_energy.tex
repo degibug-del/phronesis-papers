@@ -1,0 +1,199 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1.4in}
+\usepackage{setspace}
+\setstretch{1.4}
+\usepackage{amsmath}
+
+\title{Personal Energy Harvesting\\
+Extracting Power from the Body at Rest and in Motion}
+\author{Diego Rincón}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+A human body is a continuous source of mechanical energy: heartbeat, breathing, walking, typing, thinking (metabolic heat). This energy goes to waste. Personal energy harvesters — bouncing weights, piezo generators, thermal harvesters, fluid dynamics converters — coupled to the body extract this energy at minimal cost to the person. A 1 kg wearable harvester running continuously at rest can generate 0.01–0.05 W (negligible physical cost). Over a day, this is 0.9–4.3 kJ, enough to charge a phone over a week or run an implant indefinitely. The displacement is minimal. The maintenance cost (the discomfort of wearing the device) is lower than the energy returned. This is practical displacement: live your life, and the system pays for itself.
+\end{abstract}
+
+\section{Energy Sources on the Body}
+
+\subsection{Continuous (No Motion Required)}
+
+\textbf{Heartbeat:} The heart pumps 5 liters/minute against ~100 mmHg pressure. Mechanical power output: ~1 W. Of this, ~0.1 W is lost to vessel vibration and fluid turbulence.
+
+\textbf{Breathing:} Diaphragm and intercostal muscles move ~500 mL of air per breath at rest, ~12–16 breaths/minute. Mechanical power: ~0.5 W. Of this, ~0.05 W is available as chest-wall motion.
+
+\textbf{Metabolic Heat:} Resting metabolic rate: ~80 W. Skin temperature ~32°C, ambient ~20°C. Thermal gradient: ~12°C. Heat flux through skin: ~100 W/m². A 1.7 m² human dissipates ~170 W continuously. Thermoelectric harvesters can extract ~0.1–0.5 W from this gradient.
+
+\textbf{Tremor and Involuntary Motion:} Postural sway, hand tremor, jaw motion. Power available: ~0.01–0.1 W.
+
+\subsection{Motion-Dependent (Active or Walking)}
+
+\textbf{Walking:} A 70 kg person walking at 1 m/s (3.6 km/h, leisurely pace) expends ~3 W of mechanical work. This energy goes into vertical oscillation of the center of mass, leg swing, and heat. Harvesters on the joints or insoles can capture ~0.1–1 W.
+
+\textbf{Arm Motion:} Swinging arms while walking adds ~0.2 W of mechanical power. A wristband or armband harvester: ~0.01–0.1 W.
+
+\textbf{Chewing:} Jaw motion while eating is high-force. Mechanical power: ~0.5 W per bite. A molar implant harvester: ~0.01 W averaged over eating time.
+
+\textbf{Typing, Finger Motion:} Keyboard typing, piano playing, hand crafts. Power: ~0.1 W per hand in active use. Finger ring harvesters: ~0.001 W each.
+
+\section{Harvester Types}
+
+\subsection{Kinetic (Piezoelectric)}
+
+Strain on a crystal generates voltage. Footstep strikes a piezo mat: ~0.5 V, ~1 mA, repeated 1–2 Hz. Energy per step: ~50 μJ. Walking: ~2 W electrical.
+
+Wearable piezo (chest or wrist): follows body motion at lower force. Power: 0.1–1 W.
+
+\subsection{Magnetic (Electromagnetic)}
+
+A magnet oscillates through a coil, inducing current. Frequency and amplitude determine power.
+
+Heart-mounted harvester: magnet attached to pericardium, coil in chest cavity, harvests heartbeat oscillation. Power: 0.1–0.5 W continuous.
+
+Knee harvester: magnet in femur, coil in tibia, triggered by knee flexion during walking. Power: 0.5–2 W during active walking.
+
+\subsection{Thermal (Thermoelectric)}
+
+Peltier device in reverse: temperature difference across the device drives voltage. Body skin (32°C) to ambient (20°C) or to insulated layer (35°C when external) powers a Seebeck cell.
+
+Wearable belt harvester: ~0.5 m² surface, ΔT~5–10°C, efficiency ~3–5\%. Power: 0.5–2 W continuous.
+
+\subsection{Fluid Dynamics (Drag, Fluidic Oscillators)}
+
+Blood flow in arteries creates drag and turbulence. A micro-turbine in the carotid or femoral artery harvests this.
+
+Power: 0.01–0.1 W (invasive, requires surgery, limited by biocompatibility).
+
+Air flow in lungs (breathing) drives a micro-turbine. Power: 0.001–0.01 W (limited, would restrict breathing if too large).
+
+\subsection{Hybrid (Multiple Sources)}
+
+A full-body suit with piezo strips, thermal mesh, and magnetic nodes harvests from multiple sources simultaneously. Power: 1–5 W continuous at rest, 5–20 W during active motion.
+
+\section{Energy Density and Feasibility}
+
+A single harvester type on a single location:
+
+\begin{itemize}
+\item Heartbeat magnetic (chest): 0.1 W, mass 20 g, volume 10 cm³
+\item Breathing piezo (chest): 0.05 W, mass 5 g, volume 2 cm³
+\item Thermal wrist band: 0.2 W, mass 30 g, surface 20 cm²
+\item Walking footstep piezo (insole): 0.5 W per shoe, mass 50 g per shoe
+\item Knee magnetic (walking): 1 W, mass 100 g, volume 50 cm³
+\end{itemize}
+
+Total portable personal harvester (heart + breathing + thermal + walking harness): ~2 W, total mass ~200 g, total surface ~50 cm².
+
+Over a day at rest: 2 W × 86,400 s = 172.8 kJ = 0.048 kWh.
+
+A modern smartphone: 10 Wh capacity. Charging time: 10 Wh / 2 W = 5 hours per day of rest, or 1 hour per day of walking.
+
+An implantable pacemaker: 1 Wh capacity (lasts 5–10 years). Harvested power: 0.1–0.5 W from heartbeat alone. Charging time: 2–10 hours. Indefinite operation: yes (harvested power exceeds pacemaker drain in most cases).
+
+\section{The Maintenance Cost}
+
+Wearing a personal harvester incurs costs:
+
+\textbf{Physical Discomfort:} A 100–200 g device strapped to the torso, chest, or limbs. Most people report minimal discomfort after acclimation (similar to wearing a watch or medical sensor).
+
+\textbf{Psychological:} Awareness of being monitored or that your body is "working." This fades quickly.
+
+\textbf{Practical:} Device needs periodic charging (of the harvester's internal battery, if hybrid with storage), waterproofing, biocompatibility checks (for implanted harvesters).
+
+Total maintenance cost: equivalent to ~0.01–0.1 W of additional metabolic cost (mental effort + discomfort + self-monitoring).
+
+\section{The Energy Equation}
+
+Energy harvested per day:
+\[
+E_{\text{harvest}} = (P_{\text{base}} + P_{\text{motion}}) \times 86,400 \text{ s}
+\]
+
+where $P_{\text{base}} \approx 0.5$ W (heartbeat, breathing, thermal) and $P_{\text{motion}} \approx 0.5$ W (walking, daily activity).
+
+Typical: $E_{\text{harvest}} \approx 86.4$ kJ/day = 0.024 kWh/day.
+
+Energy lost to harvester inefficiency (~50% of mechanical work is wasted):
+\[
+E_{\text{loss}} \approx 0.01 \text{ kWh/day}
+\]
+
+Net energy available:
+\[
+E_{\text{net}} = 0.024 - 0.01 = 0.014 \text{ kWh/day}
+\]
+
+Maintenance cost of harvester (discomfort, awareness, device upkeep):
+\[
+C_{\text{maint}} \approx 0.001 \text{ kWh/day (metabolic equivalent)}
+\]
+
+Net usable energy:
+\[
+E_{\text{usable}} = 0.014 - 0.001 = 0.013 \text{ kWh/day}
+\]
+
+This is enough to charge a phone (10 Wh) every 3–4 days, or run a medical implant indefinitely.
+
+\section{Applications}
+
+\subsection{Remote Locations}
+
+A person in a region without electricity can wear a harvester and charge a phone, light, or medical device. The energy is extracted from life lived anyway.
+
+\subsection{Medical Implants}
+
+Pacemakers, insulin pumps, neural implants, drug infusion pumps all require continuous power. Current solutions: battery replacement every 5–10 years (surgery). Harvested power: indefinite operation, no surgeries.
+
+\subsection{Wearables and IoT}
+
+Fitness trackers, health monitors, location trackers all need charging. Harvested power: indefinite operation, no cables or wireless charging needed.
+
+\subsection{Surveillance and Control}
+
+A harvester-powered implant can report location, vital signs, activity continuously without being detected or needing charging. The wearer's body itself powers the system.
+
+\subsection{Freedom}
+
+For someone who moves frequently (nomadic, homeless, refugee), the ability to generate power from the body is liberation. No access to charging infrastructure needed. Power follows the person.
+
+\section{The Displacement Framework}
+
+Ground state $S_0$: body at rest or in motion, dissipating energy as heat and motion.
+
+Displaced state $S^*$: body with harvester, extracting and storing this energy.
+
+Displacement: $\xi = $ the harvester coupling (how much energy is extracted rather than dissipated).
+
+Cost of displacement: $D(\xi) = $ maintenance (discomfort, upkeep, psychological cost).
+
+Energy returned: $E_{\text{harvest}}(\xi) = $ the power extracted.
+
+Optimal displacement: when $E_{\text{harvest}}(\xi) > D(\xi)$, the system is worth wearing. Most people find this threshold at $\xi = 0.1$–0.5 (10–50\% of available mechanical energy harvested).
+
+\section{Limitations}
+
+1. \textbf{Invasiveness vs. Power:} Implanted harvesters generate more power but require surgery and pose biocompatibility risks. Wearable harvesters are comfortable but less efficient.
+
+2. \textbf{Weight and Bulk:} A multi-source harvester suit is heavy and visible. Single-source harvesters (wrist, shoe, chest) are practical but generate less power.
+
+3. \textbf{Unpredictability:} Energy output varies with activity level, weather (for thermal), and individual physiology. Design must account for variable power.
+
+4. \textbf{Storage:} Harvested power is intermittent. Storage (battery, capacitor) is needed. Batteries add mass and maintenance.
+
+\section{Future}
+
+Personal energy harvesting is not science fiction. Prototypes exist. The technology is waiting for:
+
+1. Better materials (lighter, more efficient thermoelectrics, better piezo ceramics)
+2. Better integration (harvesters embedded in clothing, not bolted on)
+3. Better power electronics (smaller, more efficient converters from variable voltage)
+4. Normalized acceptance (wearing a harvester becomes as normal as wearing a watch)
+
+When these happen, every person becomes a renewable energy source. Your body is a power plant. Live your life, and the world runs on you.
+
+\end{document}

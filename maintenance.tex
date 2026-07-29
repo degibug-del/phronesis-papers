@@ -1,0 +1,130 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{geometry}
+\geometry{margin=1.4in}
+\usepackage{setspace}
+\setstretch{1.4}
+
+\title{Optimal Maintenance: The Calculus of Staying\\
+\large When to Return, How Often, and Why the Floor Is a Day}
+\author{Diego Rincón\\
+\small Independent}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The tree's stillness is held by continuous routing below the soil. That routing is $C_{\text{maintenance}}$: the small continuous payment that drains displacement before it can harden into a return cost. This paper puts a number on it. Let displacement $\xi$ drift from the ground state $S_0$ toward the attractor $S^*$ at rate $\delta$, let being displaced cost $D(\xi)=\tfrac{1}{2}a\xi^2$, and let a return after elapsed time $\tau$ cost $C_{\text{return}}(\tau)=f+b\,\tau^{1+k}$, super-linear in $\tau$ when $k>0$---the hardest law, paid per cycle. The policy ``reset every $\tau$'' has a long-run average cost rate $g(\tau)$, and minimizing it yields the optimal interval $\tau^*$ and a cube-root law. Two results follow. First: continuous maintenance and scheduled return are not two mechanisms but one policy at two ends of a single spectrum, indexed by the fixed cost $f$---mycelia at $f\to 0$, Ise at $f$ large. Second: cheap return or large irreversibility magnitude drives $\tau^*$ to the cascade floor, and ``never let displacement age past a night'' is recovered as the optimizer, not merely as good practice. To optimize maintenance is to pull three levers: frequency, fixed return cost, drift.
+\end{abstract}
+
+\section{From the Working Dark to a Cost Rate}
+
+Mycelia ended with a picture and no number. The grove stands still because the network beneath it never stops routing; the visible ground state is held by an invisible continuous payment. That payment is $C_{\text{maintenance}}$. This paper asks the quantitative question the picture leaves open: how often must one pay, and how much, to hold $S_0$ against the drift toward $S^*$?
+
+Set the primitives. Displacement $\xi\ge 0$ measures distance from $S_0$. Unheld, it drifts toward $S^*$ at a constant rate $\delta>0$, so since the last return at time $0$,
+\begin{equation}
+\xi(s)=\delta s.
+\end{equation}
+Being displaced is felt at a convex cost,
+\begin{equation}
+D(\xi)=\tfrac{1}{2}\,a\,\xi^2,\qquad a>0.
+\end{equation}
+A return resets $\xi\to 0$. It costs
+\begin{equation}
+C_{\text{return}}(\tau)=f+b\,\tau^{1+k},\qquad f\ge 0,\;\; b\ge 0,\;\; k\ge 0,
+\end{equation}
+where $\tau$ is the elapsed interval since the last return, $f$ is the fixed cost of returning at all, $b$ scales the irreversibility penalty, and $k$ is the irreversibility exponent. The framework's hardest law lives here: for $k>0$ the return cost is strictly super-linear in elapsed time, because infrastructure accretes around $S^*$ and the living reference of $S_0$ fades. The longer you wait, the more than proportionally it costs to come back.
+
+One scope note, stated plainly. The hardest law constrains $C_{\text{return}}(\tau)=f+b\,\tau^{1+k}$, which is the cost of returning after the \emph{current} cycle's elapsed time $\tau$. This is within-cycle aging. It is not cross-cycle identity-fusion: the model assumes a perfect reset, so a state held for a thousand cycles pays no more to return than a fresh one. The accretion that does not reset---the part of irreversibility that survives a return---is a memory term outside this headline model. Adding it only shortens $\tau^*$, so every conclusion below is a conservative bound.
+
+\section{The Governing Equation}
+
+Maintenance is the impulse policy ``reset every $\tau$.'' Continuous maintenance is its $f\to 0$ limit. Because drift is stationary and every return is a perfect reset to the identical point, each cycle is a copy of the last; the right objective is the long-run average cost per unit time, cost-per-cycle over cycle-length, by renewal-reward.
+
+The felt cost accumulated within one cycle is
+\begin{equation}
+\int_0^\tau \tfrac{1}{2}a(\delta s)^2\,ds=\frac{a\,\delta^2\,\tau^3}{6}.
+\end{equation}
+Adding the return cost $f+b\,\tau^{1+k}$ and dividing by the cycle length $\tau$ gives the governing equation:
+\begin{equation}
+\boxed{\,g(\tau)=\frac{a\,\delta^2\,\tau^2}{6}+\frac{f}{\tau}+b\,\tau^{k}\,},\qquad \tau>0.
+\end{equation}
+Three terms, three forces. The first rises in $\tau$: the cost of letting displacement age. The second falls in $\tau$: the fixed return cost amortized over a longer cycle. The third rises in $\tau$ for $k>0$: irreversibility. Note that the per-cycle return exponent is $1+k$ but the exponent surviving into $g$ is $k$; the term $b\,\tau^{k}$ is not itself the hardest law but that law amortized over the cycle. For $0<k<1$ this amortized term is concave in $\tau$, which matters for the convexity argument below, not for the super-linearity of $C_{\text{return}}$ itself.
+
+This is the bridge mycelia asked for. $g(\tau)$ \emph{is} $C_{\text{maintenance}}$: the continuous cost rate the system pays to hold $S_0$ under the ``reset every $\tau$'' policy. The network's million tiny transfers are the $f\to 0$ limit of $g$.
+
+\section{The Optimal Interval and the Cube-Root Law}
+
+Differentiate:
+\begin{equation}
+g'(\tau)=\frac{a\,\delta^2\,\tau}{3}-\frac{f}{\tau^2}+b\,k\,\tau^{k-1}.
+\end{equation}
+The marginal cost of irreversibility entering the first-order condition is $b\,k\,\tau^{k-1}$, so $b$ enters only through the product $b\,k$. Setting $g'=0$ and clearing denominators gives the master stationarity equation:
+\begin{equation}
+\frac{a\,\delta^2}{3}\,\tau^3+b\,k\,\tau^{k+1}-f=0.
+\end{equation}
+The second derivative is
+\begin{equation}
+g''(\tau)=\frac{a\,\delta^2}{3}+\frac{2f}{\tau^3}+b\,k(k-1)\,\tau^{k-2}.
+\end{equation}
+For $k\ge 1$ every term is non-negative and the first two are strictly positive, so $g$ is strictly convex and the stationary point is the unique global minimum. For $0<k<1$ the irreversibility term is negative; convexity is not proven in closed form there, and a stress test over a wide grid of $(a,b,f,k)$ found $g$ single-troughed throughout, so the global-minimum claim rests on numerics in that range. This is stated, not hidden.
+
+Turn irreversibility off---either $b=0$ or $k=0$---and the $b\,k$ term vanishes. The master equation collapses to $(a\,\delta^2/3)\tau^3=f$, giving the closed-form cube-root law:
+\begin{equation}
+\boxed{\,\tau^*=\left(\frac{3f}{a\,\delta^2}\right)^{1/3}\,}.
+\end{equation}
+It is the maintenance analogue of the economic-order-quantity rule: the optimal interval between returns grows as the cube root of the fixed cost of returning. Substituting back, the minimized cost rate has a clean closed form:
+\begin{equation}
+g^*=\tfrac{1}{2}\,3^{2/3}\,(a\,\delta^2)^{1/3}\,f^{2/3}=\tfrac{1}{2}\,(9\,a\,\delta^2\,f^2)^{1/3}.
+\end{equation}
+At unit parameters $a=\delta=f=1$: $\tau^*=3^{1/3}=1.44225$ and $g^*=1.040042$, both verified to machine precision.
+
+\section{The Stay-at-$S^*$ Condition}
+
+The framework's defining inequality is that a system stays at $S^*$ while $C_{\text{return}}>C_{\text{maintenance}}$. Locate it in this picture. A system that maintains optimally pays the rate $g^*$; identify $C_{\text{maintenance}}$ with $g$ at the chosen interval, $g^*$ at the optimum, or its $f\to 0$ turnpike value for continuous holding. The condition for the system to be \emph{stuck}---unable or unwilling to hold $S_0$---is that the maintenance it can pay falls short of what return demands.
+
+Make this precise with a budget. Let $M$ be the maintenance rate the system is willing or able to pay. The system can hold $S_0$ only if the optimal maintenance rate fits the budget: $g^*\le M$. When the achievable $g^*$ exceeds $M$---because drift $\delta$ is too fast, the fixed cost $f$ too high, or a floor $\tau\ge\tau_{\min}$ forces a longer cycle than the optimum wants---no feasible policy returns the system within budget, and it settles at $S^*$. That is the framework's irreversibility condition rendered quantitatively: not that return is literally impossible, but that the required maintenance rate exceeds what is paid. $C_{\text{return}}>C_{\text{maintenance}}$ is the statement that the budget cannot reach the floor.
+
+The lesson of mycelia returns as arithmetic. The system stuck at $S^*$ is not the one that cannot return. It is the one that stopped paying $g^*$ continuously, let $\xi$ age, and now faces a $C_{\text{return}}$ that has scaled past any maintenance it is prepared to sustain.
+
+\section{One Policy, Two Ends}
+
+The fixed cost $f$ alone interpolates the whole corpus along one family.
+
+As $f\to 0$, the cube-root law gives $\tau^*\to 0$ and $g^*\to 0$, and the time-average displacement $\delta\tau^*/2\to 0$, each as a positive power of $f$. Verified: $f=10^{-8}$ gives $\tau^*=0.0031$, $g^*=4.8\times 10^{-6}$, mean $\xi=0.0016$. This is continuous maintenance. Reset constantly, hold $\xi$ near zero, fixed cost per act vanishing. This is the mycelial network: the routing that never stops, the cost so finely distributed no single payment registers.
+
+As $f$ grows large, $\tau^*$ grows and returns become rare. This is Ise, rebuilt every twenty years. A small-but-positive $f$ at the schedulable floor is sunrise.
+
+The bridge is rigorous through optimal control. Take the $f=0$ limit with a smooth convex maintenance cost $\tfrac{1}{2}p\,m^2$ for applying restoring effort $m$, and dynamics $\dot\xi=\delta-m$. The Pontryagin conditions $m^*=\lambda/p$, $\dot\lambda=-a\xi$ yield a linear-quadratic regulator that holds $\xi$ at a constant interior turnpike $\bar\xi$, where the marginal felt saving $D'(\bar\xi)$ equals the marginal maintenance cost. That is the smooth version of ``reset constantly.'' Adding a fixed switching cost $f>0$ makes the control cost non-differentiable at $m=0$---paying continuously would incur $f$ at every instant, an infinite cost---forcing a bang-bang impulse policy: act only when $\xi$ reaches $\xi^*=\delta\tau^*$. Set $f=0$ and the turnpike returns. Set $f>0$ and you get scheduled return.
+
+Continuous and scheduled maintenance are not two mechanisms. They are the two ends of one fixed-cost spectrum.
+
+\section{Irreversibility and the Cascade Floor}
+
+Sunrise's law is that the cascade has a floor---Ise at twenty years, the Ōharae at six months, sunrise at one day---and that one must never let displacement age past a night. Derive it.
+
+Impose the feasibility floor $\tau\ge\tau_{\min}$: the smallest schedulable unit, one day. The realized policy is the minimizer of $g$ over $\tau\ge\tau_{\min}$. Whenever the unconstrained $\tau^*$ falls below $\tau_{\min}$, the constrained optimum sits exactly at $\tau_{\min}$. Daily return is then the optimizer, not merely good practice.
+
+What drives $\tau^*$ below the floor? State the corrected mechanism, because the naive reading overstates it. Cheap return, $f\to 0$, drives $\tau^*$ to zero without bound. Large irreversibility \emph{magnitude}, $b\to\infty$ at any fixed $k>0$, also drives it to zero without bound: at $k=1$, $b=500$ gives $\tau^*=0.045$. But raising the \emph{exponent} $k$ alone, at fixed $b$, is not an unbounded lever. By the implicit function theorem on the master equation, $\operatorname{sign}(d\tau^*/dk)=-\operatorname{sign}(1+k\ln\tau^*)$, so increasing $k$ lowers $\tau^*$ only while $\tau^*>\exp(-1/k)$ and then reverses. Verified at $b=0.3$: $\tau^*$ falls from $1.44$ toward a trough near $k=8$, exactly where $1+k\ln\tau^*$ crosses zero, then rises back toward $1$. And at $k=0$ the term $b\,\tau^0=b$ is constant in $\tau$, contributes nothing to $g'$, and leaves $\tau^*$ exactly unchanged for every $b$.
+
+So the exponent $k>0$ is the qualitative gate that makes irreversibility bite at all; it is not the lever that forces a daily floor. The genuine unbounded drivers to the floor are small $f$ and large $b$. That is the corrected sunrise mechanism.
+
+One honest limit. The model recovers the cascade \emph{floor}---the bottom rung, $\tau_{\min}$---as the optimizer. It does not by itself reproduce the ordered descent through Ise, the Ōharae, and sunrise; the intermediate rungs are a discrete menu of schedulable $\tau_{\min}$ values, and the model shows only that as $f$ or $b$ varies the optimum lands on whichever rung the budget can reach.
+
+\section{The Three Levers}
+
+To optimize maintenance is to pull three levers, and the calculus says exactly what each is worth.
+
+\textbf{Frequency. Lower $\tau$.} This is the lever you pull directly, and the only one that acts \emph{before} the convex penalty is incurred: a shorter cycle caps elapsed displacement so $b\,\tau^k$ never grows and $\xi$ never ages into a spike. It is dominant among policy choices precisely because $C_{\text{return}}$ is convex-increasing in elapsed time. This is the daily return, kept.
+
+\textbf{Fixed return cost. Lower $f$.} Build a living reference, a standing path back, so returning at all costs less. The cost floor falls as $f^{2/3}$ and the optimal interval shrinks as $f^{1/3}$. This is the human mycelia: the unglamorous continuous practices that make return cheap.
+
+\textbf{Drift. Lower $\delta$ at the source.} Remove the pull toward $S^*$ before it acts. The cost floor falls as $\delta^{2/3}$.
+
+Read the leverage from the closed form: $\tau^*\sim f^{1/3}$, $\tau^*\sim a^{-1/3}$, $\tau^*\sim\delta^{-2/3}$; and $g^*\sim f^{2/3}$, $g^*\sim a^{1/3}$, $g^*\sim\delta^{2/3}$. On the achieved cost floor, $f$ and $\delta$ tie for the strongest leverage, both at exponent $2/3$, over the felt-sharpness $a$ at $1/3$. So distinguish the two claims: frequency is the lever you pull, but $f$ and $\delta$ set how low the floor can go.
+
+That is the practical content of optimizing maintenance. Return often. Make return cheap. Reduce the drift. The tree does all three at once, below sight, and never has to be rebuilt.
+
+\end{document}

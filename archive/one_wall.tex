@@ -1,0 +1,212 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+\geometry{margin=1.4in}
+\usepackage{hyperref}
+\usepackage{setspace}
+\setstretch{1.4}
+\usepackage{amsthm}
+\newtheorem{conjecture}{Conjecture}
+
+\newcommand{\Sha}{\mathrm{Sh}}
+
+\title{One Wall}
+\author{Diego Rinc\'on\\
+\small Independent}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The five extension walls are not five different problems.
+They are five encounters with the same problem:
+the local-to-global passage.
+This is an observation, not a proof.
+\end{abstract}
+
+\section{The Pattern}
+
+Five of the six Millennium Problems involve a wall.
+The wall has been named in each case separately,
+in the language of each field:
+Hadamard product control for RH,
+continuum limit for Yang--Mills,
+enstrophy closure for Navier--Stokes,
+complex regularity for Hodge,
+Euler system rank for BSD.
+
+These names are correct.
+But they are local names.
+The same wall has a global name:
+the local-to-global passage.
+
+Every extension wall is a failure to pass
+from local data to global structure.
+
+\section{The Five Encounters}
+
+\subsection*{Riemann Hypothesis}
+
+The zeta function factors locally:
+$$\zeta(s) = \prod_p \frac{1}{1 - p^{-s}}.$$
+Each factor is a local Euler factor at a prime.
+The zeros of $\zeta(s)$ are global objects:
+they encode the distribution of primes via the explicit formula
+$$\psi(x) = x - \sum_\rho \frac{x^\rho}{\rho} - \log(2\pi) - \tfrac{1}{2}\log(1 - x^{-2}).$$
+The Riemann Hypothesis is a statement about global zero structure.
+The local Euler product does not determine the location of the zeros.
+The Beurling--Nyman criterion recasts RH as a global $L^2(0,1)$ statement.
+The Connes approach works in the global ad\`ele class space $\mathbf{A}_\mathbf{Q}/\mathbf{Q}^*$.
+Both approaches are manifestly global.
+
+\textit{The wall:} there is no known path from the local Euler factors
+to the global zero distribution.
+
+\subsection*{Yang--Mills}
+
+The Yang--Mills action is local:
+$$S[A] = \frac{1}{4g^2}\int_{\mathbf{R}^4} \mathrm{tr}(F_{\mu\nu}F^{\mu\nu})\,d^4x.$$
+It integrates local curvature.
+The lattice construction builds a local theory: on each plaquette,
+a compact group element.
+The mass gap $\Delta > 0$ is a global spectral statement:
+the Hamiltonian $H$ has no spectrum in $(0,\Delta)$.
+The continuum limit --- lattice spacing $a \to 0$ ---
+is the passage from the local lattice structure
+to the global quantum field theory.
+The gap must survive this passage.
+
+\textit{The wall:} the local lattice theory is well-defined;
+the global continuum limit is not proved.
+
+\subsection*{Navier--Stokes}
+
+The Navier--Stokes equations are a local PDE:
+$$\partial_t u + (u\cdot\nabla)u = \nu\Delta u - \nabla p, \quad \nabla\cdot u = 0.$$
+Vortex stretching is a local mechanism:
+$\frac{D\omega}{Dt} = (\omega\cdot\nabla)u + \nu\Delta\omega$.
+In two dimensions, the global conservation of enstrophy
+$X(t) = \tfrac{1}{2}\int |\omega|^2\,dx$
+closes the local-to-global passage:
+$\frac{d}{dt}X \leq CX$ in 2D, giving global regularity by Gr\"onwall.
+In three dimensions, there is no enstrophy conservation;
+the local vortex-stretching term drives
+$\frac{d}{dt}X \leq \frac{C}{\nu^3}X^3$,
+a cubic inequality that cannot be closed.
+
+\textit{The wall:} local vortex stretching in 3D
+cannot be controlled globally.
+The 2D proof works because 2D has an exact local-to-global bridge;
+3D does not.
+
+\subsection*{Hodge}
+
+Differential forms are local objects.
+Cohomology is global:
+$H^{p,p}(X, \mathbf{Q})$ depends on the global geometry of $X$.
+The Hodge theorem is a local-to-global theorem:
+every de~Rham cohomology class has a unique harmonic representative.
+The Hodge conjecture asserts more:
+every rational class of type $(p,p)$ is a linear combination of
+classes of algebraic cycles $[Z]$.
+The Complex Regularity Conjecture (the wall) states:
+a globally calibrated current $T$ of type $(p,p)$
+with $[T] \in H^{p,p}(X,\mathbf{Q})$
+need not be locally complex-structured.
+
+\textit{The wall:} a global cohomological condition
+does not imply local algebraic structure.
+The local-to-global passage runs the wrong way:
+the global class is known; the local structure is what must be derived.
+
+\subsection*{Birch--Swinnerton-Dyer}
+
+The $L$-function $L(E,s) = \prod_p L_p(E,s)$
+is built from local Euler factors.
+The rank $r = \mathrm{rank}\,E(\mathbf{Q})$ is a global invariant.
+BSD asserts $\mathrm{ord}_{s=1} L(E,s) = r$.
+The Euler system method (Kolyvagin) constructs global arithmetic classes
+from local cohomology data.
+For $r \leq 1$, Heegner points provide the required class.
+For $r \geq 3$, the GGZ$_r$ conjecture requires $r$ independent classes;
+only one construction is known.
+
+\textit{The wall:} the local Euler factors encode the global rank by hypothesis;
+deriving $r \geq 3$ independent global classes from local data is open.
+
+\section{The Sixth Problem}
+
+P versus NP does not fit this pattern.
+
+It is not a failure to pass from local to global.
+It is a failure to know what kind of argument to make.
+The three barriers (relativization, natural proofs, algebrization)
+have eliminated the known methods.
+What remains is not a wall at the boundary of a local-to-global passage
+but a void where the method must live.
+
+P versus NP is a barrier wall, not an extension wall.
+The local-to-global observation applies to the other five.
+
+\section{What the Pattern Means}
+
+The local-to-global problem is the central problem of modern mathematics.
+
+Class field theory: local class field theory at each prime
+$\to$ global reciprocity (Artin map).
+Hasse--Minkowski: local solutions at $\mathbf{R}$ and each $\mathbf{Q}_p$
+$\to$ global rational solution (for quadratic forms).
+The Langlands program: local Langlands at each prime
+$\to$ global automorphic representation.
+Bloch--Kato: local conditions on Galois representations
+$\to$ global $L$-function behavior.
+
+The arithmetic geometry cluster ---
+Langlands, Shimura, perfectoid, anabelian,
+deformation theory, Iwasawa, Bloch--Kato, motives ---
+is the accumulated machinery for local-to-global problems.
+
+BSD and RH are both about $L$-functions.
+A global $L$-function is a product of local factors.
+The question is always: what does the product know
+that the factors do not?
+
+This is the question the body has been circling.
+The five walls are five faces of it.
+
+\section{A Conjecture}
+
+\begin{conjecture}[One Wall]
+There exists a unified local-to-global principle
+from which the five extension walls
+are special cases.
+A proof of any one of the five
+that does not use such a principle
+will fail to generalize.
+A proof that does use such a principle
+will, with modification,
+yield progress on the others.
+\end{conjecture}
+
+This is speculative.
+It is not known.
+It may be wrong.
+
+But the pattern is real:
+five problems, five walls,
+all at the same passage.
+The local data is under control.
+The global structure is not.
+
+If the pattern is not coincidence ---
+if the five walls are one wall ---
+then the map of the walls
+is a map of one obstacle,
+seen from five positions.
+
+The body is five maps of one mountain.
+
+\end{document}

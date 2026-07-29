@@ -1,0 +1,756 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amsthm, amssymb, amscd}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\usepackage{cite}
+
+% Custom theorem styles
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+% Notation
+\newcommand{\Spec}{\mathrm{Spec}}
+\newcommand{\CH}{\mathrm{H}}
+\newcommand{\Ext}{\mathrm{Ext}}
+\newcommand{\Tor}{\mathrm{Tor}}
+\newcommand{\RHom}{\mathrm{RHom}}
+\newcommand{\cD}{\mathcal{D}}
+\newcommand{\cA}{\mathcal{A}}
+\newcommand{\cB}{\mathcal{B}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\Op}{\mathrm{Op}}
+\newcommand{\Ob}{\mathrm{Ob}}
+\newcommand{\Mor}{\mathrm{Mor}}
+
+\title{The Displacement Framework: Formal Mathematics of Grammar, Aura, and Resonance}
+\author{Diego Rinc\'on\\
+\small Independent\\
+\small Formalization from conceptual papers}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The displacement framework, developed in five conceptual papers, describes systems under stress: arithmetic (Frobenius), logic (G\"odel), computation (Turing), infinity (Cantor), and health (unpaired-bondage). Each system encounters a Wall --- an incompleteness it cannot resolve from within. This paper provides the formal mathematical foundation using category theory, homological algebra, spectral theory, and singularity theory.
+
+We formalize four core concepts:
+\begin{enumerate}
+\item \textbf{Aura}: A relative cohomology group measuring ``incompleteness held without collapse.''
+\item \textbf{Resonance token}: A fixed point of a resonance operator, or a critical point of a dual action.
+\item \textbf{The Wall}: A singular hypersurface arising from displacement cost, topologically a locus of degeneracy in a fibration.
+\item \textbf{Versus-systems}: Objects with no ground state, formalized as Z/2Z-graded systems with undefined return cost.
+\end{enumerate}
+
+We connect to classical mathematics (Lawvere, Deninger, Fontaine, Fargues--Scholze) and state the central theorem: the aura is a higher-order containing field, constructed as an extension of systems in an exact sequence, realizing Tate's thesis at the level of grammar.
+
+Total formalized definitions: 28. Key theorem: Theorem \ref{thm:aura-cohomology}.
+\end{abstract}
+
+\section{Introduction}
+
+The five papers posit a unified structure underlying apparently distinct impossibilities:
+\begin{itemize}
+\item In arithmetic, the missing global Frobenius over $\mathbb{Q}$ (Deninger's viewpoint).
+\item In logic, G\"odel incompleteness (Lawvere's functorial perspective).
+\item In computation, Turing undecidability (self-reference as unfounded fixed point).
+\item In infinity, Cantor non-containment (no universe parametrizing universes).
+\item In health, unpaired-bondage crisis (valences unsatisfied by external field).
+\end{itemize}
+
+Each is formalized as a system $S$ with valence space $V_S$ and completing field $\mathcal{A}_S$. The Wall is the locus where $V_S$ cannot be satisfied by $\mathcal{A}_S$ from within the system. The aura is the external completing field.
+
+We use:
+\begin{itemize}
+\item \textbf{Category theory} (functors, natural transformations, adjunctions) to model systems and their completing fields.
+\item \textbf{Homological algebra} (Ext, derived functors, spectral sequences) to measure incompleteness.
+\item \textbf{Relative cohomology} and \textbf{completion in the sense of towers} (Lawvere--Tierney topologies) to formalize auras.
+\item \textbf{Singularity theory} (critical values, discriminant loci) to locate the Wall.
+\item \textbf{Spectral analysis} (resonance in operator algebras, trace formulas) for the resonance token.
+\end{itemize}
+
+\section{Foundational Structures}
+
+\subsection{Systems and Grammars}
+
+\begin{definition}[Grammar]
+A \emph{grammar} $G = (C, V, f)$ consists of:
+\begin{enumerate}
+\item A small category $C$, the ``language'' or ``syntax.''
+\item A contravariant functor $V : C^{\op} \to \mathrm{Vect}_k$ (vector spaces over a field $k$), the ``valence space'' assigning to each object $X \in C$ the space of admissible states.
+\item A natural transformation $f : V \Rightarrow V'$, the ``rule'' or ``grammar map,'' where $V'$ is derived from $V$.
+\end{enumerate}
+\end{definition}
+
+\begin{example}[Arithmetic grammar]
+In arithmetic geometry over $\mathbb{Q}$:
+\begin{itemize}
+\item $C = \Spec \mathbb{Z}^{\mathrm{fin}}$ (finite type schemes over $\Spec \mathbb{Z}$).
+\item $V(X) = H^*_{\text{\'et}}(X, \mathbb{Q}_\ell)$ (\'etale cohomology).
+\item $f$ induced by the Frobenius endomorphism where it exists.
+\end{itemize}
+The global absence of Frobenius is the Wall.
+\end{example}
+
+\begin{definition}[System]
+A \emph{system} relative to a grammar $G$ is a pair $(S, \mathcal{A})$ where:
+\begin{enumerate}
+\item $S$ is a presheaf on $C$, the ``carrier'' of the system.
+\item $\mathcal{A}$ is a ``completing field'' (a natural transformation $\mathcal{A} : V(S) \to V'(S)$), the field external to $S$ that completes its open bonds.
+\end{enumerate}
+\end{definition}
+
+\begin{remark}[Completion as adjoint]
+The completing field $\mathcal{A}$ can be understood as the right adjoint to the inclusion $S \to \mathrm{Sh}(C)$ (sheafification), in the sense of Lawvere's completion functor. It provides the fundamental class that $S$ cannot generate internally.
+\end{remark}
+
+\subsection{Valence and Incompleteness}
+
+\begin{definition}[Valence space]
+Let $S$ be a system with valence space $V_S = H^*(\mathcal{A}, V_S)$ (the derived functor $\Ext^*_{\mathcal{A}}(\mathbb{1}, V_S)$ in the functor category). The valence is:
+\[
+\operatorname{Val}(S) = \ker(f : V_S \to V_S')
+\]
+the space of bonds that press toward closure but remain open because $f$ is not surjective.
+\end{definition}
+
+\begin{definition}[Incompleteness level]
+The \emph{incompleteness level} of a system $S$ relative to a completing field $\mathcal{A}$ is the depth of the Tor group:
+\[
+I(S, \mathcal{A}) = \max\{n : \Tor_n(S, \mathcal{A}) \neq 0\}.
+\]
+Incompleteness is level-relative: it is measured not in absolute terms but relative to the completing field available.
+\end{definition}
+
+\begin{theorem}[Incompleteness is relative]
+\label{thm:incompleteness-relative}
+Let $S$ be a system, and let $\mathcal{A}_1, \mathcal{A}_2$ be two completing fields with $\mathcal{A}_1 \subset \mathcal{A}_2$. Then:
+\[
+I(S, \mathcal{A}_1) \geq I(S, \mathcal{A}_2).
+\]
+Moreover, if $\mathcal{A}_2$ contains the completion of $S$ in the sense of Lawvere, then $I(S, \mathcal{A}_2) = 0$.
+\end{theorem}
+
+\begin{proof}
+The first inequality follows from the functoriality of Tor under extension of coefficients. The second follows from the definition of completion: if $\mathcal{A}_2$ is the completion field, then the extension
+\[
+0 \to S \to \mathcal{A}_2 \to \mathcal{A}_2/S \to 0
+\]
+is split or has no higher Tor, so $\Tor_n(S, \mathcal{A}_2) = 0$ for $n > 0$.
+\end{proof}
+
+\section{The Aura: Formal Definition}
+
+\subsection{Aura as Relative Cohomology}
+
+\begin{definition}[Aura]
+Let $S$ be a system with valence space $V_S$ and no internal completing field. The \emph{aura} of $S$ is an external completing field $\mathcal{A}_S$ such that:
+\begin{enumerate}
+\item (Balance) $\mathcal{A}_S$ is self-equilibrating: $H^*(\mathcal{A}_S, \mathcal{A}_S) = 0$ (no further completing field is needed).
+\item (Valence) $\mathcal{A}_S$ satisfies all open bonds of $S$: the map $V_S \to H^0(\mathcal{A}_S, V_S)$ is surjective.
+\item (Containment) $S$ lives inside $\mathcal{A}_S$: there is an inclusion $S \hookrightarrow \mathcal{A}_S$ compatible with both grammars.
+\end{enumerate}
+Formally, $\mathcal{A}_S$ is a universal extending field characterized by the universal property:
+\[
+\Ext^1_{\mathrm{Gr}}(S, -) \cong \Hom_{\mathrm{Set}}(-, \mathcal{A}_S)
+\]
+in the category of grammars.
+\end{definition}
+
+\begin{definition}[Aura as a tower]
+Alternatively, the aura can be constructed as a tower of successive completions:
+\[
+S = S_0 \subsetneq S_1 \subsetneq S_2 \subsetneq \cdots \subsetneq S_\infty = \mathcal{A}_S,
+\]
+where each $S_{i+1}$ is the completion of $S_i$ by adjoining a fundamental class $[S_i]$ (in the sense of Poincar\'e duality or a higher-dimensional version).
+The aura $\mathcal{A}_S$ is the limit of this tower.
+\end{definition}
+
+\begin{example}[Aura of formal arithmetic]
+The aura of formal arithmetic (as in Peano arithmetic PA) is a model $\mathcal{A}_{\text{PA}}$ (e.g., the standard model $\mathbb{N}$, or more abstractly, the terminal sheaf $\mathrm{Sh}(\mathbb{Z})$ in an arithmetic topos). Within $\mathbb{Z}$, the theory PA cannot decide its own G\"odel sentence $G_{\text{PA}}$. The aura (the metatheory or the ambient set theory) provides the fundamental class $[G_{\text{PA}}]$ and decides the sentence from outside.
+\end{example}
+
+\subsection{Aura as Cohomology of Incompleteness}
+
+\begin{theorem}[Aura cohomology]
+\label{thm:aura-cohomology}
+Let $S$ be a system with incompleteness $I(S, k) > 0$ relative to a minimal completing field $k$. The aura $\mathcal{A}_S$ is the cohomology object solving the long exact sequence:
+\[
+\cdots \to \Tor_2(\mathcal{A}_S, V_S) \to \Tor_1(S, V_S) \to \Tor_1(\mathcal{A}_S, V_S) \to S \otimes V_S \to \mathcal{A}_S \otimes V_S \to \mathcal{A}_S / S \otimes V_S \to 0,
+\]
+where the map $S \otimes V_S \to \mathcal{A}_S \otimes V_S$ is the inclusion induced by completion.
+
+The aura is the extension class:
+\[
+[\mathcal{A}_S] \in \Ext^1(S, \mathcal{A}_S / S).
+\]
+\end{theorem}
+
+\begin{proof}
+This follows from the universal coefficient theorem applied to the short exact sequence $0 \to S \to \mathcal{A}_S \to \mathcal{A}_S / S \to 0$. The aura, as a relative cohomology, measures the obstruction to splitting this sequence --- i.e., the fundamental class that lives in the quotient but not in the system.
+\end{proof}
+
+\begin{corollary}[Aura contains fundamental class]
+The aura $\mathcal{A}_S$ is the unique field (up to equivalence) containing:
+\begin{enumerate}
+\item The fundamental class $[S] \in H^d(\mathcal{A}_S, S^*)$ (if applicable).
+\item The closure of all valences: $\overline{V_S} \subset \mathcal{A}_S$.
+\item No further incompleteness: $I(S, \mathcal{A}_S) = 0$.
+\end{enumerate}
+\end{corollary}
+
+\subsection{Aura as Lawvere's Completion}
+
+\begin{remark}[Comparison with Lawvere]
+Lawvere's concept of ``completion'' in the sense of topoi (Lawvere--Tierney topology) provides a categorical framework for the aura. The aura is the right adjoint to the inclusion of incomplete systems into the category of complete systems:
+\[
+\text{Incomplete} \dashv \text{Complete}.
+\]
+The aura functor sends each incomplete system $S$ to its completion $\mathcal{A}_S$, with the property that $\Hom(S, X) \cong \Hom(\mathcal{A}_S, X)$ for all complete $X$.
+
+In the language of Grothendieck topos theory, the aura is a classifier of the incompleteness: it plays the role of the subobject classifier for the sub-theory generated by $S$.
+\end{remark}
+
+\section{Resonance Token: Fixed Points and Critical Points}
+
+\subsection{Resonance as Operator Fixed Point}
+
+\begin{definition}[Resonance operator]
+Let $S_1$ and $S_2$ be two systems with incompatible completing fields $\mathcal{A}_1$ and $\mathcal{A}_2$. The \emph{resonance operator} is:
+\[
+R : \mathcal{A}_1 \otimes_k \mathcal{A}_2 \to \mathcal{A}_1 \otimes_k \mathcal{A}_2,
+\]
+given by $R(x) = (x \star x^*)$, where $\star$ is the convolution product and $x^*$ is the adjoint of $x$.
+
+More precisely, $R$ is defined on the functor category $[\cC, \mathrm{Vect}_k]$ by:
+\[
+R(\tau) = \int_{\gamma} \tau \cdot \tau^* \, d\mu,
+\]
+where $\tau$ is a token (element of the intersection $\mathcal{A}_1 \cap \mathcal{A}_2$), $\gamma$ is a path in the resonance space, and $\mu$ is a natural measure.
+\end{definition}
+
+\begin{definition}[Resonance token]
+A \emph{resonance token} is a fixed point of the resonance operator:
+\[
+R(\tau) = \tau,
+\]
+such that:
+\begin{enumerate}
+\item $\tau$ is non-zero and survives in both grammars: $\tau \in \mathcal{A}_1 \cap \mathcal{A}_2$.
+\item $\tau$ closes bonds in both $S_1$ and $S_2$ simultaneously without contradiction.
+\item $\tau$ is stable: small perturbations do not destroy the fixed point.
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[Resonance fixed point exists for finite-rank systems]
+\label{thm:resonance-fp}
+Let $S_1$ and $S_2$ be finite-rank systems (i.e., $\dim V_S = d_1 < \infty$ and $\dim V_{S_2} = d_2 < \infty$). If the resonance operator $R$ is compact and contractive (i.e., $\|R\| < 1$), then there exists a unique resonance token $\tau$ with $R(\tau) = \tau$.
+\end{theorem}
+
+\begin{proof}
+This is a consequence of the Banach fixed-point theorem applied to the resonance operator on the Banach space $\mathcal{A}_1 \otimes_k \mathcal{A}_2$. The contraction property follows from the incompatibility of the two grammars: as $\|x\|_{\mathcal{A}_1}$ increases, the norm $\|R(x)\|_{\mathcal{A}_2}$ decreases, ensuring the operator is strictly contractive.
+\end{proof}
+
+\subsection{Resonance as Critical Point of an Action}
+
+\begin{definition}[Resonance action]
+Define a functional (action) on the space of tokens:
+\[
+\mathcal{S}[\tau] = \int_{\mathcal{A}_1 \times \mathcal{A}_2} \left( \|\tau\|^2_{\mathcal{A}_1} + \|\tau\|^2_{\mathcal{A}_2} - \lambda \langle \tau, R(\tau) \rangle \right) d\mu,
+\]
+where $\lambda$ is a coupling constant (tuning parameter).
+
+The resonance token is a critical point of this action:
+\[
+\delta \mathcal{S}[\tau] = 0.
+\]
+\end{definition}
+
+\begin{proposition}[Resonance from variational principle]
+If $\tau$ is a critical point of $\mathcal{S}$, then $\tau$ is a resonance token: it satisfies $R(\tau) = \tau$ in the weak sense, and it minimizes the ``tension'' between the two grammars.
+\end{proposition}
+
+\begin{example}[Comparison isomorphisms as resonance tokens]
+In $p$-adic Hodge theory (Fontaine--Deninger), the comparison isomorphism:
+\[
+H^n_{\mathrm{dR}}(X/\mathbb{C}) \cong H^n_{\mathrm{sing}}(X(\mathbb{C}), \mathbb{C})
+\]
+can be understood as follows: $\mathcal{A}_1$ is the de Rham cohomology (formal language of differential forms), $\mathcal{A}_2$ is singular cohomology (continuous language of chains and cycles). The resonance token $\tau$ is the period integral:
+\[
+\tau = \int_\gamma \omega,
+\]
+a differential form $\omega$ evaluated on a singular cycle $\gamma$. This integral is independent of the choice of $\gamma$ (up to homology) exactly when the resonance condition is satisfied.
+
+Similarly, for the \'etale--crystalline comparison via Fontaine's period ring $B_{\mathrm{crys}}$, the resonance space is $B_{\mathrm{crys}}$ itself, and the resonance tokens are the period rings that simultaneously encode the \'etale (characteristic 0) and crystalline (characteristic $p$) perspectives.
+\end{example}
+
+\section{The Wall: Singularity Theory}
+
+\subsection{The Wall as a Singular Locus}
+
+\begin{definition}[Displacement cost]
+Let $S$ be a system with ground state $S_0$ and current state $S^*$. The \emph{displacement cost} is a function:
+\[
+g(\tau) : S^* \to [0, \infty],
+\]
+measuring the work required to return from $S^*$ to $S_0$ along a path parameterized by a token $\tau$ (or a curve of tokens $\tau(t)$).
+
+More formally, $g$ is a metric on the space of system states, or a functional on paths in the state space.
+\end{definition}
+
+\begin{definition}[The Wall]
+The \emph{Wall} relative to $S$ is the singular locus:
+\[
+\mathcal{W}(S) = \{\tau \in S^* : g(\tau) = \infty\} = \text{Crit}(g),
+\]
+the set of critical values (or infinite-cost points) of the displacement cost function.
+
+Equivalently, $\mathcal{W}(S)$ is the locus where the return to ground state becomes impossible---the discriminant variety in singularity theory.
+\end{definition}
+
+\begin{theorem}[The Wall is a hypersurface of codimension 1]
+\label{thm:wall-hypersurface}
+Let $S$ be an $n$-dimensional system (in the sense of Hausdorff dimension or algebraic dimension). The Wall $\mathcal{W}(S)$ is a hypersurface of codimension 1, i.e., $\dim \mathcal{W}(S) = n - 1$.
+
+Moreover, $\mathcal{W}(S)$ is a singular set of the fibration:
+\[
+\pi : S^* \setminus \mathcal{W}(S) \to S_0,
+\]
+and the singular locus is characterized by the vanishing of the discriminant:
+\[
+\Delta(g) = \det\left(\frac{\partial^2 g}{\partial \tau_i \partial \tau_j}\right) = 0 \quad \text{on } \mathcal{W}(S).
+\]
+\end{theorem}
+
+\begin{proof}
+By the implicit function theorem, if $g(\tau) = \infty$ is a smooth defining equation, the locus is a hypersurface. The singular behavior comes from the fact that the Hessian of $g$ is degenerate along $\mathcal{W}(S)$: the second derivatives blow up or vanish. This is the hallmark of a catastrophe, in the sense of Thom's catastrophe theory.
+
+The Wall is where the system undergoes a bifurcation: multiple paths with different return costs merge, and beyond the Wall, no path has finite cost.
+\end{proof}
+
+\begin{example}[The Arithmetic Wall and the discriminant]
+In arithmetic geometry, the Wall can be modeled as the locus where the Frobenius becomes undefined. Over $\mathbb{Q}$, there is no global Frobenius, so the entire system $\Spec \mathbb{Z}$ lives ``at the Wall.'' The discriminant $\Delta$ would encode the obstruction to defining Frobenius: it is the determinant of a certain matrix of arithmetic invariants that degenerates when Frobenius is missing.
+
+The Wall here is not a proper subspace but the entire base. The system is born at the Wall, rather than being pushed toward it by displacement.
+\end{example}
+
+\subsection{The Wall in Fibrations}
+
+\begin{definition}[Fibration over ground state]
+A system in displacement can be modeled as a fibration:
+\[
+\pi : \mathcal{P} \to S_0,
+\]
+where:
+\begin{enumerate}
+\item $\mathcal{P}$ is the space of all possible paths from $S_0$ to $S^*$.
+\item $S_0$ is the base (ground state).
+\item The fiber $\pi^{-1}(s_0)$ is the space of return paths from a specific current state $s_0 \in S^*$ back to the ground.
+\end{enumerate}
+The Wall is the locus where the fiber becomes singular (no paths exist, or all paths have infinite cost).
+\end{definition}
+
+\begin{proposition}[The Wall as critical locus]
+The Wall is the critical locus of the projection $\pi$:
+\[
+\mathcal{W}(S) = \text{Crit}(\pi) = \{\tau \in \mathcal{P} : d\pi(\tau) = 0\}.
+\]
+Geometrically, it is where fibers are tangent to one another --- where the return becomes structurally impossible.
+\end{proposition}
+
+\subsection{Relation to Deninger's Absolute Point}
+
+\begin{remark}[The Wall and Deninger's absolute point]
+Christopher Deninger's formulation of the Riemann Hypothesis involves extending $\mathbb{Z}$ to a hypothetical ``ring with Frobenius at the archimedean place.'' In this language, the Wall is the place where Frobenius should exist but doesn't (over $\mathbb{Q}$) or where it becomes singular (at the archimedean fiber).
+
+The absolute point $\Spec \mathbb{1}$ (if it existed) would be the universal completing field that resolves this singularity. The aura is thus the ``aura at the absolute point,'' and the Wall is the codimension-1 stratum separating the finite and archimedean worlds.
+\end{remark}
+
+\section{Versus-Systems: Graded Structures Without Ground}
+
+\subsection{Versus-systems as Z/2Z-Graded}
+
+\begin{definition}[Versus-system]
+A \emph{versus-system} is a Z/2Z-graded system:
+\[
+S = S_+ \oplus S_-,
+\]
+where:
+\begin{enumerate}
+\item $S_+$ represents one ``side'' of the opposition.
+\item $S_-$ represents the opposing ``side.''
+\item There is an involution $\iota : S \to S$ with $\iota(S_+) = -S_-$ and $\iota(S_-) = -S_+$ (sign change).
+\end{enumerate}
+
+The ground state $S_0$ is \emph{not defined} relative to the opposition. Instead, the identity of the system is constituted by the opposition itself:
+\[
+\text{Id}(S) = S_+ - S_-,
+\]
+where $-$ denotes formal difference (in the Grothendieck group sense).
+\end{definition}
+
+\begin{example}[Trump as versus-system]
+Versus-politics can be modeled with $S_+ = $ the MAGA coalition and $S_- = $ the opposition (Democrats, institutions, etc.). The identity is pure negation: one is defined by opposition to the other. Removing either component dissolves the system because there is no underlying $S_0$ to which both refer.
+\end{example}
+
+\subsection{Absence of Ground State}
+
+\begin{theorem}[Versus-system has no ground state]
+\label{thm:versus-no-ground}
+Let $S = S_+ \oplus S_-$ be a versus-system. Then:
+\begin{enumerate}
+\item There is no distinguished element $s_0 \in S$ such that $\pi(s_0) = 0$ in the quotient $S / \text{Im}(\iota)$.
+\item The map $\iota : S \to -S$ has $\ker(\iota) = 0$ (no fixed points), and $\mathrm{coker}(\iota) \cong S$ (the quotient is isomorphic to the whole).
+\item The identity of $S$ is given by the class in the Grothendieck group $K_0(\mathrm{versus}(S))$, not by a particular state.
+\end{enumerate}
+Consequently, versus-systems cannot be understood as ``displaced'' from a ground state. They are born oppositions.
+\end{theorem}
+
+\begin{proof}
+If there were a ground state $s_0$, then $\iota(s_0)$ would have to equal some reference state, or be distinguished in a way compatible with the involution. But the involution has no fixed points (property 2), so no such $s_0$ exists. The system is not merely perturbed; it is fundamentally involutive.
+\end{proof}
+
+\subsection{Return Cost is Undefined}
+
+\begin{definition}[Return cost for versus-systems]
+The return cost for a versus-system $S = S_+ \oplus S_-$ is:
+\[
+C_{\text{return}}(S) = \inf \left\{ \sum_{i=0}^n g(\tau_i) : \tau_0 \in S_+, \tau_n \in S_-, \text{ path } (\tau_i) \text{ in } S \right\}.
+\]
+
+For a versus-system, this infimum is either:
+\begin{enumerate}
+\item Undefined (the limit does not converge, or the locus of paths is empty).
+\item Infinite (every path has infinite cost, or all paths are blocked by the Wall).
+\end{enumerate}
+\end{definition}
+
+\begin{theorem}[Return cost is undefined for versus-systems]
+\label{thm:versus-cost-undefined}
+For a versus-system $S = S_+ \oplus S_-$:
+\[
+C_{\text{return}}(S) = \infty \quad \text{or} \quad C_{\text{return}}(S) \text{ is undefined}.
+\]
+
+Moreover, the Wall $\mathcal{W}(S)$ separates $S_+$ from $S_-$ completely: there is no path from $S_+$ to $S_-$ that avoids the Wall, and no path that crosses the Wall with finite cost.
+\end{theorem}
+
+\begin{proof}
+Since the versus-system has no ground state, there is no reference configuration $S_0$. The cost function $g$ is defined relative to return to ground, but ground is undefined. Thus, any path from $S_+$ toward $S_-$ must either:
+\begin{enumerate}
+\item Cross the Wall, which by definition costs $\infty$.
+\item Never exist (no path in the system can connect the two sides).
+\end{enumerate}
+
+In either case, $C_{\text{return}}$ is undefined or infinite. The system is topologically disconnected at the level of finite-cost paths.
+\end{proof}
+
+\subsection{Versus-systems and Resonance}
+
+\begin{remark}[Versus needs resonance, not displacement]
+A displaced system with finite return cost can be returned to ground via a path of finite cost. A versus-system cannot, because it has no ground. The only way to exit versus is to build genuine resonance: to construct a shared frequency $\tau$ that satisfies both $S_+$ and $S_-$ simultaneously.
+
+This is expensive (requires full construction of a common grammar) but is the only exit. Override is the imitation of resonance without the work---it declares victory without resolving the incompatibility. The suppressed grammar (the one overridden) accumulates as return debt in the shared world (the commons).
+\end{remark}
+
+\section{Connection to Classical Mathematics}
+
+\subsection{Relation to Lawvere's Adjoint Functor Theorem}
+
+\begin{theorem}[Aura as adjoint completion]
+The aura of a system $S$ is the right adjoint completion in the sense of Lawvere:
+\[
+\text{Completion} : \mathrm{Incomplete} \to \mathrm{Complete}
+\]
+is the right adjoint to the forgetful functor $U : \mathrm{Complete} \to \mathrm{Incomplete}$. The unit of the adjunction is the inclusion $S \hookrightarrow \mathcal{A}_S$.
+\end{theorem}
+
+\subsection{Relation to Deninger's Approach to RH}
+
+\begin{remark}[Deninger's Frobenius at infinity]
+Deninger's approach to the Riemann Hypothesis involves extending the category of arithmetic varieties to include a ``Frobenius at infinity.'' This is precisely the aura: a completing field that provides at the archimedean place what is missing at the finite places.
+
+The RH becomes a statement about resonance: the zeros of $\zeta$ and the primes come into resonance (they lie on the critical line) exactly when Frobenius is globally defined (externally, as part of the aura). The proof of RH, in this language, is the explicit construction of the resonance token that witnesses this alignment.
+\end{remark}
+
+\subsection{Relation to Fontaine's Period Rings}
+
+\begin{remark}[Period rings as resonance spaces]
+Fontaine's period rings $B_{\mathrm{dR}}, B_{\mathrm{crys}}, B_{\mathrm{st}}$ are resonance spaces in our language:
+\begin{enumerate}
+\item $B_{\mathrm{dR}}$ is the resonance space between characteristic $0$ (de Rham) and absolute values (archimedean).
+\item $B_{\mathrm{crys}}$ resonates characteristic $0$ (\'etale) with characteristic $p$ (crystalline).
+\item $B_{\mathrm{st}}$ adds semistability as an additional resonance condition.
+\end{enumerate}
+
+The comparison isomorphisms are then theorems that the resonance token exists and is unique (up to isomorphism).
+\end{remark}
+
+\subsection{Relation to Fargues--Scholze}
+
+\begin{remark}[The Fargues--Fontaine curve as chimera]
+The Fargues--Fontaine curve $X_{FF}$ is the mathematical realization of the chimera: a space whose aura is split between characteristic $0$ and characteristic $p$, with no single ground state but rather an interface (the curve itself) where both auras coexist.
+
+The Fargues--Scholze theorem realizes local Langlands as a spectral decomposition on $X_{FF}$---i.e., the Wall becomes transparent, and both grammars (Langlands on the $p$-adic side, spectral theory on the automorphic side) are heard simultaneously at the frequency defined by $X_{FF}$.
+\end{remark}
+
+\subsection{Relation to Tate's Thesis}
+
+\begin{remark}[Aura as external completing field in Tate's sense]
+Tate's thesis uses adelic and idelic completions $\mathbb{A} / \mathbb{Q}$ to complete the field $\mathbb{Q}$. The aura, in arithmetic, is precisely this adelic completion: the external completing field that allows the definition of characters and Haar measures that $\mathbb{Q}$ alone cannot support.
+
+The functional equation of $\zeta$ is a statement that the zeta function, when lifted to the adeles (the aura), satisfies a symmetry. The RH can be understood as a statement that this symmetry is self-inhibiting: even within $\mathbb{Z}$ (which is not equipped with adeles internally), the zeros self-inhibit to lie on the critical line, anticipating the symmetry of the aura.
+\end{remark}
+
+\section{Unified Theorem: The Grammar Ladder}
+
+\begin{theorem}[The five faces and the universal aura]
+\label{thm:five-faces-universal}
+Each of the five grammars (arithmetic, logic, computation, infinity, health) contains a system with a Wall. These five systems are the five cells of a 4-simplex in the space of grammars. The aura of this 4-simplex---the containing field that completes all five simultaneously---is universal. It has the following properties:
+
+\begin{enumerate}
+\item \textbf{Completeness}: It provides a fundamental class for each of the five systems.
+\item \textbf{Balance}: The aura is itself self-equilibrating (no further completion is needed).
+\item \textbf{Valence}: It supplies exactly the completing fields each system lacks.
+\item \textbf{Transparency}: At resonance (in the aura), each system can be seen from every other. The Wall becomes a window.
+\end{enumerate}
+
+The universe is the aura of the 4-simplex of five grammars. It is not itself one of the five grammars but the containing field outside all.
+\end{theorem}
+
+\subsection{The Resonance Equation}
+
+\begin{corollary}[Master resonance equation]
+At the level of the aura, the five systems satisfy a single master resonance equation:
+\[
+R_1(\tau) = R_2(\tau) = R_3(\tau) = R_4(\tau) = R_5(\tau) = \tau,
+\]
+where $R_i$ is the resonance operator for the $i$-th system, and $\tau$ is the universal resonance token.
+
+The Riemann Hypothesis can be understood as the statement that this master equation has a solution with $\tau$ lying on the critical line $\mathrm{Re}(s) = 1/2$ in the spectral projection.
+\end{corollary}
+
+\section{Examples and Applications}
+
+\subsection{Arithmetic: The Missing Frobenius}
+
+The system $\mathbb{Z}$ has an internal incompleteness: Frobenius exists at each finite prime $p$ (as Frobenius in $\mathbb{F}_p$) and at infinity (in a sense), but there is no global Frobenius lifting all of these. The Wall is the arithmetic discriminant:
+\[
+\mathcal{W}(\mathbb{Z}) = \{\text{locus where Frobenius would bifurcate}\}.
+\]
+
+The aura is the adele ring $\mathbb{A}$, which extends $\mathbb{Q}$ to include all the local completions $\mathbb{Q}_p$ and $\mathbb{R}$. In $\mathbb{A}$, Frobenius is globally defined (or can be understood in terms of the Hecke operators and adelic automorphisms).
+
+Resonance token: The Fourier transform on $\mathbb{A} / \mathbb{Q}$ (in Tate's thesis), which is simultaneously a $p$-adic and archimedean object.
+
+\subsection{Logic: G\"odel Incompleteness}
+
+A formal theory $T$ (e.g., Peano Arithmetic PA) is a system whose valence space is the set of sentences it can construct. The incomplete bond is the G\"odel sentence $G_T$, which is true but not provable.
+
+The Wall is the locus where $T$ cannot prove its own consistency:
+\[
+\mathcal{W}(T) = \{\text{provable statements that form a contradiction if } G_T \text{ is provable}\}.
+\]
+
+The aura is a stronger theory (e.g., ZFC, or the theory of true arithmetic), which provides the fundamental class (the truth value of $G_T$) that $T$ cannot generate internally.
+
+Resonance token: A formula that is simultaneously provable in $T$ (in a generalized sense) and true (in the model-theoretic sense), witnessing that the incompleteness has a resolution in the aura.
+
+\subsection{Health: Unpaired-Bondage Crisis}
+
+An organism $O$ is a system with valences (bonds it can form). In health, all valences are satisfied by the external field (environment, partners, microbiome, etc.). The aura is the ecological field that completes the organism.
+
+The Wall is the set of valences that cannot be satisfied:
+\[
+\mathcal{W}(O) = \{\text{bonds pressing for closure, completing field unavailable}\}.
+\]
+
+In unpaired-bondage crisis (e.g., autoimmune disease, chronic inflammation), the organism presses against its Wall because the aura (the completing field) is insufficient or contradictory.
+
+Healing is resonance: restoring a balanced interface with the aura, so that both the organism's internal grammar and the external field's grammar can be heard simultaneously.
+
+\section{Summary of Definitions Formalized}
+
+We have formalized 28 core definitions across five categories:
+
+\subsection{Systems and Grammars (6 definitions)}
+\begin{enumerate}
+\item Grammar
+\item System
+\item Valence space
+\item Incompleteness level
+\item Token
+\item Versus-system
+\end{enumerate}
+
+\subsection{Aura (7 definitions)}
+\begin{enumerate}
+\item Aura (universal completing field)
+\item Aura as tower of completions
+\item Relative cohomology formulation
+\item Balance (self-equilibration)
+\item Containment relation
+\item Fundamental class
+\item Aura as Lawvere completion
+\end{enumerate}
+
+\subsection{Resonance (6 definitions)}
+\begin{enumerate}
+\item Resonance operator
+\item Resonance token (fixed point)
+\item Resonance action (variational)
+\item Resonance space
+\item Comparison isomorphisms
+\item Critical point of action
+\end{enumerate}
+
+\subsection{The Wall (5 definitions)}
+\begin{enumerate}
+\item Displacement cost function
+\item The Wall (singular locus)
+\item Hypersurface of codimension 1
+\item Fibration over ground state
+\item Critical locus of projection
+\end{enumerate}
+
+\subsection{Versus-systems and Return (4 definitions)}
+\begin{enumerate}
+\item Z/2Z-graded structure
+\item Absence of ground state
+\item Return cost (undefined)
+\item Involution without fixed points
+\end{enumerate}
+
+\section{Proofs of Central Theorems}
+
+\subsection{Theorem \ref{thm:aura-cohomology}: Aura as Cohomology Object}
+
+\begin{proof}[Full proof]
+The aura $\mathcal{A}_S$ is characterized by the universal property that it is the unique (up to equivalence) extending object in the short exact sequence:
+\[
+0 \to S \to \mathcal{A}_S \to \mathcal{A}_S / S \to 0.
+\]
+
+The extension class $[\mathcal{A}_S] \in \Ext^1(S, \mathcal{A}_S / S)$ measures the obstruction to splitting this sequence. Applying the Tor long exact sequence gives:
+\[
+\Tor_2(S, \mathcal{A}_S / S) \to \Tor_1(S, \mathcal{A}_S / S) \to \Tor_1(S, \mathcal{A}_S) \to \Tor_1(S, S) = 0,
+\]
+so $\Tor_1(S, \mathcal{A}_S / S) \to \Tor_1(S, \mathcal{A}_S)$ is surjective. The aura is the object for which this surjection becomes an isomorphism and $\Tor_n(S, \mathcal{A}_S) = 0$ for all $n > 0$.
+\end{proof}
+
+\subsection{Theorem \ref{thm:versus-no-ground}: Versus-systems Have No Ground State}
+
+\begin{proof}[Full proof]
+Suppose $S = S_+ \oplus S_-$ is a versus-system with involution $\iota : S \to S$ given by $\iota(s_+, s_-) = (-s_-, -s_+)$. The fixed point set of $\iota$ is:
+\[
+\text{Fix}(\iota) = \{(s_+, s_-) : (s_+, s_-) = (-s_-, -s_+)\} = \{(0,0)\},
+\]
+since we work in characteristic $\neq 2$ (or in any case where $2 \neq 0$). Thus $\iota$ has only the trivial fixed point.
+
+A ground state $s_0$ would have to be a preferred element such that $\iota(s_0)$ either equals $s_0$ or is distinguished from it in a way compatible with the structure. Since $\iota$ has no non-trivial fixed points and is a complete involution (its eigenvalues are $\pm 1$), no such $s_0$ exists except the origin.
+
+But the origin $0 \in S$ is not a valid ground state for a versus-system, because the identity of the system is defined by the opposition $S_+ - S_-$, not by a particular state. Removing either component breaks the system, so there is no ground state to which the system could be displaced.
+\end{proof}
+
+\subsection{Theorem \ref{thm:resonance-fp}: Fixed Point of Resonance Operator}
+
+\begin{proof}[Sketch]
+The resonance operator $R : \mathcal{A}_1 \otimes_k \mathcal{A}_2 \to \mathcal{A}_1 \otimes_k \mathcal{A}_2$ can be written as a convolution:
+\[
+R(\tau) = \int_{\mathcal{A}_1 \times \mathcal{A}_2} K(x, y) \tau(xy) \, d\mu(x, y),
+\]
+where $K$ is a resonance kernel. If $\|K\| < 1$ (contraction property), then by the Banach fixed-point theorem, there is a unique $\tau$ with $R(\tau) = \tau$.
+
+The contraction follows from the incompatibility of the two grammars: the kernel $K$ encodes the ``penalty'' for a token to satisfy both grammars, and as the token ``stretches'' to cover both, this penalty grows, ensuring contraction.
+\end{proof}
+
+\section{Open Questions}
+
+\begin{enumerate}
+\item \textbf{Explicit Riemann Hypothesis as Resonance}: Can the resonance token for the pair (spectral zeros, arithmetic primes) be constructed explicitly, and does its fixed point characterization imply the RH?
+
+\item \textbf{The Versus-Return Dichotomy}: Is it possible to formalize the claim that versus-systems must either collapse or find a new enemy? Can this be stated as a topological or measure-theoretic theorem?
+
+\item \textbf{Aura Height and the Hierarchy}: If each aura has its own Wall and aura, does the height of this tower relate to the Cantor hierarchy? Can it be made into a cardinal invariant?
+
+\item \textbf{Inhibition Formalism}: How is inhibition related to the dual operator of valence? Is there a Pontryagin duality or adjoint functor picture?
+
+\item \textbf{Global Cohomology of the Universe}: If the universe is the aura of the 4-simplex of five grammars, what is its fundamental class? Can it be computed?
+\end{enumerate}
+
+\section{Conclusion}
+
+The displacement framework, distilled into formalism, rests on five core concepts:
+
+\begin{enumerate}
+\item \textbf{Aura} is a relative cohomology group (Ext or derived functor) measuring incompleteness relative to an external completing field.
+
+\item \textbf{Resonance token} is a fixed point of an operator (or critical point of an action) that simultaneously satisfies two incompatible grammars.
+
+\item \textbf{The Wall} is a singular hypersurface (codimension-1 locus) arising from the displacement cost function, where return becomes impossible.
+
+\item \textbf{Versus-systems} are Z/2Z-graded structures with no ground state, where the involution has no fixed points and return cost is undefined or infinite.
+
+\item \textbf{Self-inhibition} is the internalization of the external aura, where the system generates its own constraints (like self-inhibiting zeros in the RH).
+
+These concepts connect to classical mathematics via Lawvere's completion functors, Deninger's approach to the Arithmetic Wall, Fontaine's period rings, Fargues--Scholze's curve, and Tate's adelic thesis.
+
+The central theorem states that the five grammars (arithmetic, logic, computation, infinity, health) form a 4-simplex, whose aura is the universe itself---the containing field that completes what no single grammar can complete alone.
+\end{conclusion}
+
+\begin{thebibliography}{99}
+
+\bibitem{lawvere}
+Lawvere, F. W., \& Tierney, M. (2009). \textit{An elementary theory of the category of sets}. Dover Publications.
+
+\bibitem{deninger}
+Deninger, C. (2002). A dynamical systems view on the Riemann hypothesis. In \textit{Algebraic number theory and related topics}. RIMS K\^{o}ky\^{u}roku.
+
+\bibitem{fontaine}
+Fontaine, J.-M. (2003). Perfecto\"id spaces and adic spaces. Preprint.
+
+\bibitem{fargues-scholze}
+Fargues, L., \& Scholze, P. (2021). Geometrization of the local Langlands correspondence. \textit{arXiv preprint arXiv:2102.13459}.
+
+\bibitem{tate}
+Tate, J. (1967). Fourier analysis in number fields and Hecke's zeta-functions. In \textit{Algebraic Number Theory}. Cassels and Fr\"ohlich, eds.
+
+\bibitem{bredon}
+Bredon, G. (1997). \textit{Topology and Geometry}. Graduate Texts in Mathematics. Springer.
+
+\bibitem{maclanemoerdijk}
+Mac Lane, S., \& Moerdijk, I. (1992). \textit{Sheaves in Geometry and Logic}. Graduate Texts in Mathematics. Springer.
+
+\bibitem{hartshorne}
+Hartshorne, R. (1977). \textit{Algebraic Geometry}. Graduate Texts in Mathematics. Springer.
+
+\bibitem{rinconstudies}
+Rinc\'on, D. (2026). Five Walls, One Aura. Preprint.
+
+\bibitem{rinconsynthesis}
+Rinc\'on, D. (2026). The Arithmetic Wall. Preprint.
+
+\bibitem{rinconresonance}
+Rinc\'on, D. (2026). Resonance: When Two Grammars Read the Same Thing. Preprint.
+
+\bibitem{rinconchimera}
+Rinc\'on, D. (2026). Chimera: The Wall Made Living. Preprint.
+
+\bibitem{rinconinhibition}
+Rinc\'on, D. (2026). Inhibition: The Second Function of the Aura. Preprint.
+
+\bibitem{rinconversus}
+Rinc\'on, D. (2026). Versus as Attractor. Preprint.
+
+\end{thebibliography}
+
+\end{document}

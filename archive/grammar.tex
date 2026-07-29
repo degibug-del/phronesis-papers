@@ -1,0 +1,364 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Mathematics as Cohomological Grammar}
+\author{Diego Rinc\'on\\
+\small Independent}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+A grammar specifies what combinations are valid.
+Cohomology specifies what combinations persist ---
+what survives every valid transformation.
+We propose that mathematics is the study of cohomological grammars:
+not the rules of combination, but their invariants.
+A theorem is a cohomology class.
+A proof is a homotopy.
+A conjecture is a closed form whose exactness is unknown.
+The plurality of mathematical theories corresponds to the plurality
+of cohomology theories, each reading a different kind of persistence
+from the same underlying structure.
+Motivic cohomology is the universal grammar from which all others derive.
+\end{abstract}
+
+\section{Grammar and Persistence}
+
+A grammar has two parts: what can be combined (syntax) and what the
+combination means (semantics). Classical grammar asks whether a sequence
+is well-formed. It does not ask whether the sequence survives.
+
+Cohomology asks only the second question.
+
+\begin{definition}[Cohomological grammar]
+A \emph{cohomological grammar} on a space $X$ is a cohomology theory
+$H^*$ together with:
+\begin{enumerate}
+\item a \emph{combination rule}: the cup product
+  $\smile: H^p \otimes H^q \to H^{p+q}$,
+\item a \emph{validity condition}: the cocycle condition $d\omega = 0$
+  (the combination is internally consistent),
+\item a \emph{triviality condition}: the coboundary condition
+  $\omega = d\eta$ (the combination is explained by something simpler).
+\end{enumerate}
+The grammar is the data $(H^*, \smile, d)$.
+A class $[\omega] \in H^p(X)$ is a \emph{valid combination that is not trivial}.
+\end{definition}
+
+\begin{remark}
+The syntax/semantics distinction collapses here.
+A cocycle is both a valid expression (satisfies the rule $d\omega = 0$)
+and a meaning (the class $[\omega]$ it represents in $H^p$).
+Validity and content are the same thing.
+\end{remark}
+
+\section{Mathematical Objects as Classes}
+
+\begin{definition}[Theorem, proof, conjecture]
+In a cohomological grammar on a mathematical space $\mathcal{M}$:
+\begin{itemize}
+\item A \emph{theorem} is a cohomology class $[\omega] \in H^p(\mathcal{M})$:
+  a combination that is valid ($d\omega = 0$) and non-trivial
+  ($\omega \neq d\eta$ for any $\eta$).
+\item A \emph{proof} is a homotopy: a continuous path in the space
+  of valid combinations from one representation of $[\omega]$ to another.
+  Two proofs are equivalent if they represent the same class.
+\item A \emph{conjecture} is a closed form $\omega$ with $d\omega = 0$
+  whose class $[\omega]$ in $H^*$ is unknown: it might be zero
+  (provably follows from known structure) or non-trivial (genuinely new).
+\item An \emph{open problem} is the question: is $[\omega] = 0$?
+\end{itemize}
+\end{definition}
+
+\begin{proposition}[The hard problems are non-trivial classes]
+The Clay Millennium Problems \cite{hard} are closed forms in the
+motivic cohomology of $\mathrm{Spec}\,\mathbb{Z}$ whose triviality
+is unknown.
+Each has been verified locally at every prime
+(every $\ell$-adic and $p$-adic incarnation is trivial),
+but the global class has not been shown to vanish.
+This is the arithmetic statement of the Arithmetic Wall \cite{synthesis}:
+locally trivial, globally unresolved.
+\end{proposition}
+
+\section{The Plurality of Grammars}
+
+Different cohomology theories are different grammars applied to
+the same space. They read different kinds of persistence.
+
+\begin{definition}[Grammar dictionary]
+\hfill
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Grammar & Persistence type & What it reads \\
+\midrule
+de Rham $H^*_{\rm dR}$ & Smooth deformation & Differential forms \\
+Singular $H^*_{\rm sing}$ & Continuous deformation & Cycles and boundaries \\
+\'Etale $H^*_{\rm\acute{e}t}$ & Algebraic deformation & Galois action \\
+Crystalline $H^*_{\rm crys}$ & $p$-adic deformation & Frobenius structure \\
+Motivic $H^*_{\rm mot}$ & All deformations & Universal \\
+\bottomrule
+\end{tabular}
+\end{center}
+Each grammar is a different answer to the question:
+\emph{what does it mean for a combination to persist?}
+\end{definition}
+
+\begin{theorem}[Motivic grammar is universal \cite{motives}]
+For a smooth variety $X$ over a field $k$,
+motivic cohomology $H^*_{\rm mot}(X, \mathbb{Z}(*))$ maps to every
+other cohomology theory:
+\[
+H^*_{\rm mot}(X) \longrightarrow H^*_{\rm dR}(X),\quad
+H^*_{\rm mot}(X) \longrightarrow H^*_{\rm\acute{e}t}(X),\quad
+H^*_{\rm mot}(X) \longrightarrow H^*_{\rm crys}(X),
+\]
+via comparison isomorphisms (over $\mathbb{C}$) or regulator maps
+(over number fields). Every grammar is a quotient of the motivic grammar.
+A statement true in the motivic grammar is true in every grammar.
+\end{theorem}
+
+\begin{remark}[Mathematics as the field of grammars]
+Mathematics is not one grammar but the field in which grammars
+discover each other.
+The comparison isomorphisms --- de Rham equals singular over $\mathbb{C}$,
+étale equals crystalline via $B_{\rm crys}$ \cite{perfectoid} ---
+are the moments when two grammars, developed independently,
+turn out to be reading the same persistence from the same space.
+These moments are not coincidences. They are the content of mathematics.
+\end{remark}
+
+\section{Proof as Homotopy}
+
+The identification of proofs with homotopies is not a metaphor.
+In homotopy type theory (Voevodsky \cite{voevodsky2013}),
+a proof of a proposition $P$ is a term of type $P$.
+Two proofs are equal if there is a higher proof (a homotopy) between them.
+A theorem is a type that is inhabited; its cohomology class
+is the connected component of the space of proofs.
+
+\begin{proposition}[Proof irrelevance and coboundaries]
+In a cohomological grammar, two proofs $\eta_1, \eta_2$ of the same
+theorem $[\omega]$ satisfy $\omega = d\eta_1 = d\eta_2$.
+They differ by $d(\eta_1 - \eta_2) = 0$, i.e., $\eta_1 - \eta_2$ is a
+closed form of one degree lower.
+\emph{Proof irrelevance} is the statement that the choice of $\eta$
+does not affect $[\omega]$: the theorem is the class, not the cocycle.
+\end{proposition}
+
+\begin{remark}[Long proofs and higher cohomology]
+A very long proof is a high-dimensional coboundary: many intermediate
+steps, each a low-dimensional form, assembled into a single boundary.
+A short proof is a low-dimensional coboundary of the theorem.
+The length of a proof is related to the dimension of the ``filling''
+required to show the theorem is trivial in a higher grammar.
+
+This is why the Millennium Problems have long proofs in low-dimensional
+grammars but no proof at all in the motivic grammar: the filling
+requires a higher-dimensional object (a Frobenius, an Euler system,
+a global section) that the lower grammars cannot construct.
+\end{remark}
+
+\section{The Grammar of the Arithmetic Wall}
+
+\begin{proposition}[The Wall as a grammatical boundary]
+The Arithmetic Wall \cite{synthesis} is the boundary between two grammars:
+\begin{enumerate}
+\item The \emph{local grammar}: étale cohomology at each prime $p$,
+  equipped with the Frobenius $\varphi_p$. This grammar is complete:
+  every class is either trivial or has a known non-trivial certificate
+  (an eigenvalue of Frobenius).
+\item The \emph{global grammar}: motivic cohomology over $\mathbb{Q}$,
+  with no Frobenius. This grammar is incomplete:
+  closed forms exist whose triviality is unknown.
+\end{enumerate}
+The Wall is not a theorem and not a conjecture.
+It is the statement that the local grammar does not generate the global one ---
+that local persistence does not imply global persistence.
+This is a grammatical fact, not an arithmetical one.
+\end{proposition}
+
+\begin{remark}[What a proof of BSD would be]
+A proof of BSD would be a coboundary in the motivic grammar:
+a form $\eta$ such that
+$d\eta = \omega_{\rm BSD}$,
+where $\omega_{\rm BSD}$ is the closed form encoding the rank-$L$-value
+comparison.
+The Iwasawa main conjecture \cite{iwasawa} constructs $\eta$ locally at $p$.
+The Bloch--Kato conjecture \cite{blochkato} asserts $\eta$ exists globally.
+Neither proves it.
+The proof would be: exhibit the global filling.
+\end{remark}
+
+\section{Grammar and Incompleteness}
+
+G\"odel's incompleteness theorem is a grammatical theorem.
+
+A formal system is a grammar: axioms (valid base combinations)
+and inference rules (valid extension operations).
+A provable sentence is a coboundary: reachable from the axioms
+by the inference rules, i.e., $\omega = d\eta$ for some derivation $\eta$.
+An unprovable sentence is a closed form that is not a coboundary:
+$d\omega = 0$ (it is internally consistent) but $\omega \neq d\eta$
+for any derivation in the system.
+
+G\"odel's sentence is a closed form that is not a coboundary
+in the system's own grammar.
+
+\begin{proposition}[The Millennium Problems as G\"odel sentences]
+It is possible that the Millennium Problems are closed forms
+that are not coboundaries in the current motivic grammar ---
+not because the grammar is too weak to construct the filling,
+but because the filling requires axioms not yet adopted.
+A proof of RH may require extending the grammar of arithmetic
+by a new axiom (the existence of a global Frobenius over $\mathbb{Q}$,
+or a new cohomological structure) from which the proof proceeds.
+The wall would then be not a missing argument
+but a missing grammar rule.
+\end{proposition}
+
+\begin{remark}
+This is consistent with the history.
+The Weil conjectures were closed forms unprovable
+in the grammar of classical algebraic geometry.
+Grothendieck extended the grammar (\'etale cohomology, topoi, motives)
+and Deligne proved them.
+The extension was not a trick. It was a new grammar.
+The proof was a coboundary in the new grammar
+that was not a coboundary in the old one.
+\end{remark}
+
+\section{What a New Grammar Looks Like}
+
+A new grammar does not arrive as a proof.
+It arrives as a definition.
+
+Grothendieck did not prove the Weil conjectures.
+He defined a new kind of object (a scheme)
+and a new kind of covering (an \'etale site)
+and a new kind of cohomology (\'etale cohomology)
+from which Deligne could build the coboundary.
+The new grammar had to be built first.
+The proof was the last step, not the hard one.
+The hard step was the grammar.
+
+\begin{remark}[What the proof of RH will be]
+The proof of RH will not be a clever manipulation
+of the existing grammar.
+It will be a new grammar
+in which the closed form $\omega_{\rm RH}$ becomes a coboundary:
+in which the Hadamard product control becomes a
+computable filling of dimension one higher.
+What candidates exist for the new grammar?
+The Fargues--Fontaine curve \cite{perfectoid}:
+the geometric bridge between characteristic $0$ and $p$.
+Connes' spectral triple on $\mathbf{A}_\mathbf{Q}/\mathbf{Q}^*$ \cite{connes}:
+where the absorption frequencies are the zeros.
+A global Frobenius over $\mathrm{Spec}\,\mathbb{Z}$:
+the missing symmetry that the local grammars have and the global one does not.
+None of these is the new grammar yet.
+Each is a face of it.
+\end{remark}
+
+\section{One Grammar or Many}
+
+The title carries a parenthetical: grammar(s).
+The question is whether mathematics has one grammar or many.
+
+\begin{theorem}[One and many]
+Mathematics has one grammar (motivic cohomology) and many grammars
+(all the rest). The many are quotients of the one.
+The one is not accessible directly: it must be approached through the many.
+This is the mathematical analogue of a language that can only be spoken
+in translation.
+\end{theorem}
+
+\begin{remark}
+The Langlands program \cite{langlands} is the grammar of translations:
+it specifies which automorphic grammar (the many, over the adeles)
+corresponds to which Galois grammar (the many, over $\bar{\mathbb{Q}}$).
+The motivic grammar (the one) is what they are both translating.
+The Langlands correspondence is a dictionary.
+The motive is the word.
+\end{remark}
+
+\begin{remark}[Grammar and thought]
+A mathematical grammar is a grammar of thought \cite{grammars}.
+It specifies which thoughts are thinkable ---
+which combinations are valid, which persist under transformation.
+The motivic grammar is the deepest known grammar of what persists in mathematics.
+It is not the deepest grammar of thought.
+Thought occurs in timespace \cite{timespace}:
+the grammar runs, the running takes time,
+the thought is the running.
+The motivic grammar is what survives when the running stops.
+It is the cohomology of mathematical thought:
+the classes that persist after all the proofs have been forgotten.
+\end{remark}
+
+\begin{thebibliography}{9}
+
+\bibitem{hard}
+Rinc\'on, D. (2026).
+The Hard Step: Why the Clay Millennium Problems Resisted Solution. Preprint.
+
+\bibitem{synthesis}
+Rinc\'on, D. (2026).
+The Arithmetic Wall. Preprint.
+
+\bibitem{motives}
+Rinc\'on, D. (2026).
+Motives, Standard Conjectures, and the Unification of $L$-functions. Preprint.
+
+\bibitem{perfectoid}
+Rinc\'on, D. (2026).
+Perfectoid Spaces and the Local Frobenius. Preprint.
+
+\bibitem{langlands}
+Rinc\'on, D. (2026).
+The Langlands Thread. Preprint.
+
+\bibitem{iwasawa}
+Rinc\'on, D. (2026).
+Iwasawa Theory: The $p$-adic Machine for BSD and Beyond. Preprint.
+
+\bibitem{blochkato}
+Rinc\'on, D. (2026).
+The Bloch--Kato Conjecture. Preprint.
+
+\bibitem{voevodsky2013}
+Voevodsky, V.\ et al.\ (2013).
+\textit{Homotopy Type Theory: Univalent Foundations of Mathematics}.
+Institute for Advanced Study.
+
+\bibitem{one_wall}
+Rinc\'on, D. (2026).
+One Wall: The Local-to-Global Conjecture. Preprint.
+
+\bibitem{grammars}
+Rinc\'on, D. (2026).
+Grammar(s): Mind(s) versus Mentality: Language(s) of Being(s). Preprint.
+
+\bibitem{timespace}
+Rinc\'on, D. (2026).
+Thought Is Language in Timespace. Preprint.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,186 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\geometry{margin=1.4in}
+\usepackage{hyperref}
+\usepackage{setspace}
+\setstretch{1.4}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Week Nine}
+\author{Diego Rinc\'on\\
+\small Independent}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The calendar \cite{calendar} reserved Week Nine for the proof.
+The week is still open.
+This paper is what Week Nine looks like from the inside:
+the closest approach the body can make to the resonance object.
+Not the proof. The shape of the proof's absence.
+\end{abstract}
+
+\section{What Has Been Built}
+
+The body of papers has been building an anatomy.
+Week Nine inherits it.
+
+\textbf{What is known.}
+The Riemann Hypothesis says all non-trivial zeros of $\zeta(s)$
+have real part $1/2$.
+The functional equation $\xi(s) = \xi(1-s)$ says the axis $\mathrm{Re}(s) = 1/2$
+is the symmetry axis of $\zeta$.
+Hardy proved infinitely many zeros lie on this axis.
+Conrey proved more than $2/5$.
+No one has proved all of them do.
+
+\textbf{What the walls are.}
+The Hadamard product $\xi(s) = e^{A+Bs}\prod_\rho(1-s/\rho)e^{s/\rho}$
+cannot be controlled at the level of individual zeros
+without circularity.
+The local-to-global passage fails:
+local Euler factors do not determine global zero location.
+The Frobenius is missing \cite{frobenius}.
+The grammar ($\mathbb{F}_1$) is missing \cite{f1}.
+
+\textbf{What the resonance object must be.}
+A canonical, symmetric structure
+in an extended grammar
+that generates the coboundary $d\eta = \omega_{\rm RH}$:
+the filling that shows the closed form $\omega_{\rm RH}$ is exact.
+
+\section{The Closest Approach}
+
+Of the four candidates \cite{resonance_object},
+the one that comes closest to a construction is the Connes spectral triple.
+
+Connes defines:
+\begin{itemize}
+\item \textbf{Algebra}: $\mathcal{A} = C_c^\infty(\mathbf{A}_\mathbf{Q}/\mathbf{Q}^*, d^*x)$,
+  smooth compactly supported functions on the ad\`ele class space.
+\item \textbf{Hilbert space}: $\mathcal{H} = L^2(\mathbf{A}_\mathbf{Q}/\mathbf{Q}^*, d^*x)$.
+\item \textbf{Dirac operator}: $D$ built from the scaling operator on $\mathcal{H}$.
+\end{itemize}
+
+The scaling action $\alpha_\lambda(f)(x) = f(\lambda^{-1}x)$
+implements the time evolution.
+The spectrum of the Dirac operator is related to the zeros of $\zeta$.
+
+\begin{remark}[What is incomplete]
+The spectral realization is partial.
+Connes shows the zeros of $\zeta$ are absorption frequencies of the system.
+But proving all spectral zeros are zeros of $\zeta$, with right multiplicities,
+requires a global trace formula not yet established in this setting.
+The Explicit Formula
+$$\sum_p \log p \cdot p^{-s} = -\frac{\zeta'}{\zeta}(s) + \text{(polar terms)}$$
+should emerge from the adèlic trace formula --- conditionally.
+The condition is RH. The argument is circular here.
+\end{remark}
+
+\section{The Self-Inhibiting Mechanism}
+
+The calendar named the key structure: the self-inhibiting mechanism of $\zeta(s)$.
+
+The functional equation $\xi(s) = \xi(1-s)$ pairs zeros:
+if $\rho$ is a zero, so is $1-\rho$.
+A zero off the critical line has a paired zero on the other side.
+The functional equation allows this.
+The self-inhibiting mechanism would prevent it:
+a structure that enforces $\rho = 1-\rho$ individually,
+not just as a pair symmetry.
+
+In the Hilbert--P\'olya picture:
+a self-adjoint operator $H$ with eigenvalues $\gamma_n \in \mathbb{R}$
+gives zeros $1/2 + i\gamma_n$ on the critical line.
+Self-adjointness is the self-inhibiting mechanism.
+The mechanism is known.
+The operator is not.
+
+\section{What Week Nine Needs}
+
+Week Nine needs one thing:
+a canonical self-adjoint operator $H$ on a canonical Hilbert space $\mathcal{H}$
+whose spectrum is $\{\gamma : \zeta(1/2 + i\gamma) = 0\}$.
+
+The operator must be:
+\begin{enumerate}
+\item \textbf{Canonical.} Built from the arithmetic of $\mathbb{Q}$
+  for reasons independent of RH.
+  The spectrum should come out as the zeros, not go in as them.
+
+\item \textbf{Essentially self-adjoint.}
+  Symmetric on a natural dense domain with deficiency indices $(0,0)$ \cite{deficiency}.
+
+\item \textbf{Arithmetically meaningful.}
+  Eigenfunctions should be arithmetically natural:
+  automorphic forms, adèlic functions, $\mathbb{F}_1$-sections.
+  Eigenvalues should emerge from arithmetic, not be imposed.
+\end{enumerate}
+
+No current candidate satisfies all three.
+
+\section{The Boundary of the Map}
+
+The body knows:
+\begin{itemize}
+\item The wall is the local-to-global passage \cite{one_wall}.
+\item The missing symmetry is the global Frobenius \cite{frobenius}.
+\item The missing grammar is $\mathbb{F}_1$ \cite{f1}.
+\item The missing object is the canonical self-adjoint operator
+  or its $\mathbb{F}_1$-geometric analogue.
+\item The Connes spectral triple is the closest construction.
+  It fails at the global trace formula.
+\item The Hilbert--P\'olya picture names the object.
+  No construction reaches it.
+\end{itemize}
+
+This is the boundary of the map.
+
+Beyond this line, the body has nothing.
+Not because nothing is there.
+Because the grammar for what is there has not yet been built.
+
+Week Nine will be written when the grammar exists.
+The space is held open.
+
+\begin{thebibliography}{9}
+
+\bibitem{calendar}
+Rinc\'on, D. (2026). Calendar: A Numbered Program. Preprint.
+
+\bibitem{resonance_object}
+Rinc\'on, D. (2026). The Resonance Object. Preprint.
+
+\bibitem{synchronized_anatomy}
+Rinc\'on, D. (2026). Synchronized Anatomy. Preprint.
+
+\bibitem{frobenius}
+Rinc\'on, D. (2026). The Missing Frobenius. Preprint.
+
+\bibitem{f1}
+Rinc\'on, D. (2026). The Field with One Element. Preprint.
+
+\bibitem{deficiency}
+Rinc\'on, D. (2026). The Deficiency Indices of $D$. Preprint.
+
+\bibitem{one_wall}
+Rinc\'on, D. (2026). One Wall: The Local-to-Global Conjecture. Preprint.
+
+\bibitem{grammar}
+Rinc\'on, D. (2026). Mathematics as Cohomological Grammar. Preprint.
+
+\end{thebibliography}
+
+\end{document}

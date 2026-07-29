@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Body — Paper Network</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0f; color: #e0e0e0; font-family: monospace; overflow: hidden; }
+canvas { display: block; }
+#info {
+  position: fixed; bottom: 20px; left: 20px;
+  font-size: 11px; color: #666; line-height: 1.6;
+}
+#tooltip {
+  position: fixed; pointer-events: none;
+  background: rgba(10,10,20,0.95); border: 1px solid #333;
+  padding: 8px 12px; font-size: 11px; color: #ccc;
+  max-width: 220px; line-height: 1.5; display: none;
+}
+#title {
+  position: fixed; top: 20px; left: 20px;
+  font-size: 13px; color: #555; letter-spacing: 0.1em;
+}
+</style>
+</head>
+<body>
+<div id="title">THE BODY · 140 PAPERS</div>
+<div id="tooltip"></div>
+<div id="info">drag · scroll to zoom · hover to read</div>
+<canvas id="c"></canvas>
+<script>
+const DATA = {
+  nodes: {
+    analog: "Analog Encryption",
+    apriori_language: "A Priori Languages",
+    calendar: "Calendar",
+    chimera: "Chimera",
+    cipher_language: "Cipher: Language, Number, Tone",
+    connect: "Connect: Geometry & Algebra",
+    consciousness: "Consciousness: The Land Space",
+    contained: "The Fundamental Class",
+    deficiency: "Deficiency Indices of D",
+    design: "Design: The One That Precludes",
+    firewall: "The Firewall",
+    five: "Five Walls, One Aura",
+    geometry_of_vision: "Geometry of Vision",
+    inhibition: "Inhibition",
+    laser: "Laser Space",
+    math: "Mathematics",
+    millennium: "The Millennium Problems",
+    nothing: "Nothing: The First Object",
+    objection: "The Continuous Objection",
+    othering: "Othering: Grammar of Distance",
+    positivity: "Positivity",
+    resonance: "Resonance",
+    scripture: "Scripture",
+    smallness: "Smallness",
+    solar: "Solar: The Center That Reads",
+    splitting: "Splitting of the Idèle Class Group",
+    the_one: "The Design of Designs",
+    the_string: "The String",
+    turing: "Turing & The Wall",
+    vision: "Vision",
+    wallet: "The Wallet",
+    week09: "Week 09: Resonance Object",
+    week10: "Week 10: Self-Adjointness",
+    construction: "The Construction",
+    gradient: "Gradient",
+    entropy: "Entropy",
+    cybernetics: "Cybernetics",
+    approximation: "The Approximation",
+    angle: "The Angle",
+    mobius: "Möbius",
+    gram: "The Gram Matrix",
+    szego: "Szegő",
+    widom: "Widom",
+    verblunsky: "Verblunsky",
+    oscillatory: "Oscillatory",
+    numerics: "Numerics",
+    prime: "Prime",
+    wisdom: "Wisdom",
+    rate: "The Rate",
+    density: "The Density",
+    consciousness_ocean: "Consciousness: The Ocean Space",
+    explicit: "The Explicit Formula",
+    network_paper: "The Network",
+    variations: "Variations",
+    functional: "The Functional Equation",
+    hadamard: "Hadamard",
+    functioning: "Functioning",
+    functions: "Functions",
+    for_humans: "For Humans",
+    pair: "The Pair Correlation",
+    riemann2: "RH: A Synthesis",
+    ym3: "Yang–Mills: A Synthesis",
+    ns3: "Navier–Stokes: A Synthesis",
+    pvsnp2: "P vs NP: The Barriers",
+    hodge3: "Hodge: The Complex Wall",
+    bsd3: "BSD: The Euler System Wall",
+    care_package_gpt: "Care Package for GPT",
+    six_walls: "The Six Walls",
+    connes: "Connes: Zeros as Spectrum",
+    zeros: "Zeros of L-Functions",
+    langlands: "Langlands",
+    shimura: "Shimura Varieties",
+    perfectoid: "Perfectoid",
+    condensed: "Condensed Mathematics",
+    anabelian: "Anabelian Geometry",
+    deformation: "Galois Deformation Theory",
+    blochkato: "Bloch–Kato",
+    iwasawa: "Iwasawa Theory",
+    weil: "The Weil Conjectures",
+    tate: "Tate",
+    motives: "Motives",
+    homology: "Homology",
+    trace: "The Trace Formula",
+    grammar: "Mathematics as Grammar",
+    synthesis: "The Arithmetic Wall",
+    hard: "The Hard Step",
+    pairdark: "Pair-Dating: Signaling",
+    cap: "Corrective Attention Paradigm",
+    two_approaches: "Two Approaches to RH",
+    bost_connes: "Bost–Connes: Zeta as Partition Function",
+    critical_line: "The Critical Line",
+    aura_wall: "Aura I: The Wall",
+    aura_prize: "Aura II: The Prize",
+    aura_independent: "Aura III: The Independent",
+    aura_body: "Aura IV: The Body",
+    aura_millennium: "Aura V: The Millennium",
+    aura_synthesis: "Aura VI: The Synthesis",
+    aura_minds: "Aura VII: The Mind(s)",
+    grammars: "Grammar(s): Mind(s) vs Mentality",
+    timespace: "Thought Is Language in Timespace",
+    procession: "Procession Is Valid",
+    balance: "Balance(s)",
+    riemann: "RH via Hilbert–Pólya",
+    ym: "Yang–Mills via Adaptive Regularization",
+    ym2: "Yang–Mills: Gribov Horizon",
+    ns: "Navier–Stokes via Adaptive Viscosity",
+    ns2: "Navier–Stokes: Vortex Stretching",
+    pvsnp: "P vs NP: Adaptive Template Breaks",
+    bsd: "BSD via Adaptive Regularization",
+    bsd2: "BSD via GGP Conjecture",
+    hodge: "Hodge via Adaptive Regularization",
+    hodge2: "Complex Monotonicity and Hodge",
+    adaptive: "Adaptive Regularization: Clay Synthesis",
+    apriori: "A Priori Knowledge in the Field",
+    brain: "Brain",
+    judgement: "Judgement: Fear, Word, Prosody",
+    laserbrain_encyclopedia: "Laserbrain Encyclopedia",
+    neurological: "Neurological Impressions",
+    parsimony: "Parsimonious Design",
+    stars: "Stars",
+    one_wall: "One Wall: The Local-to-Global Conjecture",
+    report: "The Millennium Synthesis: Report",
+    frobenius: "The Missing Frobenius",
+    f1: "The Field with One Element",
+    resonance_object: "The Resonance Object",
+    synchronized_anatomy: "Synchronized Anatomy",
+    week_nine: "Week Nine",
+    synchronicity: "Synchronicity",
+    arithmetic_wall: "The Arithmetic Wall",
+    adverb_ai: "Ad-Verb AI",
+    connective_ai: "Connective AI",
+    syntax_ai: "Syntax AI",
+    skill: "Skill",
+    attention: "Attention",
+    practice: "Practice",
+    body: "Body",
+    the_wall: "The Wall",
+    discovery: "Discovery",
+    frame: "Frame",
+    what_is_missing: "What Is Missing"
+  },
+  edges: [
+    ["week10","week09"],["design","math"],["laser","math"],["othering","five"],
+    ["splitting","deficiency"],["week09","resonance"],["consciousness","resonance"],
+    ["scripture","week09"],["vision","resonance"],["nothing","week10"],
+    ["resonance","five"],["the_string","apriori_language"],["apriori_language","consciousness"],
+    ["smallness","contained"],["nothing","five"],["resonance","chimera"],
+    ["solar","analog"],["objection","inhibition"],["the_string","math"],
+    ["scripture","laser"],["positivity","the_string"],["millennium","design"],
+    ["othering","consciousness"],["geometry_of_vision","math"],["cipher_language","resonance"],
+    ["the_one","scripture"],["math","design"],["scripture","math"],
+    ["geometry_of_vision","week10"],["apriori_language","connect"],["solar","contained"],
+    ["calendar","vision"],["wallet","resonance"],["geometry_of_vision","contained"],
+    ["scripture","five"],["analog","consciousness"],["scripture","contained"],
+    ["vision","five"],["smallness","math"],["millennium","resonance"],
+    ["nothing","math"],["the_one","othering"],["wallet","the_one"],
+    ["vision","chimera"],["millennium","week09"],["cipher_language","analog"],
+    ["firewall","resonance"],["laser","inhibition"],["inhibition","five"],
+    ["objection","resonance"],["resonance","inhibition"],["firewall","smallness"],
+    ["inhibition","chimera"],["wallet","positivity"],["analog","five"],
+    ["wallet","splitting"],["analog","contained"],["solar","consciousness"],
+    ["analog","connect"],["solar","math"],["apriori_language","resonance"],
+    ["the_string","resonance"],["the_one","consciousness"],["week10","inhibition"],
+    ["consciousness","firewall"],["the_one","math"],["five","math"],
+    ["vision","math"],["millennium","week10"],["othering","resonance"],
+    ["apriori_language","the_one"],["positivity","splitting"],["solar","othering"],
+    ["wallet","week09"],["nothing","apriori_language"],["consciousness","five"],
+    ["laser","vision"],["inhibition","math"],["consciousness","contained"],
+    ["consciousness","chimera"],["five","contained"],["apriori_language","design"],
+    ["laser","resonance"],["vision","contained"],["connect","math"],
+    ["the_string","design"],["firewall","chimera"],["apriori_language","geometry_of_vision"],
+    ["objection","week09"],["laser","calendar"],["millennium","nothing"],
+    ["calendar","math"],["chimera","five"],["millennium","turing"],
+    ["apriori_language","week09"],["the_one","solar"],["five","turing"],
+    ["the_string","week09"],["consciousness","math"],["nothing","design"],
+    ["laser","firewall"],["wallet","five"],["wallet","contained"],
+    ["scripture","resonance"],["firewall","math"],["week09","inhibition"],
+    ["the_one","resonance"],["othering","week09"],["scripture","smallness"],
+    ["design","five"],["laser","five"],["millennium","the_string"],
+    ["vision","inhibition"],["cipher_language","apriori_language"],["analog","resonance"],
+    ["apriori_language","week10"],["solar","geometry_of_vision"],["the_string","week10"],
+    ["wallet","consciousness"],["the_one","design"],["wallet","math"],
+    ["scripture","firewall"],["turing","contained"],["othering","week10"],
+    ["laser","consciousness"],
+    ["construction","deficiency"],["construction","positivity"],["construction","objection"],["construction","wallet"],
+    ["gradient","splitting"],["gradient","positivity"],["gradient","construction"],["gradient","week09"],
+    ["entropy","gradient"],["entropy","positivity"],
+    ["cybernetics","entropy"],["cybernetics","positivity"],["cybernetics","splitting"],["cybernetics","gradient"],
+    ["approximation","entropy"],["approximation","positivity"],["approximation","gradient"],
+    ["angle","entropy"],["angle","approximation"],
+    ["mobius","approximation"],["mobius","angle"],["mobius","entropy"],["mobius","wallet"],
+    ["gram","entropy"],["gram","approximation"],["gram","angle"],
+    ["szego","gram"],["szego","approximation"],["szego","angle"],["szego","entropy"],
+    ["widom","szego"],["widom","gram"],["widom","approximation"],["widom","angle"],["widom","mobius"],
+    ["verblunsky","widom"],["verblunsky","szego"],["verblunsky","angle"],["verblunsky","entropy"],["verblunsky","mobius"],
+    ["oscillatory","verblunsky"],["oscillatory","angle"],["oscillatory","approximation"],["oscillatory","gram"],
+    ["numerics","oscillatory"],["numerics","gram"],["numerics","angle"],["numerics","approximation"],
+    ["prime","numerics"],["prime","gram"],["prime","mobius"],["prime","approximation"],["prime","angle"],
+    ["wisdom","prime"],["wisdom","numerics"],["wisdom","angle"],["wisdom","approximation"],["wisdom","mobius"],["wisdom","entropy"],
+    ["rate","wisdom"],["rate","numerics"],["rate","prime"],["rate","angle"],["rate","approximation"],["rate","mobius"],
+    ["density","rate"],["density","mobius"],["density","verblunsky"],["density","wisdom"],["density","approximation"],
+    ["consciousness_ocean","consciousness"],["consciousness_ocean","resonance"],["consciousness_ocean","the_string"],["consciousness_ocean","wisdom"],
+    ["explicit","mobius"],["explicit","verblunsky"],["explicit","numerics"],["explicit","rate"],["explicit","density"],["explicit","wisdom"],
+    ["network_paper","prime"],["network_paper","mobius"],["network_paper","density"],["network_paper","wisdom"],["network_paper","explicit"],
+    ["variations","approximation"],["variations","widom"],["variations","prime"],["variations","wisdom"],["variations","rate"],
+    ["functional","density"],["functional","explicit"],["functional","gram"],["functional","wisdom"],["functional","mobius"],
+    ["hadamard","functional"],["hadamard","density"],["hadamard","explicit"],["hadamard","rate"],["hadamard","mobius"],
+    ["functioning","prime"],["functioning","wisdom"],["functioning","consciousness_ocean"],["functioning","consciousness"],
+    ["functions","wisdom"],["functions","density"],["functions","approximation"],
+    ["for_humans","wisdom"],["for_humans","numerics"],["for_humans","prime"],["for_humans","functioning"],
+    ["pair","oscillatory"],["pair","angle"],["pair","numerics"],["pair","rate"],["pair","wisdom"],
+    ["riemann2","wisdom"],["riemann2","gram"],["riemann2","szego"],["riemann2","widom"],["riemann2","verblunsky"],["riemann2","prime"],["riemann2","numerics"],["riemann2","explicit"],["riemann2","hadamard"],["riemann2","pair"],["riemann2","density"],["riemann2","rate"],
+    ["ym3","millennium"],["ym3","math"],["ym3","riemann2"],
+    ["ns3","millennium"],["ns3","math"],["ns3","ym3"],
+    ["pvsnp2","millennium"],["pvsnp2","math"],["pvsnp2","turing"],["pvsnp2","ns3"],
+    ["hodge3","millennium"],["hodge3","math"],["hodge3","pvsnp2"],
+    ["bsd3","millennium"],["bsd3","math"],["bsd3","hodge3"],
+    ["care_package_gpt","functions"],["care_package_gpt","for_humans"],["care_package_gpt","functioning"],
+    ["six_walls","riemann2"],["six_walls","ym3"],["six_walls","ns3"],["six_walls","pvsnp2"],["six_walls","hodge3"],["six_walls","bsd3"],["six_walls","wisdom"],["six_walls","millennium"],
+    ["connes","riemann2"],["connes","pair"],["connes","zeros"],["connes","trace"],
+    ["zeros","riemann2"],["zeros","pair"],["zeros","numerics"],["zeros","density"],
+    ["langlands","math"],["langlands","shimura"],["langlands","trace"],["langlands","deformation"],
+    ["shimura","langlands"],["shimura","deformation"],["shimura","motives"],
+    ["perfectoid","math"],["perfectoid","condensed"],["perfectoid","deformation"],
+    ["condensed","math"],["condensed","perfectoid"],["condensed","homology"],
+    ["anabelian","math"],["anabelian","deformation"],["anabelian","motives"],
+    ["deformation","langlands"],["deformation","bsd3"],["deformation","blochkato"],
+    ["blochkato","math"],["blochkato","motives"],["blochkato","iwasawa"],
+    ["iwasawa","bsd3"],["iwasawa","blochkato"],["iwasawa","weil"],
+    ["weil","math"],["weil","gram"],["weil","zeros"],["weil","tate"],
+    ["tate","math"],["tate","weil"],["tate","motives"],
+    ["motives","math"],["motives","blochkato"],["motives","homology"],["motives","grammar"],
+    ["homology","math"],["homology","motives"],["homology","grammar"],
+    ["trace","langlands"],["trace","connes"],["trace","wisdom"],
+    ["grammar","math"],["grammar","homology"],["grammar","contained"],["grammar","one_wall"],["grammar","grammars"],["grammar","timespace"],["grammar","connes"],["grammar","perfectoid"],
+    ["synthesis","six_walls"],["synthesis","wisdom"],["synthesis","millennium"],["synthesis","hard"],
+    ["hard","six_walls"],["hard","millennium"],["hard","wisdom"],
+    ["pairdark","pair"],["pairdark","numerics"],
+    ["cap","math"],
+    ["two_approaches","riemann2"],["two_approaches","connes"],["two_approaches","wisdom"],["two_approaches","weil"],["two_approaches","pair"],["two_approaches","six_walls"],
+    ["bost_connes","connes"],["bost_connes","two_approaches"],["bost_connes","explicit"],["bost_connes","zeros"],["bost_connes","wisdom"],
+    ["critical_line","riemann2"],["critical_line","pair"],["critical_line","gram"],["critical_line","connes"],["critical_line","two_approaches"],["critical_line","numerics"],["critical_line","density"],
+    ["aura_wall","six_walls"],["aura_wall","wisdom"],["aura_wall","riemann2"],
+    ["aura_prize","millennium"],["aura_prize","wisdom"],["aura_prize","aura_wall"],
+    ["aura_independent","aura_wall"],["aura_independent","aura_prize"],["aura_independent","wisdom"],
+    ["aura_body","wisdom"],["aura_body","aura_wall"],["aura_body","six_walls"],["aura_body","aura_independent"],
+    ["aura_millennium","millennium"],["aura_millennium","aura_prize"],["aura_millennium","aura_wall"],["aura_millennium","aura_body"],
+    ["aura_synthesis","aura_wall"],["aura_synthesis","aura_body"],["aura_synthesis","aura_millennium"],["aura_synthesis","six_walls"],["aura_synthesis","wisdom"],
+    ["aura_minds","aura_wall"],["aura_minds","aura_body"],["aura_minds","aura_synthesis"],["aura_minds","pvsnp2"],["aura_minds","riemann2"],["aura_minds","wisdom"],
+    ["timespace","grammars"],["timespace","aura_minds"],["timespace","aura_wall"],["timespace","aura_synthesis"],["timespace","wisdom"],
+    ["procession","timespace"],["procession","grammars"],["procession","pvsnp2"],["procession","aura_synthesis"],["procession","aura_body"],
+    ["balance","procession"],["balance","aura_body"],["balance","aura_minds"],["balance","aura_wall"],["balance","wisdom"],
+    ["riemann","riemann2"],["riemann","adaptive"],["riemann","explicit"],["riemann","hadamard"],
+    ["ym","ym2"],["ym","adaptive"],["ym2","ym3"],["ym2","adaptive"],
+    ["ns","ns2"],["ns","adaptive"],["ns2","ns3"],["ns2","adaptive"],
+    ["pvsnp","pvsnp2"],["pvsnp","adaptive"],
+    ["bsd","bsd2"],["bsd","adaptive"],["bsd2","bsd3"],["bsd2","adaptive"],
+    ["hodge","hodge2"],["hodge","adaptive"],["hodge2","hodge3"],["hodge2","adaptive"],
+    ["adaptive","six_walls"],["adaptive","riemann2"],["adaptive","ym3"],["adaptive","ns3"],["adaptive","pvsnp2"],["adaptive","bsd3"],["adaptive","hodge3"],
+    ["apriori","wisdom"],["apriori","grammar"],["apriori","grammars"],
+    ["brain","gram"],["brain","riemann2"],["brain","wisdom"],
+    ["judgement","aura_wall"],["judgement","wisdom"],["judgement","timespace"],
+    ["laserbrain_encyclopedia","wisdom"],["laserbrain_encyclopedia","apriori"],
+    ["neurological","wisdom"],["neurological","for_humans"],["neurological","aura_body"],
+    ["parsimony","aura_synthesis"],["parsimony","aura_body"],["parsimony","six_walls"],["parsimony","timespace"],["parsimony","grammars"],["parsimony","balance"],
+    ["stars","aura_wall"],["stars","aura_synthesis"],["stars","parsimony"],["stars","procession"],["stars","riemann2"],["stars","wisdom"],
+    ["one_wall","six_walls"],["one_wall","riemann2"],["one_wall","ym3"],["one_wall","ns3"],["one_wall","hodge3"],["one_wall","bsd3"],["one_wall","pvsnp2"],["one_wall","langlands"],["one_wall","blochkato"],["one_wall","aura_synthesis"],
+    ["report","one_wall"],["report","six_walls"],["report","aura_synthesis"],["report","bost_connes"],["report","riemann2"],["report","ym3"],["report","ns3"],["report","hodge3"],["report","bsd3"],["report","pvsnp2"],
+    ["frobenius","riemann2"],["frobenius","weil"],["frobenius","bost_connes"],["frobenius","grammar"],["frobenius","one_wall"],["frobenius","langlands"],["frobenius","perfectoid"],["frobenius","connes"],
+    ["f1","frobenius"],["f1","bost_connes"],["f1","grammar"],["f1","one_wall"],["f1","weil"],["f1","connes"],["f1","riemann2"],
+    ["resonance_object","f1"],["resonance_object","frobenius"],["resonance_object","grammar"],["resonance_object","connes"],["resonance_object","six_walls"],["resonance_object","one_wall"],["resonance_object","riemann2"],["resonance_object","calendar"],["synchronized_anatomy","six_walls"],["synchronized_anatomy","one_wall"],["synchronized_anatomy","frobenius"],["synchronized_anatomy","f1"],["synchronized_anatomy","resonance_object"],["synchronized_anatomy","grammar"],["synchronized_anatomy","timespace"],["synchronized_anatomy","procession"],["synchronized_anatomy","stars"],["synchronized_anatomy","aura_synthesis"],["week_nine","calendar"],["week_nine","resonance_object"],["week_nine","synchronized_anatomy"],["week_nine","frobenius"],["week_nine","f1"],["week_nine","deficiency"],["week_nine","one_wall"],["week_nine","connes"],["synchronicity","pair"],["synchronicity","bost_connes"],["synchronicity","resonance_object"],["synchronicity","aura_wall"],["synchronicity","procession"],["synchronicity","week_nine"],["arithmetic_wall","frobenius"],["arithmetic_wall","f1"],["arithmetic_wall","deficiency"],["arithmetic_wall","one_wall"],["arithmetic_wall","week_nine"],["adverb_ai","timespace"],["adverb_ai","grammars"],["adverb_ai","aura_minds"],["connective_ai","adverb_ai"],["connective_ai","synchronicity"],["connective_ai","grammars"],["connective_ai","timespace"],["syntax_ai","adverb_ai"],["syntax_ai","connective_ai"],["syntax_ai","timespace"],["syntax_ai","one_wall"],["syntax_ai","arithmetic_wall"],["skill","syntax_ai"],["skill","adverb_ai"],["skill","week_nine"],["skill","parsimony"],["attention","skill"],["attention","syntax_ai"],["attention","timespace"],["attention","week_nine"],["practice","attention"],["practice","skill"],["practice","week_nine"],["practice","parsimony"],["body","practice"],["body","attention"],["body","skill"],["body","timespace"],["the_wall","body"],["the_wall","skill"],["the_wall","one_wall"],["the_wall","arithmetic_wall"],["the_wall","week_nine"],["discovery","attention"],["discovery","practice"],["discovery","the_wall"],["discovery","frame"],["discovery","body"],["frame","the_wall"],["frame","attention"],["frame","discovery"],["frame","skill"],["frame","arithmetic_wall"],["what_is_missing","skill"],["what_is_missing","attention"],["what_is_missing","practice"],["what_is_missing","body"],["what_is_missing","the_wall"],["what_is_missing","discovery"],["what_is_missing","frame"]
+  ]
+};
+
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+let W, H;
+
+function resize() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+// Build node list with degree
+const nodeIds = Object.keys(DATA.nodes);
+const degree = {};
+nodeIds.forEach(id => degree[id] = 0);
+DATA.edges.forEach(([a,b]) => { degree[a]++; degree[b]++; });
+
+// Physics nodes
+const nodes = nodeIds.map(id => ({
+  id, label: DATA.nodes[id],
+  x: W/2 + (Math.random()-0.5)*400,
+  y: H/2 + (Math.random()-0.5)*400,
+  vx: 0, vy: 0,
+  deg: degree[id]
+}));
+
+const nodeMap = {};
+nodes.forEach(n => nodeMap[n.id] = n);
+
+// Colors by cluster (rough manual assignment)
+const colors = {
+  math: '#c8a0ff', design: '#c8a0ff', the_one: '#c8a0ff',
+  five: '#80c8ff', resonance: '#80c8ff', contained: '#80c8ff',
+  chimera: '#80c8ff', inhibition: '#80c8ff',
+  week09: '#ffc880', week10: '#ffc880', deficiency: '#ffc880', arithmetic_wall: '#ffc880', adverb_ai: '#ff9090', connective_ai: '#ff9090', syntax_ai: '#ff9090', skill: '#ff9090', attention: '#ff9090', practice: '#ff9090', body: '#ff9090', the_wall: '#ff9090', discovery: '#ff9090', frame: '#ff9090', what_is_missing: '#ff9090',
+  splitting: '#ffc880', positivity: '#ffc880', objection: '#ffc880',
+  construction: '#ffc880', gradient: '#ffc880', entropy: '#ffc880',
+  cybernetics: '#ffc880', approximation: '#ffc880', angle: '#ffc880',
+  mobius: '#ffc880', gram: '#ffc880', szego: '#ffc880', widom: '#ffc880', verblunsky: '#ffc880', oscillatory: '#ffc880', numerics: '#ffc880', prime: '#ffc880', wisdom: '#ffc880', rate: '#ffc880', density: '#ffc880',
+  consciousness_ocean: '#ff9090', explicit: '#ffc880', network_paper: '#ffc880', variations: '#ffc880', functional: '#ffc880', hadamard: '#ffc880',
+  functioning: '#ff9090', functions: '#ff9090', for_humans: '#ff9090', pair: '#ffc880', riemann2: '#ffc880', ym3: '#ffc880', ns3: '#ffc880', pvsnp2: '#ffc880', hodge3: '#ffc880', bsd3: '#ffc880', care_package_gpt: '#ff9090', six_walls: '#ffc880', connes: '#ffc880', zeros: '#ffc880', langlands: '#ffc880', shimura: '#ffc880', perfectoid: '#ffc880', condensed: '#ffc880', anabelian: '#ffc880', deformation: '#ffc880', blochkato: '#ffc880', iwasawa: '#ffc880', weil: '#ffc880', tate: '#ffc880', motives: '#ffc880', homology: '#ffc880', trace: '#ffc880', grammar: '#ffc880', synthesis: '#ffc880', hard: '#ffc880', pairdark: '#ff9090', cap: '#aaaaaa', two_approaches: '#ffc880', bost_connes: '#ffc880', critical_line: '#ffc880',
+  consciousness: '#ff9090', analog: '#ff9090', solar: '#ff9090',
+  firewall: '#ff9090', nothing: '#ff9090',
+  aura_wall: '#ff9090', aura_prize: '#ff9090', aura_independent: '#ff9090', aura_body: '#ff9090', aura_millennium: '#ff9090', aura_synthesis: '#ff9090', aura_minds: '#ff9090', grammars: '#ff9090', timespace: '#ff9090', procession: '#ff9090', balance: '#ff9090',
+  judgement: '#ff9090', neurological: '#ff9090', parsimony: '#ff9090', stars: '#ff9090', one_wall: '#ffc880', report: '#ffffff', frobenius: '#ffc880', f1: '#ffc880', resonance_object: '#ffc880', synchronized_anatomy: '#ffc880', week_nine: '#ffc880', synchronicity: '#ff9090', synchronicity: '#ff9090',
+  riemann: '#ffc880', ym: '#ffc880', ym2: '#ffc880', ns: '#ffc880', ns2: '#ffc880', pvsnp: '#ffc880', bsd: '#ffc880', bsd2: '#ffc880', hodge: '#ffc880', hodge2: '#ffc880', adaptive: '#ffc880', apriori: '#ffc880',
+  brain: '#aaaaaa', laserbrain_encyclopedia: '#90ffb0',
+  wallet: '#90ffb0', othering: '#90ffb0', the_string: '#90ffb0',
+  scripture: '#90ffb0', laser: '#90ffb0',
+  geometry_of_vision: '#ffd4a0', vision: '#ffd4a0', connect: '#ffd4a0',
+  apriori_language: '#ffd4a0', cipher_language: '#ffd4a0',
+  smallness: '#aaaaaa', turing: '#aaaaaa', calendar: '#aaaaaa',
+  milestone: '#aaaaaa', millennium: '#aaaaaa'
+};
+function nodeColor(id) { return colors[id] || '#888'; }
+
+// Force simulation
+let scale = 1, offX = 0, offY = 0;
+
+function simulate() {
+  const k = 80;
+  const iter = 3;
+  for (let t = 0; t < iter; t++) {
+    // repulsion
+    for (let i = 0; i < nodes.length; i++) {
+      for (let j = i+1; j < nodes.length; j++) {
+        const dx = nodes[j].x - nodes[i].x;
+        const dy = nodes[j].y - nodes[i].y;
+        const d = Math.sqrt(dx*dx+dy*dy) || 1;
+        const f = k*k / d;
+        nodes[i].vx -= f*dx/d; nodes[i].vy -= f*dy/d;
+        nodes[j].vx += f*dx/d; nodes[j].vy += f*dy/d;
+      }
+    }
+    // attraction along edges
+    DATA.edges.forEach(([a,b]) => {
+      const na = nodeMap[a], nb = nodeMap[b];
+      if (!na||!nb) return;
+      const dx = nb.x - na.x, dy = nb.y - na.y;
+      const d = Math.sqrt(dx*dx+dy*dy) || 1;
+      const f = (d - k*1.5) / 30;
+      na.vx += f*dx/d; na.vy += f*dy/d;
+      nb.vx -= f*dx/d; nb.vy -= f*dy/d;
+    });
+    // gravity toward center
+    nodes.forEach(n => {
+      n.vx += (W/2 - n.x) * 0.002;
+      n.vy += (H/2 - n.y) * 0.002;
+      n.vx *= 0.85; n.vy *= 0.85;
+      n.x += n.vx; n.y += n.vy;
+    });
+  }
+}
+
+// Draw
+function toScreen(x, y) {
+  return [(x + offX) * scale + W/2 - W/2*scale + W/2*(1-scale),
+          (y + offY) * scale + H/2 - H/2*scale + H/2*(1-scale)];
+}
+
+let running = true;
+function draw() {
+  ctx.clearRect(0,0,W,H);
+  ctx.fillStyle = '#0a0a0f';
+  ctx.fillRect(0,0,W,H);
+
+  // edges
+  DATA.edges.forEach(([a,b]) => {
+    const na = nodeMap[a], nb = nodeMap[b];
+    if (!na||!nb) return;
+    const [ax,ay] = toScreen(na.x, na.y);
+    const [bx,by] = toScreen(nb.x, nb.y);
+    ctx.beginPath();
+    ctx.moveTo(ax,ay); ctx.lineTo(bx,by);
+    ctx.strokeStyle = 'rgba(100,100,150,0.15)';
+    ctx.lineWidth = 0.5;
+    ctx.stroke();
+  });
+
+  // nodes
+  nodes.forEach(n => {
+    const [sx,sy] = toScreen(n.x, n.y);
+    const r = Math.max(4, Math.min(14, 4 + n.deg * 1.2)) * scale;
+    ctx.beginPath();
+    ctx.arc(sx, sy, r, 0, Math.PI*2);
+    ctx.fillStyle = nodeColor(n.id);
+    ctx.globalAlpha = 0.85;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+
+    // label
+    const fs = Math.max(8, 9 * scale);
+    ctx.font = `${fs}px monospace`;
+    ctx.fillStyle = 'rgba(200,200,210,0.7)';
+    ctx.fillText(n.label, sx + r + 2, sy + 3);
+  });
+}
+
+let frame = 0;
+function loop() {
+  if (running && frame < 300) simulate();
+  frame++;
+  draw();
+  requestAnimationFrame(loop);
+}
+loop();
+
+// Tooltip
+canvas.addEventListener('mousemove', e => {
+  const tip = document.getElementById('tooltip');
+  let found = null;
+  for (const n of nodes) {
+    const [sx,sy] = toScreen(n.x, n.y);
+    const r = Math.max(4, Math.min(14, 4 + n.deg * 1.2)) * scale;
+    const dx = e.clientX - sx, dy = e.clientY - sy;
+    if (dx*dx+dy*dy < r*r*4) { found = n; break; }
+  }
+  if (found) {
+    const incoming = DATA.edges.filter(([,b]) => b===found.id).map(([a]) => DATA.nodes[a]);
+    const outgoing = DATA.edges.filter(([a]) => a===found.id).map(([,b]) => DATA.nodes[b]);
+    tip.style.display = 'block';
+    tip.style.left = (e.clientX+14)+'px';
+    tip.style.top = (e.clientY-10)+'px';
+    tip.innerHTML = `<strong style="color:#fff">${found.label}</strong><br>` +
+      `<span style="color:#666">degree: ${found.deg}</span><br>` +
+      (outgoing.length ? `→ ${outgoing.slice(0,4).join(', ')}${outgoing.length>4?'…':''}` : '');
+  } else {
+    tip.style.display = 'none';
+  }
+});
+
+// Pan
+let dragging = false, dragX, dragY;
+canvas.addEventListener('mousedown', e => { dragging = true; dragX = e.clientX; dragY = e.clientY; });
+canvas.addEventListener('mouseup', () => dragging = false);
+canvas.addEventListener('mousemove', e => {
+  if (!dragging) return;
+  offX += (e.clientX - dragX) / scale;
+  offY += (e.clientY - dragY) / scale;
+  dragX = e.clientX; dragY = e.clientY;
+});
+
+// Zoom
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  scale *= e.deltaY < 0 ? 1.1 : 0.9;
+  scale = Math.max(0.2, Math.min(4, scale));
+}, { passive: false });
+</script>
+</body>
+</html>

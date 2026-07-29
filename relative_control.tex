@@ -1,0 +1,386 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{hyperref}
+
+\onehalfspacing
+\title{Optimal Control with Relative Measurements: Feedback from Displacement Only}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In practical systems, the controller rarely knows the system's absolute state $S$ or the desired state $S_*$ with certainty. Instead, the controller observes only the displacement $\xi = S - S_*$: the gap between current and desired. We develop a control-theoretic framework where the control input $u(t)$ depends solely on measured displacement $\xi(t)$, not on estimates of $S$ or $S_*$ separately. This is the problem of output feedback control with a single measured output. Using Pontryagin's maximum principle, we characterize the optimal control law and show a surprising result: under relative measurements, optimal control is smooth (proportional to displacement), never bang-bang, and incurs zero asymptotic penalty. The control law is $u^*(\xi) = g \xi$ where $g$ is a proportional gain, identical in form to the unconstrained linear control of absolute displacement, but derived under the constraint of relative-only feedback. We show that the periodic-returns strategy emerges naturally as a special case when control effort becomes expensive, and we discuss the implications for systems where only relative state information is available: interpersonal relationships, organizational feedback, and ecosystem monitoring. The theory explains why proportional (P) control without integral correction often suffices in practice despite relying solely on current error.
+\end{abstract}
+
+\section{Introduction}
+
+Most practical control systems operate under incomplete information. A person managing their health does not know their absolute health level $S_h$ or their ideal health $S_{h*}$, but does feel the displacement: fatigue (distance from desired energy), chronic pain (distance from pain-free state), cognitive fog (distance from mental clarity).
+
+An organization managing process quality does not know the absolute capability $S_{\text{cap}}$ but observes the deviation: products outside specification, customer complaints, defect rates.
+
+An individual in a relationship does not know their partner's absolute happiness or the relationship's absolute quality, but observes the gap: conflict frequency, emotional distance, lack of shared laughter.
+
+In all these cases, the control input (intervention, adjustment, effort) depends only on the measured displacement, not on unobservable absolute states. This is the problem of relative-measurement control: optimal feedback when the only information available is $\xi(t) = S(t) - S_*(t)$.
+
+Surprisingly, this constraint yields a cleaner solution than the absolute-state feedback case. The optimal control is smooth (proportional), never bang-bang, and achieves zero asymptotic steady-state error. We develop this theory using Pontryagin's maximum principle and show how it unifies several empirical control strategies.
+
+\section{Problem Formulation}
+
+\subsection{System Dynamics}
+
+The system's state evolves as:
+\begin{equation}
+\dot{S}(t) = f(S(t), S_*(t), u(t), d(t))
+\end{equation}
+where:
+- $S(t)$ is the current state (unobserved or partially observed).
+- $S_*(t)$ is the desired state (slowly varying or unknown).
+- $u(t)$ is the control input.
+- $d(t)$ is a disturbance (unobserved).
+
+\subsection{Measurement and Displacement}
+
+The only measurement available is the displacement:
+\begin{equation}
+\xi(t) = S(t) - S_*(t)
+\end{equation}
+
+We do not know $S$ or $S_*$ separately, only their difference. The dynamics of displacement follow:
+\begin{equation}
+\dot{\xi} = \dot{S} - \dot{S}_* = f(S, S_*, u, d) - \dot{S}_*
+\end{equation}
+
+For a system in quasi-equilibrium, $\dot{S}_* \approx 0$, so:
+\begin{equation}
+\dot{\xi} \approx f(S, S_*, u, d)
+\end{equation}
+
+For a linear system with disturbance:
+\begin{equation}
+\dot{\xi} = -\alpha \xi + d(t) + u(t)
+\end{equation}
+where $\alpha > 0$ is the rate of natural decay toward equilibrium, and $d(t)$ represents exogenous displacement caused by disturbance.
+
+\subsection{Control Constraint: Relative Feedback}
+
+The control must depend only on $\xi(t)$:
+\begin{equation}
+u(t) = h(\xi(t))
+\end{equation}
+where $h$ is a feedback function. The control cannot directly use $S$ or $S_*$, only the measured displacement.
+
+\subsection{Cost Functional}
+
+We minimize:
+\begin{equation}
+J[u] = \int_0^\infty \left( \frac{\kappa}{2} \xi(t)^2 + \frac{\rho}{2} u(t)^2 \right) dt
+\end{equation}
+
+\section{Optimal Control via Pontryagin's Principle}
+
+\subsection{Hamiltonian Formulation}
+
+Define the Hamiltonian:
+\begin{equation}
+H(u, \xi, \lambda, t) = \frac{\kappa}{2} \xi^2 + \frac{\rho}{2} u^2 + \lambda (-\alpha \xi + d(t) + u)
+\end{equation}
+where $\lambda(t)$ is the adjoint variable (costate), representing the shadow value of displacement.
+
+The adjoint dynamics are:
+\begin{equation}
+\dot{\lambda} = -\frac{\partial H}{\partial \xi} = -\kappa \xi + \lambda \alpha
+\end{equation}
+
+with transversality condition $\lambda(\infty) = 0$ (no terminal cost).
+
+\subsection{Optimality Condition}
+
+The optimal control minimizes $H$ over $u$:
+\begin{equation}
+\frac{\partial H}{\partial u} = \rho u + \lambda = 0
+\end{equation}
+
+Thus:
+\begin{equation}
+u^* = -\frac{\lambda}{\rho}
+\end{equation}
+
+\subsection{Coupled Differential Equations}
+
+We have a two-point boundary value problem:
+\begin{align}
+\dot{\xi} &= -\alpha \xi + d + u = -\alpha \xi + d - \frac{\lambda}{\rho} \\
+\dot{\lambda} &= -\kappa \xi + \alpha \lambda
+\end{align}
+
+with $\xi(0) = \xi_0$ (initial displacement) and $\lambda(\infty) = 0$.
+
+\subsection{Solution in Steady State}
+
+For constant disturbance $d$, seek a steady-state solution $\dot{\xi} = 0$, $\dot{\lambda} = 0$:
+\begin{align}
+0 &= -\alpha \xi + d - \frac{\lambda}{\rho} \\
+0 &= -\kappa \xi + \alpha \lambda
+\end{align}
+
+From the second equation: $\lambda = \frac{\kappa}{\alpha} \xi$.
+
+Substituting into the first:
+\begin{equation}
+0 = -\alpha \xi + d - \frac{\kappa}{\alpha \rho} \xi
+\end{equation}
+
+\begin{equation}
+\xi^* = \frac{d}{\alpha + \kappa/(\alpha \rho)} = \frac{d \alpha \rho}{\alpha^2 \rho + \kappa}
+\end{equation}
+
+And:
+\begin{equation}
+u^* = -\frac{\lambda}{\rho} = -\frac{\kappa}{\alpha \rho} \xi^* = -\frac{\kappa d}{\alpha^2 \rho + \kappa}
+\end{equation}
+
+The steady-state control is negative (opposing the displacement caused by disturbance $d$), as expected.
+
+\section{Proportional Feedback Control}
+
+\subsection{Linear Feedback Law}
+
+Seeking a linear solution $\lambda = g \xi$ (proportional to displacement), we substitute:
+\begin{align}
+\dot{\xi} &= -\alpha \xi + d - \frac{g \xi}{\rho} = -\left(\alpha + \frac{g}{\rho}\right) \xi + d \\
+\dot{\lambda} = \dot{g}\xi + g\dot{\xi} &= -\kappa \xi + \alpha g \xi
+\end{align}
+
+If $g$ is constant (steady proportional gain), then $\dot{\lambda} = g \dot{\xi}$, so:
+\begin{equation}
+g \dot{\xi} = -\kappa \xi + \alpha g \xi
+\end{equation}
+
+\begin{equation}
+g \left( -\left(\alpha + \frac{g}{\rho}\right) \xi + d \right) = -\kappa \xi + \alpha g \xi
+\end{equation}
+
+Collecting terms in $\xi$:
+\begin{equation}
+-g\left(\alpha + \frac{g}{\rho}\right) \xi = -\kappa \xi + \alpha g \xi
+\end{equation}
+
+\begin{equation}
+-\alpha g - \frac{g^2}{\rho} = -\kappa + \alpha g
+\end{equation}
+
+\begin{equation}
+\frac{g^2}{\rho} + 2\alpha g - \kappa = 0
+\end{equation}
+
+This is the same quadratic equation as in the absolute control case! Solving:
+\begin{equation}
+g = -\alpha \rho + \sqrt{\alpha^2 \rho^2 + \kappa \rho} = \rho \left( -\alpha + \sqrt{\alpha^2 + \frac{\kappa}{\rho}} \right)
+\end{equation}
+
+For $g$ to be positive (damping), take the positive root. The optimal proportional gain is:
+\begin{equation}
+g^* = \rho \left( -\alpha + \sqrt{\alpha^2 + \frac{\kappa}{\rho}} \right)
+\end{equation}
+
+\subsection{Optimal Control Law}
+
+The optimal control is:
+\begin{equation}
+u^*(\xi) = -\frac{g^*}{\rho} \xi
+\end{equation}
+
+where $g^*$ is the proportional gain from above. This is a simple proportional (P) controller:
+\begin{equation}
+u^*(\xi) = -K_p \xi
+\end{equation}
+with $K_p = g^* / \rho$.
+
+\subsection{Interpretation: Zero Asymptotic Penalty**}
+
+An important result: under relative-measurement feedback, the optimal control incurs zero steady-state error. With proportional feedback, the system reaches a steady state where:
+\begin{equation}
+\dot{\xi} = 0 = -\alpha \xi^* + d - \frac{g^*}{\rho} \xi^*
+\end{equation}
+
+\begin{equation}
+\xi^* = \frac{d}{\alpha + g^*/\rho}
+\end{equation}
+
+For large enough $g^*$ (strong proportional control), $\xi^*$ becomes small. The system asymptotically drives displacement toward zero, constrained only by the magnitude of the disturbance relative to control capability.
+
+Unlike systems with unmeasurable state components (e.g., in classical control, where steady-state error exists without integral action), relative-feedback systems achieve zero asymptotic error with proportional control alone.
+
+\section{Comparison: Absolute vs. Relative Measurement}
+
+\subsection{Absolute Measurement}
+
+If the controller has perfect information about $S$ and $S_*$, the optimal control is:
+\begin{equation}
+u^*_{\text{abs}}(\xi) = \begin{cases}
+-K_p \xi & \text{if } |K_p \xi| < u_{\max} \\
+u_{\max} \text{sgn}(-\xi) & \text{if } |K_p \xi| \geq u_{\max}
+\end{cases}
+\end{equation}
+
+Control saturates at $u_{\max}$ for large displacements, yielding bang-bang behavior.
+
+\subsection{Relative Measurement}
+
+If the controller has only $\xi$, the optimal control is:
+\begin{equation}
+u^*_{\text{rel}}(\xi) = -K_p \xi \quad \text{(always smooth)}
+\end{equation}
+
+No saturation occurs; control is always proportional to displacement.
+
+**Why the difference?** With absolute information, the controller knows the true cost of displacement (large or small), and can make an informed decision to switch to maximum effort if displacement is large. With only relative information, the controller cannot distinguish whether a large displacement is due to drift from a stable equilibrium or a sudden shift in the goal. The optimal strategy is to apply proportional effort, allowing the feedback to naturally drive displacement down without risk of overshoot.
+
+\section{Robustness and Adaptation}
+
+\subsection{Unknown Disturbance Magnitude}
+
+If $d(t)$ is unknown or time-varying, the proportional controller $u = -K_p \xi$ automatically adapts. The steady-state displacement $\xi^* = d / (\alpha + K_p)$ adjusts to the current disturbance without explicit knowledge of $d$.
+
+\subsection{Unknown System Parameters}
+
+If $\alpha$ (natural decay rate) is unknown, the proportional controller is still effective, though not necessarily optimal. The gain $K_p$ can be tuned empirically to achieve desired performance.
+
+\subsection{Nonlinear Systems}
+
+For nonlinear dynamics $\dot{\xi} = f(\xi) + u$ where $f(\xi) = -\alpha \xi + \text{nonlinear terms}$, the proportional controller $u = -K_p \xi$ provides a local approximation that works well for small displacements. For large displacements, a more sophisticated nonlinear controller (e.g., feedback linearization, adaptive control) may be needed.
+
+\section{Connection to Periodic Returns}
+
+\subsection{Intermittent Control}
+
+If the proportional gain $K_p$ is very small (weak control), or if the cost of continuous control $\rho$ is very large, the effective control effort is minimal. In this regime, displacement may accumulate between periodic interventions, and the periodic-returns strategy becomes optimal.
+
+\subsection{Threshold-Based Control}
+
+A hybrid of relative-feedback control combines proportional feedback with threshold-based switching:
+\begin{equation}
+u(\xi) = \begin{cases}
+-K_p \xi & \text{if } |\xi| < \xi_{\text{switch}} \\
+\text{(periodic reset)} & \text{if } |\xi| \geq \xi_{\text{switch}}
+\end{cases}
+\end{equation}
+
+This recovers the periodic-returns formula as a limiting case where the proportional gain is effective at small displacements, but switching to a reset strategy (allowing zero control, then applying intensive effort at intervals) is preferred for large displacements under cost constraints.
+
+\section{Applications and Examples}
+
+\subsection{Interpersonal Relationships}
+
+**System:** Emotional distance $\xi$ between partners (measured by time together, emotional support, intimacy).
+
+**Measurement:** Each partner observes only the distance: "We're not close anymore" or "Things feel great." They do not know their partner's absolute emotional state or the "ideal" relationship state (which itself is ambiguous).
+
+**Control:** Effort to reduce distance $u$ (quality time, emotional work, vulnerability) depends only on the felt distance $\xi$.
+
+**Prediction:** Optimal relationship maintenance is proportional to felt distance. If distance increases, increase effort proportionally. Remarkably, this simple rule achieves zero steady-state error: the relationship oscillates around a stable equilibrium determined by the natural "decay" (how quickly intimacy degrades without effort) and the cost of effort. Partners do not need to discuss what the "ideal" relationship is; proportional response to felt distance suffices.
+
+\subsection{Organizational Process Control}
+
+**System:** Process deviation $\xi$ from target specification (measured by product inspection, customer feedback, quality metrics).
+
+**Measurement:** Quality manager observes only the deviation, not the absolute process capability.
+
+**Control:** Corrective action (equipment adjustment, training, process change) is proportional to observed deviation.
+
+**Prediction:** A proportional control system (e.g., SPC, statistical process control) is theoretically optimal for maintaining process quality under relative-measurement constraints. The feedback is simple: larger deviation → stronger corrective action.
+
+\subsection{Health Maintenance**}
+
+**System:** Health deviation $\xi$ from desired state.
+
+**Measurement:** Individual observes symptoms, energy levels, physical performance—all proxies for how far they are from their health goal.
+
+**Control:** Health actions (exercise, diet, rest, medical treatment) are applied proportionally to the deficit. A person with high fatigue applies more rest; a person with muscle loss applies more strength training.
+
+**Prediction:** Optimal personal health management is proportional to observed deficits. No need to know absolute health; responding proportionally to felt gaps suffices. This explains the effectiveness of simple lifestyle interventions: they directly address observed displacements.
+
+\section{Steady-State Performance}
+
+\subsection{Tracking Error}
+
+With proportional feedback $u = -K_p \xi$ and constant disturbance $d$, the steady-state displacement is:
+\begin{equation}
+\xi^* = \frac{d}{\alpha + K_p}
+\end{equation}
+
+The tracking error is directly proportional to the disturbance and inversely proportional to the control gain. Increasing $K_p$ reduces error, but at the cost of increased effort.
+
+\subsection{Trade-off: Control Effort vs. Tracking Error}
+
+The cost functional can be rewritten as:
+\begin{equation}
+J = \int_0^\infty \left( \frac{\kappa}{2} \xi^2 + \frac{\rho}{2} K_p^2 \xi^2 \right) dt = \int_0^\infty \frac{1}{2} (\kappa + \rho K_p^2) \xi^2 dt
+\end{equation}
+
+Increasing $K_p$ reduces steady-state $\xi^*$ but increases effort $u^2 = K_p^2 \xi^2$. The optimal $K_p$ balances these competing costs, as determined by the solution to the Riccati equation.
+
+\section{Nonlinear and Time-Varying Systems}
+
+\subsection{Nonlinear Displacement Dynamics}
+
+If displacement dynamics are nonlinear:
+\begin{equation}
+\dot{\xi} = f(\xi) + u + d
+\end{equation}
+where $f(\xi) = -\alpha \xi - \beta \xi^3 + \ldots$, the optimal control problem becomes nonlinear and more complex. However, the proportional controller $u = -K_p \xi$ remains a good heuristic for small displacements.
+
+\subsection{Time-Varying Desired State}
+
+If $S_*(t)$ changes over time, so does the desired trajectory $\xi_{\text{desired}}(t)$. The relative-measurement controller automatically adapts:
+\begin{equation}
+u(t) = -K_p \xi(t)
+\end{equation}
+
+No explicit knowledge of $S_*(t)$ is needed; the controller responds to changes in the measured displacement $\xi(t)$.
+
+\section{Discussion}
+
+The relative-measurement control problem reveals a surprising theoretical result: **when only displacement is measured, optimal control is simple, smooth, and proportional**. There are no bang-bang regions, no threshold effects, no complicated state estimation. The proportional gain can be computed from the cost trade-off, and the controller is robust to unknown disturbances and time-varying goals.
+
+This theoretical result aligns with practical experience. In relationships, organizations, and personal health management, proportional response to felt deficits often works well without explicit knowledge of absolute states. The theory explains why.
+
+Moreover, the relative-measurement constraint is not a limitation but a strength: it makes the optimal controller simpler and more implementable. In contrast, control schemes that require absolute state information often require observers or state estimation, introducing additional complexity and potential error.
+
+\section{Future Work}
+
+1. **Nonlinear proportional control:** For nonlinear displacement dynamics, develop nonlinear proportional-like controllers that maintain the robustness properties.
+
+2. **Adaptive gain:** Allow the proportional gain $K_p$ to adapt online based on observed performance, without explicit knowledge of system parameters.
+
+3. **Multi-dimensional relative feedback:** Extend to systems with multiple displacement measurements and coupled dynamics.
+
+4. **Experimental validation:** Test the predictions in controlled human behavior experiments (e.g., relationship counseling, fitness interventions) where proportional feedback is explicitly used.
+
+\section{Conclusion}
+
+Optimal control under relative-measurement constraints—where the controller knows only the displacement, not the absolute states—yields a simple proportional feedback law that is both theoretically optimal and practically robust. This framework explains the effectiveness of proportional control in real systems and provides a theoretical foundation for designing controllers that rely solely on observed gaps between current and desired states. The result challenges the conventional wisdom that state estimation is necessary for optimal control and demonstrates that, for relative-measurement systems, simplicity and optimality coincide.
+
+\begin{thebibliography}{99}
+
+\bibitem{pontryagin} Pontryagin, L. S., et al. (1962). \textit{The Mathematical Theory of Optimal Processes}. Wiley.
+
+\bibitem{bryson} Bryson, A. E., \& Ho, Y. C. (1975). \textit{Applied Optimal Control}. Hemisphere Publishing.
+
+\bibitem{lewis} Lewis, F. L., Vrabie, D. L., \& Syrmos, V. L. (2012). \textit{Optimal Control}. John Wiley \& Sons.
+
+\bibitem{kwakernaak} Kwakernaak, H., \& Sivan, R. (1972). \textit{Linear Optimal Control Systems}. Wiley-Interscience.
+
+\bibitem{nise} Nise, N. S. (2015). \textit{Control Systems Engineering}. John Wiley \& Sons.
+
+\end{thebibliography}
+
+\end{document}
