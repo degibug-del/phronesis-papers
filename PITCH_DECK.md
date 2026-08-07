@@ -26,7 +26,9 @@
 
 **Displacement from a ground you cannot move.**
 
-From published research (Zenodo DOI: 10.5281/zenodo.21403447):
+From our own research, self-published to Zenodo (DOI: 10.5281/zenodo.21403447). Zenodo is
+an open repository, not a journal — this has a DOI and a permanent record, and it has not
+been peer reviewed:
 
 - Sentence structure → Adjacency matrix
 - Adjacency matrix → Eigenvalue spectrum
@@ -143,7 +145,7 @@ nothing typed into them leaves the page.
 **What is NOT claimed:**
 
 - No EEG validation. It was never run on real data; the paper says so in its own abstract.
-- No patent on the eigenvalue mechanism — see Slide 9.
+- No patents, filed or pending.
 - No paying customers yet for the four products above.
 
 ## SLIDE 7: THE ASK
@@ -262,7 +264,7 @@ nothing typed into them leaves the page.
 **Get:**
 - Founder with deep theory + execution
 - 4 commercial products in 16 weeks
-- Defensible tech (published, patentable)
+- Defensible tech (deterministic and inspectable — a property, not a filing)
 - $1.45M → $17.5M → $85M runway
 - Optionality (4 revenue streams, pick winners)
 
@@ -274,7 +276,7 @@ nothing typed into them leaves the page.
 
 **Founder:** Diego Rincón  
 **Email:** degibug@icloud.com  
-**Theory:** 10.5281/zenodo.21403447  
+**Theory:** 10.5281/zenodo.21403447 (self-published, Zenodo — not peer reviewed)  
 **Code:** phronesis-products (GitHub)  
 
 ---
@@ -366,6 +368,6 @@ nothing typed into them leaves the page.
 **Questions?**
 
 **Contact:** degibug@icloud.com  
-**Theory:** 10.5281/zenodo.21403447  
+**Theory:** 10.5281/zenodo.21403447 (self-published, Zenodo — not peer reviewed)  
 **Code:** github.com/phronesis-products  
 **Website:** phronesis.world
