@@ -1,0 +1,251 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\geometry{margin=1.4in}
+\usepackage{hyperref}
+\usepackage{setspace}
+\setstretch{1.4}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The Arithmetic Wall}
+\author{Diego Rinc\'on\\
+\small Independent}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Every approach to the Riemann Hypothesis fails at the same place:
+the archimedean place.
+This is not a coincidence.
+The archimedean place is structurally unlike the non-archimedean places.
+It resists the Frobenius.
+It resists the grammar of $\mathbb{F}_1$.
+It resists the spectral triple.
+This paper names it: the arithmetic wall is archimedean.
+\end{abstract}
+
+\section{The Places of $\mathbb{Q}$}
+
+The rational numbers $\mathbb{Q}$ carry multiple notions of distance.
+For each prime $p$, the $p$-adic absolute value $|\cdot|_p$
+measures divisibility by $p$: $|p^n a/b|_p = p^{-n}$
+when $p \nmid a, b$.
+The ordinary absolute value $|\cdot|_\infty$
+is the archimedean place.
+
+\begin{definition}[Places]
+A \emph{place} of $\mathbb{Q}$ is an equivalence class of absolute values.
+The places are: one archimedean place $v = \infty$
+and one non-archimedean place $v = p$ for each prime $p$.
+Together they satisfy the product formula:
+for all $x \in \mathbb{Q}^*$,
+$$\prod_v |x|_v = 1.$$
+\end{definition}
+
+\begin{remark}
+The product formula is the arithmetic version of a global statement.
+Each local factor $|x|_p$ is a non-archimedean contribution.
+The archimedean factor $|x|_\infty$ balances them.
+The wall is in that balance.
+\end{remark}
+
+\section{Why the Finite Field Case Succeeds}
+
+Over a finite field $\mathbb{F}_q$, the analogue of $\mathbb{Q}$ is the function field
+$K = \mathbb{F}_q(C)$ of a smooth projective curve $C$ over $\mathbb{F}_q$.
+The Weil conjectures for $C$ are the analogue of RH.
+They were proved by Weil (genus 1, 1941) and Deligne (arbitrary genus, 1974).
+
+The key difference: $K$ has no archimedean place.
+
+All places of $K$ are non-archimedean.
+Each place corresponds to a closed point of $C$ over $\mathbb{F}_q$.
+The Frobenius $x \mapsto x^q$ acts on every place uniformly.
+There is no special place that resists.
+
+In this setting:
+\begin{itemize}
+\item The zeta function of $C$ is a rational function.
+\item The Frobenius acts on étale cohomology.
+\item The eigenvalues of Frobenius have absolute value $q^{i/2}$ by purity.
+\item The zeros lie on the expected line.
+\end{itemize}
+
+None of this requires special treatment at any place.
+The absence of an archimedean place is what makes the proof possible.
+
+\section{Why the Number Field Case Fails}
+
+Over $\mathbb{Q}$, the archimedean place $v = \infty$ is structurally different.
+
+\textbf{The Frobenius does not extend.}
+For a prime $p$, the Frobenius $\mathrm{Frob}_p$ is the automorphism
+$x \mapsto x^p$ on the residue field $\mathbb{F}_p$.
+It lifts to a well-defined element of local Galois groups.
+But the global Galois group $\mathrm{Gal}(\bar{\mathbb{Q}}/\mathbb{Q})$ is non-abelian,
+and the archimedean place has no Frobenius:
+complex conjugation is the only canonical element at $v = \infty$,
+and it does not generate a cyclic dense subgroup.
+The global Frobenius, which would require a uniform generator
+across all places including $\infty$, does not exist \cite{frobenius}.
+
+\textbf{The grammar does not include it.}
+The program of $\mathbb{F}_1$ aims to make $\mathrm{Spec}\,\mathbb{Z}$ into a curve
+over an absolute base, so that the Frobenius would cohere.
+The compactification $\overline{\mathrm{Spec}\,\mathbb{Z}}$ must include the archimedean place
+as a point at infinity \cite{f1}.
+But the archimedean place is not a prime ideal.
+It does not arise from a prime $p$.
+It is the one place that the algebraic geometry of $\mathrm{Spec}\,\mathbb{Z}$
+does not naturally accommodate.
+The $\mathbb{F}_1$ grammar must be extended to include it;
+no current approach fully does.
+
+\textbf{The spectral triple fails here.}
+In the Connes program, the adèle class space
+$X = \mathbb{A}_\mathbb{Q}/\mathbb{Q}^*$ carries the scaling action
+whose generator is the candidate Dirac operator $D$ \cite{deficiency}.
+The decomposition of $L^2(X, d^*x)$ as a full-line $L^2$ space
+requires controlling the behavior of functions near $t = -\infty$
+in the coordinate $t = \log|x|_\infty$.
+This is the archimedean boundary.
+The boundary condition at $t = -\infty$
+(corresponding to $|x|_\infty \to 0$)
+is precisely the behavior near the zero element of $X$,
+which comes from the archimedean embedding $\mathbb{Q} \hookrightarrow \mathbb{R}$.
+The analysis at this boundary is the open step.
+
+\section{The Structure of the Wall}
+
+\begin{definition}[The arithmetic wall]
+The \emph{arithmetic wall} is the archimedean place $v = \infty$ of $\mathbb{Q}$,
+considered as the locus where every proof strategy for RH
+currently fails to extend.
+\end{definition}
+
+The wall is not a wall in the sense of an obstacle to be climbed.
+It is a structural fact about $\mathbb{Q}$:
+the archimedean place is unlike the non-archimedean places,
+and that difference is load-bearing.
+
+The non-archimedean places are discrete, algebraic, governed by primes.
+The archimedean place is continuous, analytic, governed by $\mathbb{R}$.
+The Euler product $\zeta(s) = \prod_p (1-p^{-s})^{-1}$ assembles information from all the primes.
+The gamma factor $\Gamma(s/2)\pi^{-s/2}$ assembles the archimedean contribution.
+Together they form the completed zeta function $\xi(s)$,
+symmetric under $s \mapsto 1-s$.
+The functional equation is a statement about all places together.
+The zeros are global.
+
+\begin{remark}[The wall is the completion]
+The rational numbers $\mathbb{Q}$ can be completed at each place.
+The completion at $p$ is $\mathbb{Q}_p$; the completion at $\infty$ is $\mathbb{R}$.
+The local theory at $\mathbb{Q}_p$ is well understood:
+algebraic, discrete, governed by the residue field $\mathbb{F}_p$.
+The local theory at $\mathbb{R}$ is continuous,
+and the Frobenius has no analogue.
+The wall is the place where the local theory is continuous
+and the algebraic grammar runs out.
+\end{remark}
+
+\section{What Crossing the Wall Would Require}
+
+To cross the arithmetic wall, a grammar must be built
+in which the archimedean place is algebraic.
+Three candidates:
+
+\textbf{Arakelov geometry.}
+Arakelov \cite{arakelov1974} extended intersection theory on arithmetic surfaces
+to include archimedean contributions as ``fibers at infinity.''
+The archimedean metric plays the role of a Green function on the fiber.
+This gives a framework where $v = \infty$ is treated like a prime,
+but it is a Hermitian metric, not an étale cohomology class.
+The Frobenius does not act on it.
+
+\textbf{$p$-adic Hodge theory extended to $v = \infty$.}
+The Fargues--Fontaine curve \cite{fargues2021} is an algebraic curve
+whose points are $p$-adic period rings.
+An archimedean analogue would be a curve
+whose points encode real period data.
+No such curve exists.
+
+\textbf{$\mathbb{F}_1$-geometry.}
+If $\mathbb{F}_1$ exists and $\mathrm{Spec}\,\mathbb{Z}$ is a curve over it,
+the compactification at the archimedean place
+would give a closed point at $\infty$ of the same algebraic type as the finite primes.
+The Frobenius would act.
+The wall would dissolve.
+The grammar does not yet exist.
+
+\begin{conjecture}[The arithmetic wall conjecture]
+The Riemann Hypothesis is equivalent to the statement
+that the archimedean place of $\mathbb{Q}$ admits a Frobenius-like action
+in the grammar of $\mathbb{F}_1$-geometry
+that makes the deficiency indices of $D$ on $L^2(X, d^*x)$ equal to $(0,0)$.
+\end{conjecture}
+
+\section{The Anatomy, Located}
+
+The body of papers has been doing anatomy.
+It has named the walls, the missing grammar, the missing Frobenius,
+the resonance object, the closest approach.
+All of them point here.
+
+The arithmetic wall is the precise location of the obstruction.
+Not: somewhere in the passage from local to global.
+More precisely: at the one place that is not algebraic,
+at the one place that has no Frobenius,
+at the one place where the completion is $\mathbb{R}$ rather than $\mathbb{Q}_p$.
+
+The body knows where the wall is.
+It is archimedean.
+It has always been archimedean.
+
+\begin{thebibliography}{9}
+
+\bibitem{frobenius}
+Rinc\'on, D. (2026). The Missing Frobenius. Preprint.
+
+\bibitem{f1}
+Rinc\'on, D. (2026). The Field with One Element. Preprint.
+
+\bibitem{deficiency}
+Rinc\'on, D. (2026). The Deficiency Indices of $D$. Preprint.
+
+\bibitem{one_wall}
+Rinc\'on, D. (2026). One Wall: The Local-to-Global Conjecture. Preprint.
+
+\bibitem{arakelov1974}
+Arakelov, S.~J. (1974).
+An intersection theory for divisors on an arithmetic surface.
+\textit{Izvestiya Akademii Nauk SSSR}, 38(6), 1179--1192.
+
+\bibitem{fargues2021}
+Fargues, L. and Fontaine, J.-M. (2021).
+\textit{Courbes et fibrés vectoriels en théorie de Hodge $p$-adique}.
+Astérisque 406, Société Mathématique de France.
+
+\bibitem{weil1948}
+Weil, A. (1948).
+\textit{Sur les courbes algébriques et les variétés qui s'en déduisent}.
+Hermann, Paris.
+
+\bibitem{deligne1974}
+Deligne, P. (1974).
+La conjecture de Weil, I.
+\textit{Publications Mathématiques de l'IHÉS}, 43, 273--307.
+
+\end{thebibliography}
+
+\end{document}

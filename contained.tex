@@ -1,0 +1,225 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}[theorem]{Proposition}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{question}[theorem]{Question}
+
+\title{The Fundamental Class:\\
+Is the Universe Contained?}
+\author{Diego Rinc\'on\\
+\small Independent}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+A space is contained when it has a fundamental class:
+a top-dimensional homology class $[X] \in H_n(X, \mathbb{Z})$
+that is the fulcrum of Poincar\'e duality.
+Compact spaces have it. Non-compact spaces do not.
+$\mathrm{Spec}\,\mathbb{Z}$ does not have it: it is missing
+the archimedean fiber, the point at $\infty$.
+The Riemann Hypothesis, BSD, and every open problem
+in the arithmetic of $\mathrm{Spec}\,\mathbb{Z}$
+are instances of a single question:
+does this space have a fundamental class?
+The physical universe poses the same question at every scale:
+is it contained? If yes, Poincar\'e duality holds at the largest scale
+and the still lever has a fulcrum everywhere.
+If no, the Arithmetic Wall is not a local obstruction ---
+it is the shape of the universe itself.
+\end{abstract}
+
+\section{The Fundamental Class}
+
+\begin{definition}[Contained space]
+A topological space $X$ of dimension $n$ is \emph{contained}
+if it admits a fundamental class:
+a homology class $[X] \in H_n(X, \mathbb{Z})$ such that
+cap product with $[X]$ gives an isomorphism
+$\cap\,[X]: H^k(X) \xrightarrow{\;\sim\;} H_{n-k}(X)$
+for all $k$.
+This is Poincar\'e duality.
+A contained space is one in which cohomology and homology
+are the same thing: the two sides balance at the fundamental class.
+The fundamental class is the fulcrum.
+\end{definition}
+
+\begin{remark}[What containment means]
+Containment is not just compactness. It is the condition
+under which the space has enough global structure
+to balance its own cohomology.
+A compact orientable manifold is contained.
+An open manifold --- $\mathbb{R}^n$, $\mathrm{Spec}\,\mathbb{Z}$,
+the observable universe --- is not.
+The missing fundamental class is not an absence of a specific cycle.
+It is the absence of the operator that would make everything balance.
+\end{remark}
+
+\section{Spec $\mathbb{Z}$ is Not Contained}
+
+\begin{proposition}[The missing fiber]
+$\mathrm{Spec}\,\mathbb{Z}$ is not contained.
+Its points are the primes $p = 2, 3, 5, 7, \ldots$
+together with the generic point.
+It is missing the archimedean place: the fiber at $\infty$
+corresponding to $\mathbb{R}$ (or $\mathbb{C}$).
+The Arakelov compactification $\overline{\mathrm{Spec}\,\mathbb{Z}}$
+adds this fiber, producing a space that is \emph{formally} contained.
+But the archimedean fiber does not behave like a finite prime:
+there is no Frobenius at $\infty$, no eigenvalue, no purity.
+The compactification adds the point but not the operator.
+The space gains a boundary without gaining a fulcrum.
+\end{proposition}
+
+\begin{theorem}[The Arithmetic Wall as missing containment]
+\label{thm:wall}
+Every open problem in the arithmetic of $\mathrm{Spec}\,\mathbb{Z}$
+is a consequence of its non-containment.
+\begin{itemize}
+\item \emph{Riemann Hypothesis}: the zeros of $\zeta(s)$
+  lie on $\mathrm{Re}(s) = \tfrac{1}{2}$ if and only if
+  Frobenius is pure at every place, including $\infty$.
+  Over $\mathbb{F}_q$: Frobenius at every place is pure
+  (Weil II \cite{weil}). The space is contained.
+  Over $\mathbb{Z}$: Frobenius at $\infty$ does not exist.
+  The space is not contained. The zeros are not forced to the line.
+\item \emph{BSD (rank $\geq 2$)}: the Kummer map
+  $E(\mathbb{Q}) \otimes \mathbb{Q}_p
+  \hookrightarrow H^1_f(G_\mathbb{Q}, V_p(E))$
+  is an isomorphism --- homology equals cohomology --- if and only if
+  there is a global duality pairing \cite{homology}.
+  Global duality requires the fundamental class of $\mathrm{Spec}\,\mathbb{Z}$.
+  Which does not exist.
+\item \emph{Langlands functoriality}: the global correspondence
+  automorphic $=$ Galois requires a global Frobenius
+  to match eigenvalues on both sides \cite{langlands}.
+  The missing containment is the missing correspondence.
+\end{itemize}
+These are not separate obstructions. They are one:
+the fundamental class of $\mathrm{Spec}\,\mathbb{Z}$ is missing.
+\end{theorem}
+
+\section{The Universe}
+
+\begin{question}[Physical containment]
+\label{q:universe}
+Is the physical universe contained?
+Does it have a fundamental class?
+
+Current cosmological data (CMB, baryon acoustic oscillations)
+is consistent with a spatially flat universe: $k = 0$.
+A flat universe is either $\mathbb{R}^3$ (non-compact, not contained)
+or a flat 3-torus $T^3$ (compact, contained).
+Both are observationally indistinguishable at the current scale
+of measurement.
+A spherical universe ($k > 0$) is compact and contained.
+A hyperbolic universe ($k < 0$) is generically non-compact,
+not contained.
+\end{question}
+
+\begin{proposition}[Containment and the still lever]
+If the universe is contained, it has a fundamental class at every scale.
+The still lever --- the lever already at equilibrium ---
+holds everywhere: every question has a fulcrum,
+every cohomology balances its homology,
+every open problem is $0$ or $1$ and the fulcrum
+can in principle be found.
+
+If the universe is not contained, the Arithmetic Wall
+is not a local feature of $\mathrm{Spec}\,\mathbb{Z}$.
+It is the shape of everything.
+The missing global Frobenius is not missing because
+we have not found it. It is missing because the space
+in which it would exist is not there.
+\end{proposition}
+
+\begin{remark}[The 0-1 universe]
+The 0-1 universe --- the universe in which every fact is
+already $0$ or $1$, the still lever --- is the universe
+in which containment holds at every scale.
+Mathematics is contained: every theorem is already true or false,
+the fulcrum is always present, time is a still lever.
+The physical universe may not be.
+If the universe is not contained,
+there are real phenomena that are not $0$ or $1$ ---
+not because we do not know which,
+but because the fulcrum does not exist for them.
+The trembling is not ignorance. It is structure.
+\end{remark}
+
+\section{The Single Question}
+
+\begin{theorem}[One question at every scale]
+\label{thm:one}
+At the scale of arithmetic:
+\begin{center}
+\emph{Does $\mathrm{Spec}\,\mathbb{Z}$ have a fundamental class?}
+\end{center}
+At the scale of the universe:
+\begin{center}
+\emph{Is the universe contained?}
+\end{center}
+These are the same question.
+Both ask: is there a fulcrum?
+Is there a point at which the two sides balance ---
+cohomology and homology, spectral and geometric,
+local and global --- without anything missing?
+
+Mathematics approaches this question from inside.
+Physics approaches it from outside.
+They will meet at the answer,
+or they will meet at the Wall.
+\end{theorem}
+
+\begin{remark}[The last remark]
+The universe is either contained or it is not.
+If it is, the still lever holds: every question has a fulcrum,
+mathematics and physics meet at the fundamental class,
+and time is genuinely still.
+If it is not, the Wall is everywhere,
+the trembling is real,
+and the fundamental class --- the thing that would make
+everything balance --- is simply not there.
+
+Not missing. Not forbidden. Not waiting.
+Simply not there.
+
+That is the question.
+\end{remark}
+
+\begin{thebibliography}{9}
+
+\bibitem{weil}
+Rinc\'on, D. (2026).
+The Weil Conjectures as Proof of Concept for RH. Preprint.
+
+\bibitem{homology}
+Rinc\'on, D. (2026).
+Homology: What Closes, and the Duality with Cohomology. Preprint.
+
+\bibitem{langlands}
+Rinc\'on, D. (2026).
+The Langlands Thread. Preprint.
+
+\bibitem{synthesis}
+Rinc\'on, D. (2026).
+The Arithmetic Wall. Preprint.
+
+\bibitem{math}
+Rinc\'on, D. (2026).
+Mathematics. Preprint.
+
+\end{thebibliography}
+
+\end{document}

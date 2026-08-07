@@ -1,0 +1,285 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{problem}[theorem]{Problem}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The Millennium Problems\\
+\large Seven Walls}
+\author{Diego Rinc\'on\\
+\small Independent}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The Clay Mathematics Institute designated seven problems in 2000,
+each carrying a prize of one million dollars.
+Each is a Wall \cite{synthesis}:
+a place where two grammars press against each other
+and no crossing has been found.
+One has been solved.
+Six remain.
+This document states each problem precisely
+and names its Wall.
+\end{abstract}
+
+\section{The Riemann Hypothesis}
+
+\begin{conjecture}[Riemann, 1859]
+The Riemann zeta function
+\[
+\zeta(s) = \sum_{n=1}^\infty \frac{1}{n^s}, \quad \mathrm{Re}(s) > 1,
+\]
+extends to a meromorphic function on $\mathbb{C}$
+with a simple pole at $s=1$.
+Its non-trivial zeros --- the zeros not at negative even integers ---
+all satisfy
+\[
+\mathrm{Re}(s) = \tfrac{1}{2}.
+\]
+\end{conjecture}
+
+\begin{remark}[The Wall]
+The Wall is between the spectral grammar (the zeros)
+and the arithmetic grammar (the primes).
+The explicit formula holds them in balance \cite{week09}.
+The missing step: self-adjointness of the operator $D$
+on $L^2(\mathbb{A}_\mathbb{Q}/\mathbb{Q}^*, d^*x)$ \cite{week10}.
+Self-adjointness forces real spectrum.
+Real spectrum forces $\mathrm{Re}(\rho) = \tfrac{1}{2}$.
+The Wall is archimedean: the $L^2$ estimate at $\infty$
+is what no proof has yet crossed.
+\end{remark}
+
+\section{The Birch and Swinnerton-Dyer Conjecture}
+
+\begin{conjecture}[Birch--Swinnerton-Dyer, 1965]
+Let $E$ be an elliptic curve over $\mathbb{Q}$.
+The rank of the Mordell--Weil group $E(\mathbb{Q})$
+equals the order of vanishing of the $L$-function $L(E,s)$ at $s=1$:
+\[
+\mathrm{rank}\, E(\mathbb{Q}) = \mathrm{ord}_{s=1} L(E,s).
+\]
+Moreover, the leading coefficient of the Taylor expansion
+of $L(E,s)$ at $s=1$ is given by an explicit formula
+involving the period, the regulator, the Tate--Shafarevich group,
+and the Tamagawa numbers of $E$.
+\end{conjecture}
+
+\begin{remark}[The Wall]
+The Wall is between geometry ($E(\mathbb{Q})$, the rational points)
+and analysis ($L(E,s)$, the $L$-function).
+The geometric rank is a number counted by algebra.
+The analytic order of vanishing is a number counted by complex analysis.
+That they are equal is a resonance \cite{resonance}:
+two grammars reading the same thing.
+Known: the conjecture holds when
+$\mathrm{ord}_{s=1} L(E,s) \leq 1$ (Coates--Wiles, Gross--Zagier, Kolyvagin).
+Unknown: the general case.
+\end{remark}
+
+\section{The Hodge Conjecture}
+
+\begin{conjecture}[Hodge, 1950]
+Let $X$ be a smooth projective variety over $\mathbb{C}$.
+Every Hodge class --- every class in
+$H^{2k}(X,\mathbb{Q}) \cap H^{k,k}(X)$ ---
+is a rational linear combination of classes of algebraic cycles.
+\end{conjecture}
+
+\begin{remark}[The Wall]
+The Wall is between topology ($H^{2k}(X,\mathbb{Q})$)
+and algebra (algebraic cycles).
+A Hodge class is a cohomology class
+that looks algebraic from the analytic side.
+The conjecture says it is algebraic.
+The motive \cite{motives} is the proper design \cite{design}
+from which both sides derive:
+if the standard conjectures hold, the Hodge conjecture follows.
+The Wall is the gap between the motivic grammar
+and the algebraic cycle grammar.
+\end{remark}
+
+\section{The P vs. NP Problem}
+
+\begin{problem}[Cook, 1971]
+Let $\mathsf{P}$ be the class of decision problems
+solvable in polynomial time by a deterministic Turing machine.
+Let $\mathsf{NP}$ be the class of decision problems
+whose solutions can be verified in polynomial time.
+Is $\mathsf{P} = \mathsf{NP}$?
+\end{problem}
+
+\begin{remark}[The Wall]
+The Wall is between finding and checking \cite{turing}.
+Checking a proof is easy ($\mathsf{NP}$).
+Finding a proof may be hard ($\mathsf{P}$-hard).
+If $\mathsf{P} = \mathsf{NP}$: finding is as easy as checking.
+Every problem whose solution can be recognized
+can be solved just as fast.
+The Wall would not exist.
+If $\mathsf{P} \neq \mathsf{NP}$: the Wall is real.
+The universal Turing machine cannot short-circuit
+the difference between generation and verification.
+Almost everyone believes $\mathsf{P} \neq \mathsf{NP}$.
+No one has proved it.
+\end{remark}
+
+\section{Yang--Mills Existence and Mass Gap}
+
+\begin{problem}[Jaffe--Witten, 2000]
+For any compact simple gauge group $G$,
+there exists a quantum Yang--Mills theory on $\mathbb{R}^4$
+satisfying the Wightman axioms,
+and there is a constant $\Delta > 0$ (the \emph{mass gap})
+such that the energy of every excited state
+exceeds the energy of the vacuum by at least $\Delta$.
+\end{problem}
+
+\begin{remark}[The Wall]
+The Wall is between the classical gauge theory
+(well-defined, rich in geometry)
+and the quantum theory
+(requiring a rigorous measure on the space of gauge connections).
+The Yang--Mills functional
+$\mathcal{A} \mapsto \int_{\mathbb{R}^4} |F_\mathcal{A}|^2$
+is classical.
+Its quantization --- a path integral over all connections ---
+requires a mathematically rigorous construction
+that does not yet exist in four dimensions.
+The mass gap is the spectral gap of the quantum Hamiltonian:
+a gap in the nothing \cite{nothing} between the vacuum and the first state.
+\end{remark}
+
+\section{Navier--Stokes Existence and Smoothness}
+
+\begin{problem}[Fefferman, 2000]
+In three space dimensions and time,
+given smooth initial data $u_0: \mathbb{R}^3 \to \mathbb{R}^3$
+with $\nabla \cdot u_0 = 0$,
+does there exist a smooth solution $u: \mathbb{R}^3 \times [0,\infty) \to \mathbb{R}^3$
+to the Navier--Stokes equations
+\[
+\partial_t u + (u \cdot \nabla) u = -\nabla p + \nu \Delta u,
+\quad \nabla \cdot u = 0,
+\]
+for all time? Or can solutions blow up in finite time?
+\end{problem}
+
+\begin{remark}[The Wall]
+The Wall is between the local and the global:
+local smooth solutions exist (Leray, 1934);
+whether they extend to all time is unknown.
+The nonlinear term $(u \cdot \nabla)u$
+can concentrate energy into smaller and smaller scales.
+Whether this concentration reaches a singularity
+or is smoothed by the viscosity $\nu$
+is the question.
+Global regularity in 2D is proved (energy estimates close).
+In 3D, the energy estimates fail to close:
+the dimension is exactly critical for the nonlinearity.
+The Wall is at the critical dimension.
+\end{remark}
+
+\section{The Poincar\'e Conjecture}
+
+\begin{conjecture}[Poincar\'e, 1904 --- \textbf{Solved, Perelman 2003}]
+Every simply connected, closed 3-manifold
+is homeomorphic to the 3-sphere $S^3$.
+\end{conjecture}
+
+\begin{remark}[The crossing]
+Perelman proved this in 2002--2003
+using Hamilton's Ricci flow with surgery:
+a geometric flow that deforms the metric of the manifold
+toward constant curvature.
+Singularities are removed by surgery.
+The flow terminates at a round sphere.
+Perelman declined the Clay prize.
+The Wall was crossed.
+The crossing used the geometry of the manifold itself
+as the proof: the manifold deformed into its own evidence.
+\end{remark}
+
+\section{The Six Remaining Walls}
+
+\begin{remark}[What is left]
+Six Walls remain.
+Each has been approached.
+None has been crossed.
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{@{}ll@{}}
+Problem & The Wall \\
+\hline
+Riemann Hypothesis & Spectral vs.\ arithmetic; archimedean estimate \\
+BSD & Geometric rank vs.\ analytic order of vanishing \\
+Hodge & Topology vs.\ algebraic cycles; motivic grammar \\
+P vs.\ NP & Finding vs.\ checking; generation vs.\ verification \\
+Yang--Mills & Classical gauge theory vs.\ quantum measure \\
+Navier--Stokes & Local smoothness vs.\ global existence; critical dimension \\
+\end{tabular}
+\end{center}
+
+Each Wall is a place where two grammars press against each other
+and no crossing has been found.
+The crossing, when it comes,
+will not be constructed.
+It will be found ---
+already there, already vibrating \cite{the_string},
+waiting for the grammar that can hear it.
+\end{remark}
+
+\begin{thebibliography}{9}
+
+\bibitem{synthesis}
+Rinc\'on, D. (2026).
+The Arithmetic Wall. Preprint.
+
+\bibitem{week09}
+Rinc\'on, D. (2026).
+Week 09: The Resonance Object. Preprint.
+
+\bibitem{week10}
+Rinc\'on, D. (2026).
+Week 10: Self-Adjointness. Preprint.
+
+\bibitem{resonance}
+Rinc\'on, D. (2026).
+Resonance: When Two Grammars Read the Same Thing. Preprint.
+
+\bibitem{motives}
+Rinc\'on, D. (2026).
+Motives, Standard Conjectures, and the Unification of $L$-functions.
+Preprint.
+
+\bibitem{design}
+Rinc\'on, D. (2026).
+Design: The One That Precludes. Preprint.
+
+\bibitem{turing}
+Rinc\'on, D. (2026).
+Turing Completeness and the Wall. Preprint.
+
+\bibitem{nothing}
+Rinc\'on, D. (2026).
+Nothing: The First Object. Preprint.
+
+\bibitem{the_string}
+Rinc\'on, D. (2026).
+The String. Preprint.
+
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,282 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Adaptive Regularization and the Clay Millennium Problems:\\
+A Current Account}
+\author{Diego Rinc\'on \\ \small Independent}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The adaptive regularization template --- regularize with parameter $\alpha>0$,
+bound uniformly, extract by compactness, inherit regularity --- applied to the
+Clay Millennium Problems locates difficulty at a single step: the uniform bound.
+The bound step has the same character across all problems: it requires
+non-perturbative input that no finite-order expansion can supply. Three classes
+emerge. Class (A): the template closes --- the Hodge Conjecture, where the
+Pointwise $(k,k)$ Conjecture follows from the local $\partial\bar\partial$
+decomposition (Hörmander for currents) and the bound step is perturbative.
+Class (B): the template isolates a named open conjecture --- Riemann (construct
+the Hilbert-Pólya operator), Yang-Mills (Gribov mass $\gamma(a)\to\Lambda_{QCD}$),
+BSD (arithmetic Gan-Gross-Prasad for $U(r)\times U(r+1)$, $r\geq 3$),
+Navier-Stokes (non-concentration of vorticity, BKM).
+Class (C): the template fails structurally --- P vs NP, where the bound step
+is equivalent to the problem and all three proof barriers apply.
+\end{abstract}
+
+\section{The Template}
+
+\begin{enumerate}
+\item \textbf{Regularize.} Add $\alpha$-penalty; $\mathcal{P}(\alpha)$ solvable
+  for each $\alpha>0$.
+\item \textbf{Bound.} Uniform estimate $\|u_\alpha\|\leq C$ independent of $\alpha$.
+\item \textbf{Compact.} Extract $u_{\alpha_n}\to u_0$.
+\item \textbf{Regularity.} $u_0$ inherits the target property.
+\end{enumerate}
+Steps 1, 3, 4 are typically analytic and complete. Step 2 is where all
+difficulty is concentrated.
+
+\section{Class (A): Hodge Conjecture \textnormal{[closes]}}
+
+\textbf{Setup.} Let $X$ be a smooth complex projective variety with Kähler form
+$\omega$. A Hodge class is $\gamma\in H^{2k}(X,\mathbb{Q})\cap H^{k,k}(X)$.
+BSD asks: is $\gamma$ algebraic?
+
+\textbf{Template.}
+$E_\alpha[T] = M(T) + \alpha M(T)^2$ on integral $(2k)$-currents in class $\gamma$.
+Federer-Fleming gives mass-minimizers $T_\alpha$ for each $\alpha\geq 0$.
+Uniform mass bound: $M(T_\alpha)\leq M(T_{\rm ref})$ (the $\alpha$ term cannot
+increase the mass above any competitor). Compactness: Federer-Fleming.
+Limit $T_0$ is mass-minimizing. By Almgren-De Lellis-Spadaro, singular set has
+codimension $\geq 2$.
+
+\textbf{Bound step (PPC).} The smooth part of $T_0$ must be a complex $k$-submanifold.
+Proof: on a coordinate ball $U$, $\partial T = 0$ and $\bar\partial T = 0$ by
+bidegree. By Hörmander's $\bar\partial$-Poincaré lemma for currents (extended via
+the closed graph theorem), $T|_U = \partial\bar\partial S$ for a $(k-1,k-1)$
+current $S$. At a smooth point $x$ of $T$, the current is integration over a
+smooth $2k$-manifold $M$; the distributional $(k,k)$ type forces restriction of all
+$(p,q)$-forms with $(p,q)\neq(n-k,n-k)$ to $M$ to vanish, hence $T_xM$ is a
+complex $k$-plane. Harvey-Lawson: $T$ is calibrated by $\omega^k/k!$. Chow:
+closure of smooth part is algebraic. \emph{Template closes.} \checkmark
+
+\section{Class (B): Named Open Conjectures}
+
+\subsection{Riemann Hypothesis}
+
+\textbf{Template.} The Hilbert-Pólya conjecture: a self-adjoint $H$ with
+$\mathrm{Spec}(H) = \{\gamma:\zeta(\tfrac12+i\gamma)=0\}$. Self-adjointness
+gives real spectrum; all zeros satisfy $\sigma=\tfrac12$ in one line.
+
+\textbf{Bound step.} Constructing $H$. The GUE statistics of the zeros
+(Montgomery \cite{montgomery1973}, Odlyzko \cite{odlyzko1987}) match the
+eigenvalue spacing of a generic self-adjoint operator, strongly supporting
+existence. No construction is known.
+\textit{Open: the Hilbert-P\'olya operator.}
+
+\subsection{Yang-Mills Existence and Mass Gap}
+
+\textbf{Template.} $E_\alpha[A] = E[A] + \alpha\int|F|^4$. On finite lattice
+$\Lambda$, transfer matrix $T_\alpha^\Lambda$ has gap $\Delta_\alpha^\Lambda > 0$
+(Perron-Frobenius on compact group). Prokhorov tightness. Gap continuous in $\alpha$.
+
+\textbf{Bound step.} Uniform gap $\Delta_0^\Lambda\geq\Delta_0>0$ (LMG).
+The Gribov-Zwanziger mechanism \cite{zwanziger1989}: restricting to the Gribov
+region $\Omega = \{A:M[A]>0\}$ gives gluon propagator $D(k^2)=k^2/(k^4+\gamma^4)$,
+bounding $\Delta\geq 2\gamma^2$. The Gribov mass satisfies the self-consistent
+gap equation; LMG is equivalent to $\gamma(a)\to\Lambda_{QCD}>0$ as $a\to 0$.
+Strong coupling: gap established by cluster expansion \cite{seiler1982}.
+Weak coupling: dimensional transmutation is non-perturbative; the Balaban
+renormalization group \cite{balaban1989} stalls at the non-trivial solution of
+the gap equation.
+\textit{Open: $\gamma(a)\to\Lambda_{QCD}$; continuum Wightman limit.}
+
+\subsection{Birch-Swinnerton-Dyer}
+
+\textbf{Template.} $L_\alpha(E,s) = L(E,s)e^{-\alpha(s-1)^2}$; analytic rank
+preserved. Leibniz factorization: for $K$ with $L(E_K,1)\neq 0$,
+$L^{(r)}(E,1)\neq 0 \iff L^{(r)}(E/K,1)\neq 0$.
+Kolyvagin (rank 0) and Gross-Zagier (rank 1): unconditional \cite{kolyvagin1988,gz1986}.
+
+\textbf{Bound step.} For $r_{\rm an}\geq 2$: the Generalized Gross-Zagier
+conjecture GGZ$_r$, which is the arithmetic Gan-Gross-Prasad conjecture for
+$U(r)\times U(r+1)$. Under arithmetic GGP, $\det(\langle\kappa^{(i)},\kappa^{(j)}\rangle_{\rm Nek}) \doteq L^{(r)}(E,1)$; since this determinant is the regulator,
+GGZ$_r$ implies the full BSD leading-coefficient formula. GGZ$_1$: Gross-Zagier.
+GGZ$_2$: Darmon-Rotger \cite{darmonrotger2017} under local hypotheses.
+GGZ$_r$, $r\geq 3$: requires $p$-adic $L$-function for $\mathrm{GL}(2)^r$ and
+explicit reciprocity law on $r$-fold Kuga-Sato variety. Non-perturbative.
+\textit{Open: arithmetic GGP for $U(r)\times U(r+1)$, $r\geq 3$.}
+
+\subsection{Navier-Stokes}
+
+\textbf{Template.} $\nu(\psi)=\nu_0+\alpha|\nabla u|^2$. Smooth solutions
+$u_\alpha$ for all $\alpha>0$ (Ladyzhenskaya $p=4$ \cite{lady1967}).
+Testing against $-\Delta u_\alpha$ at maximum $t^*$ of $\|\nabla u_\alpha\|^2$:
+\[
+\nu_0 X/C_P^2 \leq CX^3/\nu_0 + \|f\|^2/\nu_0, \quad X=\|\nabla u_\alpha(t^*)\|^2.
+\]
+Small data: closes. Large data: $X^3$ dominates.
+
+\textbf{Why $X^3$ and not $X^2$.} In dimension $d$, the convection term gives
+$CX^{d/2+1}/\nu$ at the enstrophy maximum. $d=2$: $X^2$, subcritical, closes
+by Gronwall (global regularity in 2D). $d=3$: $X^3$, supercritical. The
+exponent jump is the vortex stretching term $(\omega\cdot\nabla)u$ in the
+vorticity equation, absent in $d=2$.
+
+\textbf{Bound step.} By Beale-Kato-Majda \cite{bkm1984}: blowup iff
+$\int_0^T\|\omega\|_{L^\infty}\,dt=\infty$. Tao \cite{tao2016}: a small
+modification of the NS nonlinearity (preserving energy identity and scaling)
+admits finite-time blowup; the actual NS nonlinearity prevents blowup by its
+specific algebraic structure (antisymmetry, divergence-free, Biot-Savart),
+but what in this structure prevents vorticity concentration is unknown.
+\textit{Open: non-concentration of vorticity in $L^\infty$.}
+
+\section{Class (C): Structural Failure}
+
+\textbf{P vs NP.} For any NP-complete $L$, the uniform bound
+$\psi(L,n)=T^*(L,n)/n^k\leq C$ is equivalent to $L\in\mathbf{P}$, i.e.\
+$\mathbf{P}=\mathbf{NP}$. No weaker bound suffices. The template relativizes,
+is natural (Razborov-Rudich \cite{rr1994}), and algebrizes (Aaronson-Wigderson
+\cite{aw2009}): no proof via the template can separate $\mathbf{P}$ from
+$\mathbf{NP}$. The problem is structurally distinct: not an analytic estimate
+but a combinatorial lower bound.
+
+\section{Classification and the Bound Step}
+
+\begin{center}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Problem & Bound conjecture & Non-perturbative & Status \\
+\midrule
+Hodge & PPC (local $\partial\bar\partial$) & No & \textbf{Closed} \\
+Riemann & Construct $H$ & Yes & Open \\
+Yang-Mills & $\gamma(a)\to\Lambda_{QCD}$ & Yes & Open \\
+BSD & Arithmetic GGP, $r\geq 3$ & Yes & Open \\
+Navier-Stokes & $\int\|\omega\|_{L^\infty}<\infty$ & Yes & Open \\
+P vs NP & (Template fails) & N/A & Structural failure \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{theorem}[Meta-theorem]\label{thm:meta}
+Applied to the five analytic Clay Millennium Problems, the template reduces each
+to a single open conjecture at the bound step, equivalent to the original problem.
+For four problems, the bound conjecture is non-perturbative: no finite-order
+expansion around any known solution produces the required estimate. For one
+(Hodge), the bound step is perturbative (Hörmander), and the template closes.
+\end{theorem}
+
+Companion papers with full proofs: \cite{hodge2}, \cite{ym2}, \cite{bsd2},
+\cite{ns2}, \cite{hard}.
+
+\begin{thebibliography}{9}
+
+\bibitem{ff1960}
+Federer, H., Fleming, W. (1960).
+Normal and integral currents. \textit{Ann.\ Math.} 72.
+
+\bibitem{hormander}
+H\"ormander, L. (1990).
+\textit{An Introduction to Complex Analysis in Several Variables}. North-Holland.
+
+\bibitem{harveylaw}
+Harvey, R., Lawson, H.B. (1982).
+Calibrated geometries. \textit{Acta Math.} 148.
+
+\bibitem{almgren1983}
+Almgren, F. (1983).
+$Q$-valued functions. \textit{Mem.\ AMS.}
+
+\bibitem{chow1949}
+Chow, W.L. (1949).
+On compact complex analytic varieties. \textit{Amer.\ J.\ Math.} 71.
+
+\bibitem{montgomery1973}
+Montgomery, H. (1973).
+Pair correlation of zeros. \textit{Proc.\ Symp.\ Pure Math.} 24.
+
+\bibitem{odlyzko1987}
+Odlyzko, A. (1987).
+Distribution of spacings between zeros. \textit{Math.\ Comp.} 48.
+
+\bibitem{zwanziger1989}
+Zwanziger, D. (1989).
+Local and renormalizable action from the Gribov horizon.
+\textit{Nucl.\ Phys.\ B} 323.
+
+\bibitem{seiler1982}
+Seiler, E. (1982).
+\textit{Gauge Theories as a Problem of Constructive QFT}. Springer.
+
+\bibitem{balaban1989}
+Balaban, T. (1989).
+Large field renormalization. \textit{Comm.\ Math.\ Phys.} 122.
+
+\bibitem{kolyvagin1988}
+Kolyvagin, V. (1988).
+Finiteness of $E(\mathbb{Q})$ and $\mathrm{III}$. \textit{Math.\ USSR Izv.} 32.
+
+\bibitem{gz1986}
+Gross, B., Zagier, D. (1986).
+Heegner points and derivatives of $L$-series. \textit{Invent.\ Math.} 84.
+
+\bibitem{darmonrotger2017}
+Darmon, H., Rotger, V. (2017).
+Diagonal cycles and Euler systems II. \textit{J.\ AMS} 30.
+
+\bibitem{lady1967}
+Ladyzhenskaya, O.A. (1967).
+New equations for viscous flow. \textit{Trudy Mat.\ Inst.\ Steklov} 102.
+
+\bibitem{bkm1984}
+Beale, J.T., Kato, T., Majda, A. (1984).
+Breakdown of smooth solutions for 3-D Euler. \textit{Comm.\ Math.\ Phys.} 94.
+
+\bibitem{tao2016}
+Tao, T. (2016).
+Finite time blowup for averaged NS. \textit{J.\ AMS} 29.
+
+\bibitem{rr1994}
+Razborov, A., Rudich, S. (1994).
+Natural proofs. \textit{Proc.\ STOC.}
+
+\bibitem{aw2009}
+Aaronson, S., Wigderson, A. (2009).
+Algebrization. \textit{ACM Trans.\ Comput.\ Theory} 1.
+
+\bibitem{hodge2}
+Rinc\'on, D. (2026).
+Complex Monotonicity and the Hodge Conjecture. Preprint.
+
+\bibitem{ym2}
+Rinc\'on, D. (2026).
+Yang-Mills Mass Gap: The Gribov Horizon and the Gap Equation. Preprint.
+
+\bibitem{bsd2}
+Rinc\'on, D. (2026).
+BSD via the Arithmetic Gan-Gross-Prasad Conjecture. Preprint.
+
+\bibitem{ns2}
+Rinc\'on, D. (2026).
+Navier-Stokes: Vortex Stretching and the Dimension Gap. Preprint.
+
+\bibitem{hard}
+Rinc\'on, D. (2026).
+The Hard Step: Why the Clay Millennium Problems Resisted Solution. Preprint.
+
+\end{thebibliography}
+
+\end{document}

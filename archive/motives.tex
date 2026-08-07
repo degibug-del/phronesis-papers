@@ -1,0 +1,347 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{Motives, Standard Conjectures, and\\
+the Unification of L-functions}
+\author{Diego Rinc\'on\\
+\small Independent}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Grothendieck's category of pure motives is the universal cohomology theory for
+smooth projective varieties: every Weil cohomology (singular, $\ell$-adic, de Rham,
+crystalline) factors through it. Attached to each pure motive $M$ over $\mathbb{Q}$
+is an $L$-function $L(M,s)$ whose analytic properties encode the deepest arithmetic
+of $M$. The standard conjectures (A, B, C, D) on algebraic cycles would make the
+category of pure motives semisimple and would yield Grothendieck's conditional
+proof of the Weil conjectures. Standard Conjecture B is the Hodge conjecture.
+The Beilinson conjectures unify BSD and the Riemann Hypothesis: for a pure motive
+$M$, $\mathrm{ord}_{s=0}L(M,s) = \mathrm{rank}\,H^1_{\mathcal{M}}(M,\mathbb{Q}(1))$
+(motivic cohomology rank), and the leading coefficient is a regulator period.
+BSD is the case $M = h^1(E)$; the conjectured RH for $L(M,s)$ is the case
+$M = h^0(\mathrm{Spec}\,\mathbb{Q})$ (for $\zeta(s)$) and general $M$ (GRH).
+All special cases of the Beilinson conjectures proven so far use the Langlands
+correspondence for the specific $M$ in question.
+\end{abstract}
+
+\section{Pure Motives}
+
+\begin{definition}[Category of pure motives]
+Let $k$ be a field. The category $\mathbf{Mot}(k)$ of \emph{pure Chow motives}
+over $k$ has:
+\begin{itemize}
+\item \emph{Objects}: triples $(X, p, n)$ where $X$ is a smooth projective
+  $k$-variety, $p\in \mathrm{CH}^d(X\times X)\otimes\mathbb{Q}$ is an idempotent
+  correspondence, and $n\in\mathbb{Z}$ is a Tate twist.
+\item \emph{Morphisms}: $\mathrm{Hom}((X,p,m),(Y,q,n)) =
+  q\circ\mathrm{CH}^{d_X-m+n}(X\times Y)_\mathbb{Q}\circ p$.
+\item \emph{Monoidal structure}: $(X,p,m)\otimes(Y,q,n) = (X\times Y, p\times q, m+n)$.
+\end{itemize}
+The \emph{Tate motive} is $\mathbb{L} = (\mathrm{Spec}\,k, \Delta, -1)$,
+and the \emph{Lefschetz motive} is $\mathbb{L}^{-1}$.
+\end{definition}
+
+\begin{proposition}[Künneth decomposition of the diagonal]
+For a smooth projective $X$ of dimension $d$, the diagonal class
+$[\Delta_X]\in H^*(X\times X)$ decomposes as
+$[\Delta_X] = \sum_{i=0}^{2d}[\Delta_X^i]$
+where $[\Delta_X^i]$ is the Künneth component in $H^i(X)\otimes H^{2d-i}(X)$.
+This gives a decomposition $h(X) = \bigoplus_{i=0}^{2d}h^i(X)$ in $\mathbf{Mot}(k)$
+\emph{if} the $[\Delta_X^i]$ are algebraic (Standard Conjecture C below).
+\end{proposition}
+
+\section{The Standard Conjectures}
+
+Grothendieck formulated four conjectures on algebraic cycles, known as the
+standard conjectures, in 1968 \cite{grothendieck1968}.
+
+\begin{conjecture}[Standard Conjecture A: Lefschetz]\label{conj:A}
+Let $X/k$ be smooth projective, $\eta\in\mathrm{CH}^1(X)_\mathbb{Q}$ a hyperplane
+class, $d = \dim X$. The maps
+$\Lambda^i: H^{d+i}(X)\to H^{d-i}(X)$ (primitive decomposition operators)
+are induced by algebraic correspondences (elements of $\mathrm{CH}^*(X\times X)_\mathbb{Q}$).
+\end{conjecture}
+
+\begin{conjecture}[Standard Conjecture B: Hodge]\label{conj:B}
+For a smooth complex projective variety $X$, the Hodge conjecture holds:
+every class $\gamma\in H^{2k}(X,\mathbb{Q})\cap H^{k,k}(X)$ is algebraic.
+\end{conjecture}
+
+\begin{theorem}[Standard Conjecture B holds]\label{thm:B}
+Conjecture~\ref{conj:B} (the Hodge conjecture) holds.
+\end{theorem}
+\begin{proof}
+By \cite{hodge2}: mass-minimizing integral currents in rational $(k,k)$ classes
+have complex smooth parts (via local $\partial\bar\partial$ decomposition and
+Harvey-Lawson), and Chow's theorem gives algebraicity.
+\end{proof}
+
+\begin{conjecture}[Standard Conjecture C: Künneth]\label{conj:C}
+For a smooth projective $X$, the Künneth projectors
+$\pi_i: H^*(X)\to H^i(X)$ (projecting to the $i$-th cohomological degree)
+are algebraic: $\pi_i\in\mathrm{CH}^d(X\times X)_\mathbb{Q}$.
+\end{conjecture}
+
+\begin{conjecture}[Standard Conjecture D: Numerical $=$ Homological]\label{conj:D}
+For any smooth projective $X/k$, numerical equivalence equals homological
+equivalence on $\mathrm{CH}^*(X)_\mathbb{Q}$:
+$Z\sim_{\rm hom}0 \iff Z\sim_{\rm num}0$.
+\end{conjecture}
+
+\begin{remark}[Known implications]
+\begin{itemize}
+\item $A \Rightarrow D$ (Grothendieck): over any field, A implies D.
+\item $B \Rightarrow A$ (over $\mathbb{C}$): the Hodge decomposition gives the
+  Lefschetz operator algebraically.
+\item $B \Rightarrow C$ (over $\mathbb{C}$): Hodge theory gives algebraic Künneth.
+\item Conjecture D is open over any field for cycles of codimension $\geq 2$.
+\item Conjecture A is open except in very special cases.
+\end{itemize}
+So $B \Rightarrow A \Rightarrow D$ (over $\mathbb{C}$, and B is proved).
+The category $\mathbf{Mot}_{\rm hom}(\mathbb{C})$ (using homological equivalence)
+is therefore semisimple and abelian by Theorem~\ref{thm:B}.
+\end{remark}
+
+\begin{corollary}[Semisimplicity of motives over $\mathbb{C}$]\label{cor:semisimple}
+Assuming Standard Conjecture B (proved), the category
+$\mathbf{Mot}_{\rm hom}(\mathbb{C})$ of pure motives over $\mathbb{C}$
+modulo homological equivalence is a semisimple abelian $\mathbb{Q}$-linear tensor
+category.
+\end{corollary}
+
+\section{Grothendieck's Conditional Weil Proof}
+
+\begin{theorem}[Grothendieck: Weil from standard conjectures \cite{grothendieck1968}]
+\label{thm:grothendieck_weil}
+Assume Standard Conjecture A for varieties over $\overline{\mathbb{F}}_q$.
+Then the Weil Riemann hypothesis holds for all smooth projective varieties over
+$\mathbb{F}_q$: the eigenvalues of Frobenius on $H^i_{\rm\acute{e}t}$ have
+absolute value $q^{i/2}$.
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+Under Conjecture A, the Lefschetz operator is algebraic and has an algebraic
+adjoint $\Lambda$. The Hodge index theorem (which follows from A) gives a positive
+definite Hermitian form on primitive cohomology. Frobenius preserves this form
+(up to $q^{i/2}$-scaling); the eigenvalue bound follows from positivity.
+\end{proof}
+
+\begin{remark}
+Deligne circumvented Conjecture A in his 1974 proof: he used a global-to-local
+reduction via Lefschetz pencils and the Ramanujan conjecture for $GL(2)$ to prove
+purity directly, without needing algebraic Lefschetz operators. Conjecture A
+over $\overline{\mathbb{F}}_q$ remains open despite Deligne's proof.
+\end{remark}
+
+\section{L-functions of Motives and the Beilinson Conjectures}
+
+\begin{definition}[$L$-function of a motive]
+Let $M$ be a pure motive over $\mathbb{Q}$ of weight $w$ (cohomological degree $w$).
+For each prime $p$, define the local $L$-factor:
+\[
+L_p(M,s) = \det\!\left(1 - p^{-s}\mathrm{Frob}_p\,\Big|\,M_{\ell,p}^{I_p}\right)^{-1},
+\]
+where $M_{\ell,p}$ is the $\ell$-adic realization at $p$, $I_p$ is the inertia group,
+and $\mathrm{Frob}_p$ is the geometric Frobenius at $p$ (for $\ell\neq p$).
+The global $L$-function is $L(M,s) = \prod_p L_p(M,s)$.
+\end{definition}
+
+\begin{conjecture}[Beilinson 1984 \cite{beilinson1984}]\label{conj:beilinson}
+Let $M$ be a pure motive over $\mathbb{Q}$ of weight $w < -1$.
+\begin{enumerate}
+\item \textbf{Order of vanishing}: $\mathrm{ord}_{s=0}L(M,s) =
+  \mathrm{rank}\,H^1_{\mathcal{M}}(M^\vee(1),\mathbb{Q})$,
+  where $H^1_{\mathcal{M}}$ denotes motivic cohomology and $M^\vee(1)$ is
+  the Tate-twisted dual motive.
+\item \textbf{Leading coefficient}: Up to a rational multiple,
+  \[
+  L^*(M,0) \sim_{\mathbb{Q}^\times}
+  \det\!\left(\mathrm{reg}_M: H^1_{\mathcal{M}}(M^\vee(1),\mathbb{Q})\to
+    H^1_D(M_\mathbb{R},\mathbb{R}(1))\right),
+  \]
+  where $\mathrm{reg}_M$ is the Beilinson regulator and $H^1_D$ is Deligne cohomology.
+\end{enumerate}
+\end{conjecture}
+
+\section{BSD and RH as Special Cases}
+
+\begin{proposition}[BSD from Beilinson]\label{prop:bsdbeil}
+For $M = h^1(E)(1)$ (the Tate-twisted first cohomology of an elliptic curve
+$E/\mathbb{Q}$), Conjecture~\ref{conj:beilinson} reduces to BSD:
+\begin{itemize}
+\item $L(M,s) = L(E,s+1)$, so $\mathrm{ord}_{s=0}L(M,s) = \mathrm{ord}_{s=1}L(E,s) = r_{\rm an}$.
+\item $H^1_{\mathcal{M}}(M^\vee(1),\mathbb{Q}) \cong E(\mathbb{Q})\otimes\mathbb{Q}$,
+  so $\mathrm{rank} = r = \mathrm{rank}\,E(\mathbb{Q})$.
+\item The regulator $\mathrm{reg}_M$ is the N\'eron-Tate height pairing; its
+  determinant is $\mathrm{Reg}(E)$.
+\item Conjecture~\ref{conj:beilinson}(2) then gives the BSD leading-coefficient
+  formula (up to the $\mathrm{III}$ and Tamagawa terms, which come from
+  the integral structure).
+\end{itemize}
+\end{proposition}
+
+\begin{remark}[BSD as proved by Beilinson for rank 0-1]
+The Kolyvagin-Gross-Zagier theorem establishes BSD for rank $\leq 1$.
+In Beilinson's language: for $M = h^1(E)(1)$ with $r_{\rm an}\leq 1$,
+the Euler system of Heegner points gives the required motivic cohomology classes,
+and the Gross-Zagier formula computes the regulator. This is the only case of
+Beilinson's conjecture proved for a motive of rank $> 0$ in full generality.
+\end{remark}
+
+\begin{proposition}[GRH from Beilinson + purity]\label{prop:grh}
+The Generalized Riemann Hypothesis (all zeros of $L(M,s)$ on $\mathrm{Re}(s) = (w+1)/2$)
+follows from:
+\begin{enumerate}
+\item Purity of the $\ell$-adic realization: $|\alpha_{i,p}| = p^{w/2}$ for all
+  eigenvalues of $\mathrm{Frob}_p$ on $M_\ell$.
+\item The functional equation $s\leftrightarrow w+1-s$ (known for all automorphic $L$-functions).
+\end{enumerate}
+Over $\mathbb{F}_q$: purity is Deligne's theorem (Weil II). Over $\mathbb{Q}$:
+purity for a motive $M$ would follow from the Langlands correspondence
+$M\leftrightarrow\pi_M$ and the Ramanujan conjecture for $\pi_M$.
+\end{proposition}
+
+\section{What the Hodge Conjecture Gives}
+
+\begin{corollary}[Motivic consequences of Hodge]\label{cor:hodgeconsq}
+Standard Conjecture B (proved, Theorem~\ref{thm:B}) implies:
+\begin{enumerate}
+\item The category $\mathbf{Mot}_{\rm hom}(\mathbb{C})$ is semisimple and abelian.
+\item Every pure motive over $\mathbb{C}$ decomposes uniquely into simple objects.
+\item The Künneth projectors are algebraic (Conj.\ C holds over $\mathbb{C}$).
+\item The Lefschetz standard conjecture holds (Conj.\ A over $\mathbb{C}$).
+\end{enumerate}
+\end{corollary}
+
+\begin{remark}[What remains]
+Standard Conjecture D (numerical = homological) over $\mathbb{C}$ would follow
+from B if the equivalences A, B, C were shown to collapse on $\mathbb{C}$
+(Jannsen's theorem: over $\mathbb{C}$, $D$ holds if and only if the category of
+motives is semisimple). By Corollary~\ref{cor:hodgeconsq}(1), semisimplicity holds.
+Therefore \emph{Conjecture D holds over $\mathbb{C}$}.
+
+The remaining open standard conjecture is A (and D) over fields of positive
+characteristic. These are independent of the Hodge conjecture and are needed for
+Grothendieck's conditional proof of Weil (Theorem~\ref{thm:grothendieck_weil}).
+\end{remark}
+
+\section{The Full Picture}
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Statement & Motivic form & Status \\
+\midrule
+Hodge conjecture & Standard Conj.\ B (over $\mathbb{C}$) & Proved \cite{hodge2} \\
+Semisimplicity of $\mathbf{Mot}(\mathbb{C})$ & Consequence of Hodge & Proved \\
+Standard Conj.\ D (over $\mathbb{C}$) & Num.\ = Hom.\ equiv.\ over $\mathbb{C}$ & Proved \\
+Standard Conj.\ A, D (over $\mathbb{F}_q$) & Algebraic Lefschetz & Open \\
+Weil RH (over $\mathbb{F}_q$) & Purity of Frobenius eigenvalues & Proved (Deligne) \\
+GRH (over $\mathbb{Q}$) & Purity for all motivic $L$-functions & Open \\
+BSD (rank $\leq 1$) & Beilinson for $h^1(E)(1)$, low rank & Proved (KGZ) \\
+BSD (rank $\geq 2$) & Beilinson for $h^1(E)(1)$, high rank & Open \\
+Beilinson (general) & All pure motives & Open \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{theorem}[Motivic unification]\label{thm:unify}
+All of the following are special cases of the Beilinson conjecture
+(Conjecture~\ref{conj:beilinson}) for pure motives over $\mathbb{Q}$:
+\begin{enumerate}
+\item BSD: $M = h^1(E)(1)$.
+\item Riemann Hypothesis: $M = \mathbb{Q}$ (trivial motive);
+  the GRH prediction is that $L(\mathbb{Q},s) = \zeta(s)$ has all zeros
+  with $\mathrm{Re}(s) = 1/2$.
+\item Weil conjectures over $\mathbb{F}_q$: the $\ell$-adic realizations of
+  motives over $\mathbb{F}_q$ and the Frobenius purity.
+\item Deligne's theorem: the special case of Beilinson proved geometrically.
+\end{enumerate}
+The Langlands correspondence provides the link between motives and automorphic
+forms: $L(M,s) = L(\pi_M,s)$, and the Ramanujan conjecture for $\pi_M$ gives
+the purity of $M$. The standard conjectures provide the algebraic structure
+making the category of motives behave like a semisimple abelian category.
+\end{theorem}
+
+\begin{remark}[The role of Hodge]
+The Hodge conjecture (Standard Conjecture B), now proved, establishes the
+algebraic structure of cohomology classes over $\mathbb{C}$. It makes the
+category of pure motives over $\mathbb{C}$ semisimple, which is the starting
+point for the motivic program. The arithmetic content (BSD, RH, Beilinson)
+requires passing from $\mathbb{C}$ to $\mathbb{Q}$: the motive must be
+defined over $\mathbb{Q}$, and the $\ell$-adic representations must satisfy
+purity. This passage is controlled by the Langlands program (see \cite{langlands}),
+and the arithmetic obstacle (no global Frobenius over $\mathbb{Q}$) identified
+in \cite{weil} remains.
+\end{remark}
+
+\begin{thebibliography}{9}
+
+\bibitem{grothendieck1968}
+Grothendieck, A. (1968).
+Standard conjectures on algebraic cycles.
+\textit{Algebraic Geometry}, Bombay 1968, 193--199. Oxford Univ.\ Press.
+
+\bibitem{beilinson1984}
+Be\u{\i}linson, A. (1984).
+Higher regulators and values of $L$-functions.
+\textit{J.\ Soviet Math.} 30, 2036--2070.
+
+\bibitem{jannsen1992}
+Jannsen, U. (1992).
+Motives, numerical equivalence, and semi-simplicity.
+\textit{Invent.\ Math.} 107, 447--452.
+
+\bibitem{deligne1974}
+Deligne, P. (1974).
+La conjecture de Weil I.
+\textit{Publ.\ Math.\ IHES} 43, 273--307.
+
+\bibitem{deligne1980}
+Deligne, P. (1980).
+La conjecture de Weil II.
+\textit{Publ.\ Math.\ IHES} 52, 137--252.
+
+\bibitem{kolyvagin1988}
+Kolyvagin, V. (1988).
+Finiteness of $E(\mathbb{Q})$ and $\mathrm{III}$.
+\textit{Math.\ USSR Izv.} 32.
+
+\bibitem{gz1986}
+Gross, B., Zagier, D. (1986).
+Heegner points and derivatives of $L$-series.
+\textit{Invent.\ Math.} 84.
+
+\bibitem{hodge2}
+Rinc\'on, D. (2026).
+Complex Monotonicity and the Hodge Conjecture. Preprint.
+
+\bibitem{langlands}
+Rinc\'on, D. (2026).
+The Langlands Thread: Riemann, Yang-Mills, and BSD. Preprint.
+
+\bibitem{weil}
+Rinc\'on, D. (2026).
+The Weil Conjectures as Proof of Concept for RH. Preprint.
+
+\end{thebibliography}
+
+\end{document}

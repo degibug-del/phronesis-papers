@@ -1,0 +1,234 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{geometry}
+\geometry{margin=1.4in}
+\usepackage{hyperref}
+\usepackage{setspace}
+\setstretch{1.4}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+
+\title{The Resonance Object}
+\author{Diego Rinc\'on\\
+\small Independent}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+A wall is not transparent everywhere.
+It is transparent at a frequency.
+The resonance object is the structure that finds the frequency.
+For the Riemann Hypothesis, the resonance object has not been found.
+This paper is about what it would have to be.
+\end{abstract}
+
+\section{What Resonance Means}
+
+A wall is not an end.
+It is a mismatch.
+
+The current grammar approaches the problem at a certain frequency ---
+a certain register of mathematical structure.
+The wall is where that frequency stops passing through.
+Not where mathematics stops.
+Where this mathematics stops.
+
+The resonance method: find the frequency the wall is transparent at.
+Change the register. Approach from the right angle.
+
+This is not a vague prescription.
+It has a mathematical content:
+the wall is a grammatical boundary \cite{grammar},
+a place where the current cohomological grammar
+cannot construct the required coboundary.
+The resonance object is a structure in a new or extended grammar
+that makes the coboundary constructible.
+
+The wall does not move.
+The grammar expands to include what the wall was made of.
+
+\section{Historical Resonances}
+
+The method has worked before.
+
+\textbf{Wiles and BSD for rank 0--1.}
+The wall for BSD at rank $\leq 1$ was crossed
+by the resonance of two grammars:
+modular forms (automorphic) and elliptic curves (arithmetic).
+The resonance object was the modular parametrization $X_0(N) \to E$.
+Once this object existed,
+the Euler system could be constructed (Kolyvagin),
+and the wall fell for $r \leq 1$.
+The resonance object was Shimura--Taniyama--Weil,
+proved by Wiles.
+
+\textbf{Deligne and the Weil conjectures.}
+The wall was the Riemann Hypothesis over finite fields.
+The resonance object was \'etale cohomology:
+a new cohomology theory (Grothendieck's grammar)
+in which the Frobenius acted with the right eigenvalue properties.
+Once the resonance object existed (the \'etale cohomology groups $H^i_{\rm\acute{e}t}$),
+the Weil conjectures followed.
+The resonance object was built, and then the proof was the coboundary it generated.
+
+\textbf{Perelman and Poincar\'e.}
+The wall was the classification of 3-manifolds.
+The resonance object was Ricci flow with surgery:
+a geometric evolution equation that deformed
+any simply connected 3-manifold toward the 3-sphere.
+The resonance was between the topology (simply connected)
+and the geometry (positive curvature under Ricci flow).
+Once the resonance object was constructed (Hamilton's Ricci flow, Perelman's surgery),
+the proof was the flow itself.
+
+In each case: a new object, living in a new or extended grammar,
+that matched the frequency of the wall and passed through it.
+
+\section{The Candidates for RH}
+
+For the Riemann Hypothesis,
+the resonance object has not been found.
+Four candidates have been proposed.
+
+\textbf{Candidate 1: The Hilbert--P\'olya operator.}
+A self-adjoint operator $H$ on a Hilbert space
+whose eigenvalues are $\{1/2 + it : \zeta(1/2+it) = 0\}$.
+If $H$ exists, RH follows (self-adjoint operators have real eigenvalues;
+the eigenvalues $1/2 + it$ have real part $1/2$).
+The resonance: between spectral theory (self-adjointness)
+and number theory (zeros of $\zeta$).
+The object: not found.
+The space it would act on: not identified.
+
+\textbf{Candidate 2: Connes' spectral triple.}
+Connes constructed a spectral triple on the ad\`ele class space
+$\mathbf{A}_\mathbf{Q}/\mathbf{Q}^*$ \cite{connes}.
+The Dirac operator $D$ of this triple has absorption spectrum
+related to the zeros of $\zeta$.
+The resonance: between noncommutative geometry (spectral triple)
+and arithmetic (adèle class space, zeros).
+The candidate is serious. The proof that the eigenvalues of $D$
+are exactly the zeros, with the right multiplicities, is incomplete.
+
+\textbf{Candidate 3: The $\mathbb{F}_1$-Frobenius.}
+If geometry over $\mathbb{F}_1$ can be made rigorous \cite{f1},
+the Frobenius of $\mathrm{Spec}\,\mathbb{Z}$ over $\mathbb{F}_1$
+would be the resonance object.
+The resonance: between the geometry of $\mathbb{F}_1$-curves
+(where RH is a theorem) and the number theory of $\zeta(s)$
+(where RH is a conjecture).
+The candidate is structural.
+The grammar does not yet exist.
+
+\textbf{Candidate 4: The derived Hecke algebra.}
+Venkatesh proposed that the cohomology of arithmetic manifolds
+carries extra structure from a derived Hecke algebra ---
+a non-commutative ring acting on cohomology in degree higher than classical.
+The resonance: between the derived structure (new algebra)
+and the $L$-functions (classical Hecke operators).
+If the derived action can be controlled,
+it may unlock BSD for $r \geq 3$ first,
+and possibly RH by a related mechanism.
+The candidate is recent and active.
+
+\section{What the Resonance Object Must Satisfy}
+
+Whatever the resonance object is,
+it must satisfy the following:
+
+\begin{enumerate}
+\item \textbf{It lives in an extension of the current grammar.}
+The current grammar cannot prove RH \cite{grammar}.
+The resonance object is in the extended grammar.
+It is not a combinatorial trick within the current one.
+
+\item \textbf{It matches the symmetry of $\zeta$.}
+The functional equation $\xi(s) = \xi(1-s)$ gives $\mathrm{Re}(s) = 1/2$
+as the axis of symmetry.
+The resonance object must respect this symmetry:
+it must be self-adjoint (Hilbert--P\'olya),
+or Frobenius-symmetric ($\mathbb{F}_1$),
+or scale-invariant (Connes).
+
+\item \textbf{It is canonical.}
+Not a structure chosen to make the proof work.
+A structure that was always there,
+that the current grammar was too coarse to see.
+The \'etale cohomology groups $H^i_{\rm\acute{e}t}$ were always there.
+Grothendieck made them visible.
+
+\item \textbf{It generates the coboundary.}
+In the cohomological grammar \cite{grammar},
+the proof of RH is a coboundary $\eta$
+with $d\eta = \omega_{\rm RH}$.
+The resonance object is the form $\eta$.
+Finding the resonance object and finding the proof are the same thing.
+\end{enumerate}
+
+\section{The Question}
+
+Where does the resonance object live?
+
+Not: what is the proof.
+The proof follows from the object.
+The hard question is the object.
+
+In what space does it live?
+In what grammar is it natural?
+What does it look like?
+Is it an operator? A cohomology class? A curve? A motive? A flow?
+
+The body of papers has been building toward this question.
+It has named the wall \cite{six_walls, one_wall}.
+It has named the missing symmetry \cite{frobenius}.
+It has named the missing grammar \cite{f1}.
+It has not found the object.
+
+The object is not in the body.
+
+But the body knows what the object must satisfy.
+And that is the most the map can give.
+
+\begin{thebibliography}{9}
+
+\bibitem{grammar}
+Rinc\'on, D. (2026).
+Mathematics as Cohomological Grammar. Preprint.
+
+\bibitem{connes}
+Rinc\'on, D. (2026).
+Noncommutative Geometry and the Riemann Hypothesis. Preprint.
+
+\bibitem{f1}
+Rinc\'on, D. (2026).
+The Field with One Element. Preprint.
+
+\bibitem{frobenius}
+Rinc\'on, D. (2026).
+The Missing Frobenius. Preprint.
+
+\bibitem{six_walls}
+Rinc\'on, D. (2026).
+The Six Walls. Preprint.
+
+\bibitem{one_wall}
+Rinc\'on, D. (2026).
+One Wall: The Local-to-Global Conjecture. Preprint.
+
+\bibitem{riemann2}
+Rinc\'on, D. (2026).
+The Riemann Hypothesis: A Synthesis. Preprint.
+
+\end{thebibliography}
+
+\end{document}
