@@ -26,7 +26,7 @@
 
 **Displacement from a ground you cannot move.**
 
-From our own research, self-published to Zenodo (DOI: 10.5281/zenodo.21403447). Zenodo is
+From our own research, self-published to Zenodo — https://doi.org/10.5281/zenodo.21403447 — which is
 an open repository, not a journal — this has a DOI and a permanent record, and it has not
 been peer reviewed:
 
@@ -275,7 +275,7 @@ nothing typed into them leaves the page.
 
 **Founder:** Diego Rincón  
 **Email:** degibug@icloud.com  
-**Theory:** 10.5281/zenodo.21403447 (self-published, Zenodo — not peer reviewed)  
+**Theory:** https://doi.org/10.5281/zenodo.21403447 (self-published, Zenodo — not peer reviewed)  
 **Code:** phronesis-products (GitHub)  
 
 ---
@@ -367,6 +367,6 @@ nothing typed into them leaves the page.
 **Questions?**
 
 **Contact:** degibug@icloud.com  
-**Theory:** 10.5281/zenodo.21403447 (self-published, Zenodo — not peer reviewed)  
+**Theory:** https://doi.org/10.5281/zenodo.21403447 (self-published, Zenodo — not peer reviewed)  
 **Code:** github.com/phronesis-products  
 **Website:** phronesis.world
