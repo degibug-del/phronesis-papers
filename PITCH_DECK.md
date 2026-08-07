@@ -107,8 +107,9 @@ Shared ICM Engine (text → displacement from ground → mode, patterns, return 
 **Founder: Diego Rincón**
 - Cornell Psychology grad (2023)
 - Built Phronesis: quantum psychology platform (phronesis.world)
-- Published 30+ papers on displacement framework
-- 70+ routes shipped, zero broken links
+- 71 papers on the displacement framework, written and self-published at
+  phronesis.world/papers — a body of work, not a publication record: none are peer
+  reviewed and none appear in a journal
 - Expert in: Applied math, neuroscience, full-stack dev, AI
 
 **Hiring Plan:**
