@@ -1,0 +1,23 @@
+{
+  "exp1": {
+    "correlation": 0.9462509878895401,
+    "p_value": 3.5620999981790314e-25,
+    "passed": true
+  },
+  "exp2": {
+    "c_estimate": -0.2737392882468485,
+    "r_squared": 0.6947071232639528,
+    "passed": false
+  },
+  "exp3": {
+    "ambiguous_mean": 0.6548721454436198,
+    "unambiguous_mean": -0.8004739592470533,
+    "p_value": 1.212108856819048e-29,
+    "passed": true
+  },
+  "exp4": {
+    "early_boost": 1.000915227517383,
+    "late_convergence": 1.0013631145692947,
+    "passed": false
+  }
+}

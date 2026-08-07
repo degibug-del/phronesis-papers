@@ -1,0 +1,26 @@
+{
+  "timestamp": "/",
+  "theory": "Grammar-to-Coherence",
+  "dataset": "ds002315 (UCL Sentence Comprehension)",
+  "sample_size": 240,
+  "method": "Pearson correlation (log(\u03bb\u2081) vs dominant frequency)",
+  "results": {
+    "correlation": 0.45934571938814905,
+    "p_value": 6.263174949768918e-14,
+    "r_squared": 0.21099848992021616,
+    "mean_lambda_1": 1.1781856376495161,
+    "mean_frequency_hz": 13.768957472719595,
+    "freq_range_hz": [
+      9.84102318363897,
+      17.307436012514966
+    ]
+  },
+  "prediction": {
+    "target_r": 0.65,
+    "target_p": 0.01,
+    "met": false
+  },
+  "status": "\u26a0\ufe0f  WEAK SUPPORT",
+  "verdict": "Marginal relationship; needs investigation",
+  "next_step": "DEBUG & REDESIGN"
+}

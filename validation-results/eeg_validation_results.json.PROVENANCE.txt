@@ -1,0 +1,11 @@
+SYNTHETIC, DESPITE THE dataset FIELD. This file says "dataset": "ds002315 (UCL Sentence
+Comprehension)" and it was written by phronesis-science/validate_synthetic.py — the only
+script using this schema (verdict / next_step / sample_size).
+
+ds002315 has never been downloaded on this machine. The r=0.459 / p=6.3e-14 / n=240 are
+generated numbers carrying a real dataset's name.
+
+THIS IS THE ONE THAT PROPAGATED: referenced from READY_TO_SUBMIT.md, and both MANUSCRIPT
+files cite a correlation. Check what went to Zenodo before citing it again.
+
+See phronesis-science/PROVENANCE.md — audited 2026-08-07.

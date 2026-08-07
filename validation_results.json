@@ -1,0 +1,10 @@
+{
+  "theory": "Grammar-to-Coherence",
+  "dataset": "ds002315_mock",
+  "correlation": null,
+  "p_value": null,
+  "r_squared": null,
+  "n_samples": null,
+  "prediction": "r > 0.65",
+  "status": "pending"
+}

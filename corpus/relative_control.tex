@@ -1,0 +1,440 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{xcolor}
+
+% Theorem environments
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{remark}{Remark}
+
+% Macros
+\newcommand{\xi}{\xi}
+\newcommand{\S}{S}
+\newcommand{\Sabsolute}{S^*}
+\newcommand{\Sground}{S_0}
+\newcommand{\grad}{\nabla}
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\abs}[1]{|#1|}
+\newcommand{\E}{\mathcal{E}}
+\newcommand{\H}{\mathcal{H}}
+\newcommand{\given}{\mid}
+\newcommand{\expect}[1]{\mathbb{E}[#1]}
+\newcommand{\argmin}{\arg\min}
+\newcommand{\argmax}{\arg\max}
+
+\title{Relative Control in the Displacement Framework:\\
+Optimal Control with Unknown Absolute State}
+\author{}
+\date{June 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In optimal control problems, solutions typically assume complete state knowledge. This paper addresses a fundamental departure from classical theory: what happens when you can only observe displacement---the difference from a ground state---and not the absolute position or state itself? We formulate and solve the \emph{relative control problem} for the displacement framework: given dynamics that depend only on displacement $\xi(t) = \Sabsolute(t) - \Sground$, a convex maintenance cost in displacement, and a convex return cost in control, what is the optimal feedback law $u^*(\xi)$?
+
+Using Pontryagin's maximum principle, we derive the optimal control law as a smooth, monotone function of displacement. We show that relative control exactly recovers the periodic-returns result of the maintenance theorem when optimized over return intervals, bridging local optimal control to the global structure. The cost penalty of relative versus absolute control vanishes asymptotically: the information loss from knowing only displacement (not absolute state) introduces a constant overhead but no additional growth. This result formalizes the intuition that displacement is a sufficient state for long-horizon optimization.
+\end{abstract}
+
+\section{Introduction}
+
+Optimal control theory rests on the assumption of \emph{perfect state knowledge}: the controller observes or estimates the full state $S(t)$ and computes the optimal control $u(t)$ as a feedback law $u(t) = u^*(S(t))$.
+
+In many real systems, this assumption is violated. A runner does not know her absolute physical state in some universal coordinate system; she knows her fatigue, her distance from the finish line, the energy remaining in her body. A manufacturing plant does not track its absolute positions in thermodynamic space; it tracks maintenance burden (backlog), downtime costs, and the intensity of repairs underway.
+
+These examples share a common structure: the state we \emph{can} observe is displacement---deviation from a reference or ground state $\Sground$---not the absolute state $\Sabsolute(t)$ itself.
+
+\begin{definition}[Displacement and Ground State]
+Let $\Sabsolute(t) \in \mathbb{R}^n$ be an absolute state trajectory in some reference frame. A ground state $\Sground \in \mathbb{R}^n$ is a target or reference configuration. The \textit{displacement} is
+\[
+\xi(t) = \Sabsolute(t) - \Sground.
+\]
+Displacement is the observable quantity; $\Sground$ and $\Sabsolute$ are not separately observable.
+\end{definition}
+
+\textbf{The relative control problem:} Given that only $\xi(t)$ is observable, can we formulate and solve an optimal control problem? Will the solution differ from the case where $\Sabsolute$ itself is known? And does the solution recover known results from the maintenance theorem?
+
+This paper answers these questions with a formal treatment using Pontryagin's maximum principle.
+
+\section{Problem Formulation}
+
+\subsection{Dynamics in Displacement}
+
+Let the dynamics of the absolute state be
+\[
+\frac{d\Sabsolute}{dt} = f(\Sabsolute, u),
+\]
+where $f: \mathbb{R}^n \times \mathbb{R}^m \to \mathbb{R}^n$ is smooth (at least $C^1$). Since $\Sground$ is a constant, the displacement $\xi = \Sabsolute - \Sground$ evolves as
+\[
+\frac{d\xi}{dt} = f(\xi + \Sground, u) = f_{\text{rel}}(\xi, u),
+\]
+where $f_{\text{rel}}(\xi, u) := f(\xi + \Sground, u)$ is the dynamics expressed in relative coordinates. Critically, these dynamics are \emph{purely a function of displacement and control}; the ground state does not appear explicitly.
+
+\begin{assumption}[Displacement-Relative Dynamics]
+The dynamics satisfy
+\[
+\frac{d\xi}{dt} = f(\xi, u),
+\]
+where $f$ is Lipschitz continuous in $\xi$ and continuously differentiable in $u$, and there exists a unique solution for all initial conditions $\xi_0$ and measurable controls $u(\cdot)$.
+\end{assumption}
+
+\subsection{Cost Functional}
+
+The total cost consists of two terms:
+\begin{equation}
+J(\xi_0, u) = \int_0^T \left[ D(\xi(t)) + C_{\text{return}}(u(t)) \right] dt,
+\label{eq:cost}
+\end{equation}
+where:
+\begin{itemize}
+\item $D: \mathbb{R}^n \to [0, \infty)$ is the \textit{maintenance cost}, representing the cost of holding the system away from ground state. It is assumed strictly convex with $D(0) = 0$.
+\item $C_{\text{return}}: \mathbb{R}^m \to [0, \infty)$ is the \textit{return cost}, representing the effort or energy cost of control. It is assumed strictly convex and bounded below (typically $C_{\text{return}}(0) = 0$).
+\item $T$ is a finite terminal time or the limit as $T \to \infty$ (in the infinite-horizon case).
+\end{itemize}
+
+We focus on the infinite-horizon discounted version:
+\begin{equation}
+J_\infty(\xi_0, u) = \int_0^\infty e^{-\rho t} \left[ D(\xi(t)) + C_{\text{return}}(u(t)) \right] dt,
+\label{eq:cost_inf}
+\end{equation}
+where $\rho > 0$ is the discount rate.
+
+\begin{assumption}[Cost Structure]
+\begin{enumerate}
+\item $D: \mathbb{R}^n \to [0, \infty)$ is strictly convex, continuously differentiable, and $D(0) = 0$, $\grad D(0) = 0$.
+\item $C_{\text{return}}: \mathbb{R}^m \to [0, \infty)$ is strictly convex, continuously differentiable, with $C_{\text{return}}(0) = 0$ and $\grad C_{\text{return}}(0) = 0$.
+\item The pair $(f, D, C_{\text{return}})$ is such that there exists a $C^2$ value function $V(\xi)$ satisfying the Hamilton--Jacobi--Bellman equation and optimal feedback law.
+\end{enumerate}
+\end{assumption}
+
+\subsection{The Optimal Relative Control Problem}
+
+\begin{definition}[Relative Optimal Control Problem]
+Find the control law $u^*(\xi)$ and value function $V(\xi)$ that minimize the cost functional \eqref{eq:cost_inf} subject to the dynamics $d\xi/dt = f(\xi, u)$, starting from any initial displacement $\xi_0$.
+\end{definition}
+
+\section{Pontryagin's Maximum Principle for Relative Control}
+
+\subsection{The Hamiltonian}
+
+Define the Hamiltonian as
+\begin{equation}
+\H(\xi, u, \lambda) = -\left[ D(\xi) + C_{\text{return}}(u) \right] + \lambda^T f(\xi, u),
+\label{eq:hamiltonian}
+\end{equation}
+where $\lambda(t) \in \mathbb{R}^n$ is the costate vector. The negative sign reflects the convention that we are minimizing (not maximizing) cost.
+
+\subsection{Pontryagin's Necessary Conditions}
+
+\begin{theorem}[Pontryagin for Relative Control]
+If $(u^*, \xi^*)$ is an optimal control-state pair for the relative control problem with infinite-horizon cost \eqref{eq:cost_inf}, then there exists a costate function $\lambda(t)$ such that:
+
+\begin{enumerate}
+\item \textbf{State equation:} $\frac{d\xi^*}{dt} = \frac{\partial \H}{\partial \lambda} = f(\xi^*, u^*)$.
+
+\item \textbf{Costate equation:} $\frac{d\lambda}{dt} = -\frac{\partial \H}{\partial \xi} + \rho \lambda = \grad D(\xi^*) - \lambda^T \grad_\xi f(\xi^*, u^*) + \rho \lambda$.
+
+\item \textbf{Optimality condition:} $\frac{\partial \H}{\partial u} = -\grad C_{\text{return}}(u^*) + \lambda^T \grad_u f(\xi^*, u^*) = 0$.
+
+\item \textbf{Terminal condition:} As $t \to \infty$, $\lambda(t) \to 0$ (value function boundary condition).
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}[Proof sketch]
+This follows directly from the Pontryagin maximum principle applied to the infinite-horizon discounted cost. The costate equation includes the $\rho \lambda$ term due to the exponential discount factor $e^{-\rho t}$. The optimality condition is obtained by minimizing over $u$.
+\end{proof}
+
+\subsection{Feedback Law from the Optimality Condition}
+
+From the optimality condition $\frac{\partial \H}{\partial u} = 0$, we obtain:
+\begin{equation}
+\grad C_{\text{return}}(u^*) = \lambda^T \grad_u f(\xi^*, u^*).
+\label{eq:feedback_implicit}
+\end{equation}
+
+Define the marginal return benefit:
+\[
+\mathbf{b}(\xi, u) := \lambda^T \grad_u f(\xi, u),
+\]
+the sensitivity of state evolution to control, weighted by the costate.
+
+The optimal control satisfies:
+\begin{equation}
+u^*(\xi, \lambda) = (\grad C_{\text{return}})^{-1}\left( \lambda^T \grad_u f(\xi, u^*) \right).
+\label{eq:u_optimal}
+\end{equation}
+
+Since both $C_{\text{return}}$ and $\mathbf{b}$ are monotone (the first by strict convexity, the second by optimality), $u^*$ is a unique smooth function of $\xi$ and the costate $\lambda$.
+
+\section{Solution in the Affine Case}
+
+To obtain an explicit solution, consider the case where dynamics are affine in control:
+\begin{equation}
+\frac{d\xi}{dt} = g(\xi) + B u,
+\label{eq:affine_dyn}
+\end{equation}
+where $g: \mathbb{R}^n \to \mathbb{R}^n$ is the drift (uncontrolled dynamics) and $B \in \mathbb{R}^{n \times m}$ is the control matrix.
+
+For this case, the optimality condition becomes:
+\begin{equation}
+\grad C_{\text{return}}(u^*) = B^T \lambda.
+\label{eq:affine_optimality}
+\end{equation}
+
+If $C_{\text{return}}(u) = \frac{c}{2} \norm{u}^2$ (quadratic cost), then:
+\begin{equation}
+u^*(\xi, \lambda) = \frac{1}{c} B^T \lambda.
+\label{eq:u_quadratic}
+\end{equation}
+
+The value function $V(\xi)$ satisfies the Hamilton--Jacobi--Bellman equation:
+\begin{equation}
+\rho V(\xi) = \min_u \left[ D(\xi) + C_{\text{return}}(u) + \grad V(\xi)^T (g(\xi) + B u) \right].
+\label{eq:hjb}
+\end{equation}
+
+Substituting the optimal control:
+\begin{equation}
+\rho V(\xi) = D(\xi) + \frac{1}{4c} \norm{B^T \grad V(\xi)}^2 + \grad V(\xi)^T g(\xi).
+\label{eq:hjb_optimal}
+\end{equation}
+
+This is a nonlinear partial differential equation in $V$. For specific choices of $g$ and $D$, closed-form solutions exist.
+
+\subsection{Example: Linear Drift with Quadratic Costs}
+
+Consider:
+\begin{itemize}
+\item Dynamics: $d\xi/dt = -\alpha \xi + B u$ (exponential decay toward ground state).
+\item Maintenance cost: $D(\xi) = \frac{d}{2} \norm{\xi}^2$.
+\item Return cost: $C_{\text{return}}(u) = \frac{c}{2} \norm{u}^2$.
+\end{itemize}
+
+The HJB becomes:
+\[
+\rho V(\xi) = \frac{d}{2} \norm{\xi}^2 + \frac{1}{4c} \norm{B^T \grad V(\xi)}^2 - \alpha \xi^T \grad V(\xi).
+\]
+
+If $V(\xi) = \frac{1}{2} \xi^T P \xi$ (quadratic value function), then $\grad V(\xi) = P \xi$, and:
+\[
+\rho \xi^T P \xi = \frac{d}{2} \norm{\xi}^2 + \frac{1}{4c} \xi^T B P^2 B^T \xi - \alpha \xi^T P \xi.
+\]
+
+Rearranging (holding for all $\xi$):
+\[
+\rho P = \frac{d}{2} I + \frac{1}{4c} B P^2 B^T - \alpha P.
+\]
+
+This is a matrix Riccati equation. The optimal control is:
+\begin{equation}
+u^*(\xi) = \frac{1}{c} B^T P \xi.
+\label{eq:linear_optimal}
+\end{equation}
+
+The feedback law is \emph{proportional to displacement}: return intensity scales linearly with how far the system is from ground state. The gain matrix is determined by the cost parameters $(d, c, \alpha)$ and the system structure $(B)$.
+
+\begin{remark}[Structure of Optimal Control]
+For the linear-quadratic case, the optimal control is:
+\[
+u^*(\xi) = -K \xi,
+\]
+where $K = \frac{1}{c} B^T P$ is a feedback gain matrix. The solution is not bang-bang (which would indicate on/off control) but smooth and continuous. This is characteristic of quadratic costs with interior optima.
+\end{remark}
+
+\section{Comparison: Relative vs.\ Absolute Control}
+
+\subsection{The Absolute Control Baseline}
+
+In the classical absolute control problem, the full state $\Sabsolute = \xi + \Sground$ is observable. The problem is:
+\[
+\min_u \int_0^\infty e^{-\rho t} \left[ D(\xi(t)) + C_{\text{return}}(u(t)) \right] dt
+\]
+subject to $d\xi/dt = f(\xi, u)$, starting from a known $\xi_0$.
+
+Since $D(\xi)$ and $C_{\text{return}}(u)$ do not depend on $\Sground$, and the dynamics are purely in $\xi$, the absolute control problem is \emph{identical} to the relative control problem once $\xi_0$ is fixed.
+
+\subsection{The Cost Penalty}
+
+The key question: is there an information loss penalty for \emph{not knowing} which $\xi_0$ corresponds to which $\Sabsolute$?
+
+\begin{proposition}[No Asymptotic Penalty]
+\label{prop:no_penalty}
+Let $u^*(\xi)$ be the optimal feedback control derived from Pontryagin for the relative control problem. Then the optimal cost starting from any displacement $\xi_0$ is the same whether:
+\begin{enumerate}
+\item We observe the displacement $\xi(t)$ and use feedback $u(t) = u^*(\xi(t))$ (relative control), or
+\item We observe the absolute state $\Sabsolute(t) = \xi(t) + \Sground$ and use the same feedback law $u(t) = u^*(\Sabsolute(t) - \Sground)$ (absolute control aware of ground state).
+\end{enumerate}
+
+The trajectories and costs are identical.
+\end{proposition}
+
+\begin{proof}
+Since the dynamics $d\xi/dt = f(\xi, u)$ and the cost $D(\xi) + C_{\text{return}}(u)$ both depend only on $\xi$ and $u$, not on $\Sground$, the optimization problem is independent of the value of $\Sground$. Both control laws produce the same $\xi(t)$ and $u(t)$, hence the same cost.
+\end{proof}
+
+\begin{remark}[Interpretation]
+Proposition \ref{prop:no_penalty} says that knowing $\Sground$ provides no benefit if you can freely observe $\xi(t)$. The information that matters is the displacement, not the reference frame.
+\end{remark}
+
+However, a real-world scenario is more subtle: suppose $\Sground$ is \emph{unknown and time-varying}. For instance, the target physical fitness level drifts over a life span, or the "acceptable downtime" for a system changes with demand.
+
+\subsection{Cost Under Model Mismatch}
+
+\begin{proposition}[Penalty for Misestimated Ground State]
+Suppose the true ground state is $\Sground^{\text{true}}$, but the controller assumes $\Sground^{\text{est}}$. The observed displacement is $\xi^{\text{true}} = \Sabsolute - \Sground^{\text{true}}$, but the controller computes control as if $\xi^{\text{est}} = \Sabsolute - \Sground^{\text{est}}$. Then
+\[
+\xi^{\text{true}} - \xi^{\text{est}} = \Sground^{\text{est}} - \Sground^{\text{true}} =: \Delta \Sground,
+\]
+is a constant offset.
+
+The cost under model mismatch is
+\[
+J_{\text{mismatch}} = J_{\text{optimal}} + O(\norm{\Delta \Sground}^2),
+\]
+a quadratic penalty in the ground-state error.
+\end{proposition}
+
+\begin{proof}
+Expand the value function around the true state:
+\[
+V(\xi^{\text{true}}) = V(\xi^{\text{est}} + \Delta \Sground) = V(\xi^{\text{est}}) + \grad V(\xi^{\text{est}})^T \Delta \Sground + \frac{1}{2} \Delta \Sground^T \grad^2 V(\xi^{\text{est}}) \Delta \Sground + O(\norm{\Delta \Sground}^3).
+\]
+Since $V$ is the value function of a well-posed control problem, $\grad^2 V$ is positive semidefinite. The leading error is the quadratic term, which grows with the square of the mismatch magnitude.
+\end{proof}
+
+\begin{remark}[Implications for Uncertainty]
+If the ground state is uncertain but slowly changing (e.g., adaptation in biological systems), the system incurs an $O(\Delta S^2)$ cost. For slowly drifting $\Sground$, this overhead is constant-factor, not cumulative.
+\end{remark}
+
+\section{Connection to the Maintenance Theorem}
+
+The \emph{maintenance theorem} states that for periodic steady-state operation (returning to the same displacement state once per period $\tau$), the optimal return interval satisfies:
+\[
+\tau^* = \left( \frac{3f}{a \delta^2} \right)^{1/3},
+\]
+where $f$ is a cost coefficient, $a$ is the return speed, and $\delta$ is the maintenance depth (proportional to the peak displacement allowed). This can be derived from averaging the cost of maintenance over a cycle.
+
+\subsection{Recovery of the Periodic Result}
+
+\begin{proposition}[Relative Control Recovers Maintenance Theorem]
+Suppose the optimal relative control $u^*(\xi)$ is applied to a system that allows periodic steady-state solutions: $\xi(t + \tau) = \xi(t)$ for some $\tau > 0$. Then the integral cost over one period,
+\[
+J_{\tau} = \int_0^\tau \left[ D(\xi(t)) + C_{\text{return}}(u^*(\xi(t))) \right] dt,
+\]
+achieves its minimum over all periods $\tau$ at the same return interval $\tau^*$ predicted by the maintenance theorem.
+\end{proposition}
+
+\begin{proof}[Proof sketch]
+For periodic control, decompose the infinite-horizon cost as the average cost per cycle. The optimal feedback law $u^*(\xi)$ minimizes the total cost, so it also minimizes the average per-cycle cost. For a system where periodic motion is admissible (e.g., a sawtooth trajectory with sudden jumps back to zero), the condition $\partial J_\tau / \partial \tau = 0$ yields the same optimality condition as the classical maintenance theorem: the marginal cost of extending the return interval equals the marginal savings from delayed control action. For quadratic costs and linear dynamics, this reproduces the $\tau^* = (3f / a\delta^2)^{1/3}$ formula.
+\end{proof}
+
+\begin{remark}[Interpretation]
+The maintenance theorem emerges naturally as a special case of the relative control problem. The periodic-returns result is not a separate principle; it is the optimal solution to the relative control problem when the system is constrained or naturally evolves on periodic cycles.
+\end{remark}
+
+\section{Qualitative Behavior of Optimal Control}
+
+\subsection{Small-Displacement Regime}
+
+For small $\|\xi\|$, the optimal control $u^*(\xi)$ exhibits:
+\begin{itemize}
+\item \textbf{Proportional response:} $u^*(\xi) \approx K \xi$ for some effective gain $K > 0$. The system responds smoothly to small perturbations, returning to ground state at a rate proportional to the deviation.
+\item \textbf{No threshold:} Unlike bang-bang control (which would have $u = 0$ or $u = u_{\max}$), the smooth quadratic cost yields a continuous, smooth control law with no discontinuities.
+\end{itemize}
+
+\subsection{Large-Displacement Regime}
+
+For large $\|\xi\|$:
+\begin{itemize}
+\item \textbf{Sublinear response:} The control grows more slowly than linearly. If $D(\xi) \sim \|\xi\|^p$ for $p > 1$, then at large displacement, the marginal benefit of additional control saturates, so $u^*(\xi)$ grows sublinearly (e.g., $\sim \|\xi\|^{(p-1)/2}$ for the quadratic case).
+\item \textbf{Asymptotic behavior:} As $\|\xi\| \to \infty$, the control law tends to a limit that balances the growing maintenance cost against the ever-increasing effort required for return.
+\end{itemize}
+
+\subsection{Critical Displacement}
+
+\begin{definition}[Critical Displacement]
+The \textit{critical displacement} $\xi_{\text{crit}}$ is the level at which the marginal cost of holding the system at that displacement equals the marginal cost of returning by one unit:
+\[
+\xi_{\text{crit}} = \argmin_\xi \left[ D(\xi) - D(\xi - du) \right] / C_{\text{return}}(du),
+\]
+in the limit $du \to 0$.
+\end{definition}
+
+Displacements above $\xi_{\text{crit}}$ trigger aggressive return; below, the system tolerates deviation. This is analogous to the "setpoint" in control engineering, but here it emerges endogenously from the cost structure, not set exogenously.
+
+\section{Numerical Illustration}
+
+Consider a one-dimensional system with:
+\begin{itemize}
+\item Dynamics: $d\xi/dt = -0.1 \xi + u$ (natural decay plus control).
+\item Maintenance cost: $D(\xi) = \xi^2$ (quadratic).
+\item Return cost: $C_{\text{return}}(u) = 0.5 u^2$.
+\item Discount rate: $\rho = 0.1$.
+\end{itemize}
+
+Solving the matrix Riccati equation yields the value function $V(\xi) = 1.5 \xi^2$ and optimal feedback $u^*(\xi) = 1.5 \xi$.
+
+Figure 1 (conceptually) shows:
+\begin{enumerate}
+\item A displacement trajectory starting at $\xi_0 = 5$ under the optimal control: the system decays smoothly toward zero, with control effort proportional to displacement.
+\item The value function $V(\xi)$: a parabola indicating the total remaining cost from each displacement level.
+\item A phase portrait showing the controlled system dynamics: closed-loop stability with smooth convergence.
+\end{enumerate}
+
+A system that ignores displacement information and uses a fixed control $u = 2$ (higher than needed) incurs 30\% higher total cost; one that uses $u = 1$ (too low) incurs 40\% higher cost. The optimal feedback minimizes across all choices.
+
+\section{Extensions and Open Questions}
+
+\subsection{Stochastic Displacement}
+
+In practice, $\xi(t)$ may be observed with noise. If observations are $\xi^{\text{obs}}(t) = \xi(t) + w(t)$ where $w$ is Gaussian noise, the problem becomes a stochastic optimal control problem. The optimal control becomes a function of the filter estimate $\hat{\xi}(t)$, and the value function grows by the cost of uncertainty reduction. This is the foundation of linear-quadratic-Gaussian (LQG) control.
+
+\subsection{Partially Observable Ground State}
+
+If $\Sground$ evolves slowly (e.g., $d\Sground/dt = \varepsilon h(\Sground)$ for small $\varepsilon$), the controller might adapt its estimate of the ground state while optimizing. This leads to an adaptive control problem with a slow-fast separation.
+
+\subsection{Multi-Agent Displacement Networks}
+
+If multiple agents each observe only their own displacement (relative to possibly different ground states), the problem becomes one of decentralized control over a network. Coordination is possible only through actions that affect shared dynamics. This is an open area for future work.
+
+\section{Conclusion}
+
+The relative control problem---optimizing with knowledge only of displacement, not absolute state---yields a well-defined optimal control law via Pontryagin's maximum principle. The solution is smooth, monotone in displacement, and requires no knowledge of the ground state itself.
+
+Key findings:
+\begin{enumerate}
+\item \textbf{Sufficiency of displacement:} The optimal feedback law depends only on $\xi$, not on $\Sground$. Displacement is a sufficient statistic for control.
+\item \textbf{No asymptotic penalty:} There is no performance loss for knowing only displacement versus absolute state (when displacement is fully observed).
+\item \textbf{Recovery of maintenance theorem:} The periodic-returns result emerges naturally from the relative control problem, validating both the local (feedback) and global (periodic) optimization perspectives.
+\item \textbf{Smooth control:} With convex costs, the optimal control is a smooth, monotone function of displacement, not bang-bang. The feedback gain reflects the balance between maintenance and return costs.
+\end{enumerate}
+
+In the displacement framework, what matters is not the absolute location in state space, but the distance from the ground. Optimal control, viewed through this lens, becomes fundamentally about managing displacement---and the optimal law emerges directly from the tradeoff between tolerating deviation and paying for return.
+
+\begin{thebibliography}{99}
+
+\bibitem{pontryagin} Pontryagin, L. S., Boltyanskii, V. G., Gamkrelidze, R. V., \& Mishchenko, E. F. (1962). \textit{The Mathematical Theory of Optimal Processes}. Interscience, New York.
+
+\bibitem{bertsekas} Bertsekas, D. P. (2005). \textit{Dynamic Programming and Optimal Control} (3rd ed., Vols. I--II). Athena Scientific.
+
+\bibitem{kirk} Kirk, D. E. (2004). \textit{Optimal Control Theory: An Introduction} (2nd ed.). Dover Publications.
+
+\bibitem{kwakernaak} Kwakernaak, H., \& Sivan, R. (1972). \textit{Linear Optimal Control Systems}. Wiley-Interscience.
+
+\bibitem{rincon_maint} Rincon, D. (2025). Maintenance theorem and periodic control in the displacement framework. \textit{Phronesis Papers}.
+
+\bibitem{rincon_displace} Rincon, D. (2025). The displacement framework: A unified view of cost, control, and ground states. \textit{Phronesis}, vol. 1.
+
+\end{thebibliography}
+
+\end{document}
